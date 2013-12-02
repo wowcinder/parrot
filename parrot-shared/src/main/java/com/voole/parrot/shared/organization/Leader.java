@@ -17,7 +17,7 @@ import com.voole.parrot.shared.account.Account;
  * @date 2013年12月2日
  */
 @Entity
-//@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "account" }) })
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "account" }) })
 public class Leader extends EntityHasAutoId {
 	private static final long serialVersionUID = -1639115186521593269L;
 	/**
@@ -29,8 +29,7 @@ public class Leader extends EntityHasAutoId {
 	public Leader() {
 	}
 
-	@ManyToOne
-	// (optional = false)
+	@ManyToOne(optional = false)
 	public Organization getOrganization() {
 		return organization;
 	}

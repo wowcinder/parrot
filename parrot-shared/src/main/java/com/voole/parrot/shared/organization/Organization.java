@@ -3,11 +3,8 @@
  */
 package com.voole.parrot.shared.organization;
 
-import static javax.persistence.CascadeType.REMOVE;
-
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -15,7 +12,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.EntityHasAutoId;
@@ -53,23 +49,22 @@ public abstract class Organization extends EntityHasAutoId {
 	public Organization() {
 	}
 
-	// @OneToMany(mappedBy = "organization", cascade = { CascadeType.ALL })
-	@OneToMany(mappedBy = "organization", cascade = { REMOVE },orphanRemoval=true)
+	@OneToMany(mappedBy = "organization")
 	public Set<Leader> getLeaders() {
 		return leaders;
 	}
 
-	@OneToMany(mappedBy = "organization", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "organization")
 	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	@OneToMany(mappedBy = "parentOrganization", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "parentOrganization")
 	public Set<SubOrganization> getSubOrganizations() {
 		return subOrganizations;
 	}
 
-	@OneToMany(mappedBy = "organization", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "organization")
 	public Set<Member> getMembers() {
 		return members;
 	}
