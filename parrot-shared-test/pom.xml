@@ -7,12 +7,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.voole</groupId>
-			<artifactId>parrot-common</artifactId>
+			<artifactId>parrot-shared</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.voole</groupId>
-			<artifactId>parrot-shared</artifactId>
+			<artifactId>parrot-common</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
 		<!-- gwt -->

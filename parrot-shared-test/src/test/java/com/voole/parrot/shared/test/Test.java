@@ -4,7 +4,9 @@
 package com.voole.parrot.shared.test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -15,6 +17,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.voole.parrot.shared.account.Account;
+import com.voole.parrot.shared.authority.Authority;
+import com.voole.parrot.shared.organization.Leader;
+import com.voole.parrot.shared.organization.TopOrganization;
+import com.voole.parrot.shared.organization.TopOrganizationAuthority;
 import com.voole.parrot.shared.test.onetomany.TestOneToManyEntity;
 import com.voole.parrot.shared.test.onetomany.TestOneToManyGroup;
 
@@ -28,7 +35,83 @@ public class Test {
 	@Resource(name = "parrotSf")
 	private SessionFactory sf;
 
+	private Authority authority;
+	private TopOrganization top;
+	private TopOrganizationAuthority topAuth;
+	private Account user;
+	private Leader leader;
+
 	@org.junit.Test
+	public void test2() {
+		createAuthority();
+		createTopOrganization();
+
+		createUser();
+		createLeader();
+
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Leader leader = (Leader) session
+				.load(Leader.class, this.leader.getId());
+
+		session.delete(leader.getOrganization());
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	private void createUser() {
+		user = new Account();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(user);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	private void createLeader() {
+		leader = new Leader();
+		leader.setAccount(user);
+		leader.setOrganization(top);
+
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(leader);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	private void createTopOrganization() {
+		top = new TopOrganization();
+		top.setName("top");
+
+		topAuth = new TopOrganizationAuthority();
+		topAuth.setOrganization(top);
+		topAuth.setAuthority(authority);
+
+		Set<TopOrganizationAuthority> set = new HashSet<TopOrganizationAuthority>();
+		set.add(topAuth);
+		top.setAuthorities(set);
+
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(top);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	private void createAuthority() {
+		authority = new Authority();
+		authority.setEntrance("entrance");
+		authority.setName("name");
+
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(authority);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	// @org.junit.Test
 	public void test() {
 		TestOneToManyGroup group = new TestOneToManyGroup();
 		group.setName("group");
