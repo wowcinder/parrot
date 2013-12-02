@@ -3,58 +3,81 @@
  */
 package com.voole.parrot.shared.authority;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
-import com.voole.parrot.shared.EntityHasAutoId;
-import com.voole.parrot.shared.user.Team;
-import com.voole.parrot.shared.user.User;
+import org.hibernate.annotations.GenericGenerator;
+
+import com.voole.parrot.shared.organization.TopOrganizationAuthority;
 
 /**
  * @author XuehuiHe
  * @date 2013年11月27日
  */
 @Entity
-public class Authority extends EntityHasAutoId {
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "entrance",
+		"name" }) })
+public class Authority implements Serializable {
 	private static final long serialVersionUID = 4903463335586557358L;
 
-	private List<User> users;
-	private List<Team> teams;
+	private String token;
+	private String entrance;
 	private String name;
+	private List<TopOrganizationAuthority> organizationAuthorities;
 
 	public Authority() {
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "authority_token")
+	@GenericGenerator(name = "authority_token", strategy = "com.voole.parrot.id.AuthorityIdentifierGenerator")
+	@Column(length = 32)
+	public String getToken() {
+		return token;
+	}
+
+	@NotNull
+	@Column(nullable = false, length = 100)
+	public String getEntrance() {
+		return entrance;
+	}
+
+	@NotNull
+	@Column(nullable = false, length = 100)
 	public String getName() {
 		return name;
+	}
+
+	@OneToMany(mappedBy = "authority", cascade = { CascadeType.ALL })
+	public List<TopOrganizationAuthority> getOrganizationAuthorities() {
+		return organizationAuthorities;
+	}
+
+	public void setOrganizationAuthorities(
+			List<TopOrganizationAuthority> organizationAuthorities) {
+		this.organizationAuthorities = organizationAuthorities;
+	}
+
+	public void setEntrance(String entrance) {
+		this.entrance = entrance;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@ManyToMany
-	@JoinTable(name = "authority_user", joinColumns = { @JoinColumn(name = "authority_id") }, inverseJoinColumns = { @JoinColumn(name = "user_id") })
-	public List<User> getUsers() {
-		return users;
-	}
-
-	@ManyToMany
-	@JoinTable(name = "authority_team")
-	public List<Team> getTeams() {
-		return teams;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public void setTeams(List<Team> teams) {
-		this.teams = teams;
-	}
-
 }
