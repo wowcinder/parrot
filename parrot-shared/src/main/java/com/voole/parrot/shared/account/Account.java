@@ -4,8 +4,12 @@
 package com.voole.parrot.shared.account;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.EntityHasAutoId;
 import com.voole.parrot.shared.organization.Leader;
@@ -22,6 +26,8 @@ public class Account extends EntityHasAutoId {
 	private Leader leader;
 	private Member member;
 
+	private String name;
+
 	@OneToOne(mappedBy = "account", cascade = { CascadeType.ALL })
 	public Leader getLeader() {
 		return leader;
@@ -30,6 +36,17 @@ public class Account extends EntityHasAutoId {
 	@OneToOne(mappedBy = "account", cascade = { CascadeType.ALL })
 	public Member getMember() {
 		return member;
+	}
+
+	@Column(length = 100, nullable = false)
+	@NotNull
+	@Length(min = 1, max = 100)
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setLeader(Leader leader) {

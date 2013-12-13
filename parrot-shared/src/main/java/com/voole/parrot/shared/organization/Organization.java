@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -49,6 +50,7 @@ public abstract class Organization extends EntityHasAutoId {
 	public Organization() {
 	}
 
+	@Transient
 	public abstract Set<TopOrganizationAuthority> getAuthorities();
 
 	public abstract void setAuthorities(
