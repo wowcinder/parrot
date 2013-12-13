@@ -9,8 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Cascade;
-
 import com.voole.parrot.shared.test.BaseEntity;
 
 /**
@@ -24,9 +22,7 @@ public class TestOneToManyGroup extends BaseEntity {
 
 	private List<TestOneToManyEntity> entities;
 
-	@OneToMany(mappedBy = "group", cascade = { CascadeType.PERSIST,
-			CascadeType.MERGE })
-	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	@OneToMany(mappedBy = "group", cascade = { CascadeType.ALL })
 	public List<TestOneToManyEntity> getEntities() {
 		return entities;
 	}

@@ -2,6 +2,7 @@ package com.voole.parrot.shared.authority;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -26,7 +27,7 @@ public class AuthorityEntrance extends EntityHasAutoId {
 		return name;
 	}
 
-	@OneToMany(mappedBy = "entrance")
+	@OneToMany(mappedBy = "entrance", cascade = { CascadeType.REMOVE })
 	public Set<Authority> getAuthorities() {
 		return authorities;
 	}

@@ -5,6 +5,7 @@ package com.voole.parrot.id;
 
 import java.io.Serializable;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.SessionImplementor;
 import org.hibernate.id.IdentifierGenerator;
@@ -23,9 +24,8 @@ public class AuthorityIdentifierGenerator implements IdentifierGenerator {
 		if (object != null && object instanceof Authority) {
 			Authority authority = (Authority) object;
 			if (authority.getEntrance() != null && authority.getName() != null) {
-				// TODO md5
-				return authority.getEntrance().getName() + "_"
-						+ authority.getName();
+				return DigestUtils.md5Hex(authority.getEntrance().getName()
+						+ "_" + authority.getName());
 			}
 		}
 		return null;

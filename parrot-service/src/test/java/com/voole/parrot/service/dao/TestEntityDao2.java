@@ -59,7 +59,7 @@ public class TestEntityDao2 {
 		service.save(service.createMember(account, sub, roles));
 		service.saveLeader(service.createLeader(account, sub));
 
-		// service.delete(account);
+		service.delete(account);
 		service.deleteTopOrganization(top);
 		// service.deleteAuthority(authority);
 	}

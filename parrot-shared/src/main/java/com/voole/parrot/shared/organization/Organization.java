@@ -5,6 +5,7 @@ package com.voole.parrot.shared.organization;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -56,22 +57,22 @@ public abstract class Organization extends EntityHasAutoId {
 	public abstract void setAuthorities(
 			Set<TopOrganizationAuthority> authorities);
 
-	@OneToMany(mappedBy = "organization")
+	@OneToMany(mappedBy = "organization", cascade = { CascadeType.REMOVE })
 	public Set<Leader> getLeaders() {
 		return leaders;
 	}
 
-	@OneToMany(mappedBy = "organization")
+	@OneToMany(mappedBy = "organization", cascade = { CascadeType.REMOVE })
 	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	@OneToMany(mappedBy = "parentOrganization")
+	@OneToMany(mappedBy = "parentOrganization", cascade = { CascadeType.REMOVE })
 	public Set<SubOrganization> getSubOrganizations() {
 		return subOrganizations;
 	}
 
-	@OneToMany(mappedBy = "organization")
+	@OneToMany(mappedBy = "organization", cascade = { CascadeType.REMOVE })
 	public Set<Member> getMembers() {
 		return members;
 	}

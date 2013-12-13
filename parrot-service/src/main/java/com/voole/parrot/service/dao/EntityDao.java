@@ -53,6 +53,7 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public void delete(T t) {
+		getCurrentSession().refresh(t);
 		getCurrentSession().delete(t);
 	}
 
@@ -60,6 +61,18 @@ public abstract class EntityDao<T extends Serializable> implements
 		for (T t : p) {
 			delete(t);
 		}
+	}
+
+	public T update(T t) {
+		getCurrentSession().update(t);
+		return t;
+	}
+
+	public <P extends Collection<T>> P update(P p) {
+		for (T t : p) {
+			update(t);
+		}
+		return p;
 	}
 
 }

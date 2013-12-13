@@ -3,6 +3,7 @@
  */
 package com.voole.parrot.shared.account;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -19,6 +20,7 @@ import com.voole.parrot.shared.organization.Member;
  * @date 2013年11月27日
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicUpdate = true)
 public class Account extends EntityHasAutoId {
 	private static final long serialVersionUID = 8206791127888110185L;
 
@@ -26,13 +28,14 @@ public class Account extends EntityHasAutoId {
 	private Member member;
 
 	private String name;
+	private String password;
 
-	@OneToOne(mappedBy = "account")
+	@OneToOne(mappedBy = "account", cascade = { CascadeType.REMOVE })
 	public Leader getLeader() {
 		return leader;
 	}
 
-	@OneToOne(mappedBy = "account")
+	@OneToOne(mappedBy = "account", cascade = { CascadeType.REMOVE })
 	public Member getMember() {
 		return member;
 	}
@@ -42,6 +45,15 @@ public class Account extends EntityHasAutoId {
 	@Length(min = 1, max = 100)
 	public String getName() {
 		return name;
+	}
+
+	@Column(length = 32, nullable = true)
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void setName(String name) {
