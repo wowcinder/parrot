@@ -42,7 +42,7 @@ public class Authority implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "authority_token")
 	@GenericGenerator(name = "authority_token", strategy = "com.voole.parrot.id.AuthorityIdentifierGenerator")
-	@Column(length = 232)
+	@Column(length = 32)
 	public String getToken() {
 		return token;
 	}
