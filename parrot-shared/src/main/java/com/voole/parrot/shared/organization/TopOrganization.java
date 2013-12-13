@@ -5,7 +5,6 @@ package com.voole.parrot.shared.organization;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -19,7 +18,7 @@ public class TopOrganization extends Organization {
 
 	private Set<TopOrganizationAuthority> authorities;
 
-	@OneToMany(mappedBy = "organization", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "organization")
 	public Set<TopOrganizationAuthority> getAuthorities() {
 		return authorities;
 	}

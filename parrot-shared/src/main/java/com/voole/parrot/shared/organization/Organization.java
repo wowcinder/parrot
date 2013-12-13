@@ -49,6 +49,11 @@ public abstract class Organization extends EntityHasAutoId {
 	public Organization() {
 	}
 
+	public abstract Set<TopOrganizationAuthority> getAuthorities();
+
+	public abstract void setAuthorities(
+			Set<TopOrganizationAuthority> authorities);
+
 	@OneToMany(mappedBy = "organization")
 	public Set<Leader> getLeaders() {
 		return leaders;

@@ -46,5 +46,4 @@ public class Leader extends EntityHasAutoId {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-
 }
