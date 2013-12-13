@@ -57,9 +57,10 @@ public class TestEntityDao2 {
 		roles.add(role);
 		account = service.saveAccount(service.createAccount());
 		service.save(service.createMember(account, sub, roles));
+		service.saveLeader(service.createLeader(account, sub));
 
 		// service.delete(account);
-		// service.deleteTopOrganization(top);
-		service.deleteAuthority(authority);
+		service.deleteTopOrganization(top);
+		// service.deleteAuthority(authority);
 	}
 }
