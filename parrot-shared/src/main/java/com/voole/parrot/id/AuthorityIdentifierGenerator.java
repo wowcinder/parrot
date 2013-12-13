@@ -24,7 +24,8 @@ public class AuthorityIdentifierGenerator implements IdentifierGenerator {
 			Authority authority = (Authority) object;
 			if (authority.getEntrance() != null && authority.getName() != null) {
 				// TODO md5
-				return authority.getEntrance() + "_" + authority.getName();
+				return authority.getEntrance().getName() + "_"
+						+ authority.getName();
 			}
 		}
 		return null;

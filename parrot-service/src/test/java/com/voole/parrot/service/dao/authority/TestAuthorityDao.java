@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.voole.parrot.shared.authority.Authority;
+import com.voole.parrot.shared.authority.AuthorityEntrance;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
@@ -20,13 +21,20 @@ public class TestAuthorityDao {
 	public static class TestAuthorityService {
 		@Autowired
 		private IAuthorityDao dao;
+		@Autowired
+		private IAuthorityEntranceDao dao2;
 		private Authority authority;
 
 		@Transactional
 		public void save() {
 			authority = new Authority();
-			authority.setEntrance("entrance");
+
+			AuthorityEntrance entrance = new AuthorityEntrance();
+			entrance.setName("entrance");
+
+			authority.setEntrance(entrance);
 			authority.setName("name");
+			dao2.save(entrance);
 			dao.save(authority);
 		}
 

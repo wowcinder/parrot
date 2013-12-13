@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -32,7 +33,7 @@ public class Authority implements Serializable {
 	private static final long serialVersionUID = 4903463335586557358L;
 
 	private String token;
-	private String entrance;
+	private AuthorityEntrance entrance;
 	private String name;
 	private List<TopOrganizationAuthority> organizationAuthorities;
 
@@ -47,10 +48,8 @@ public class Authority implements Serializable {
 		return token;
 	}
 
-	@NotNull
-	@Column(nullable = false, length = 100)
-	@Length(min = 1, max = 100)
-	public String getEntrance() {
+	@ManyToOne(optional = false)
+	public AuthorityEntrance getEntrance() {
 		return entrance;
 	}
 
@@ -71,7 +70,7 @@ public class Authority implements Serializable {
 		this.organizationAuthorities = organizationAuthorities;
 	}
 
-	public void setEntrance(String entrance) {
+	public void setEntrance(AuthorityEntrance entrance) {
 		this.entrance = entrance;
 	}
 

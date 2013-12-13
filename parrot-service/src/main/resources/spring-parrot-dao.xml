@@ -43,5 +43,8 @@
 	<bean class="com.voole.parrot.service.dao.organization.RoleDao"
 		parent="entityDao"></bean>
 
+	<bean class="com.voole.parrot.service.dao.authority.AuthorityEntranceDao"
+		parent="entityDao"></bean>
+
 
 </beans>

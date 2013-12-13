@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.voole.parrot.service.dao.account.IAccountDao;
 import com.voole.parrot.service.dao.authority.IAuthorityDao;
+import com.voole.parrot.service.dao.authority.IAuthorityEntranceDao;
 import com.voole.parrot.service.dao.organization.ILeaderDao;
 import com.voole.parrot.service.dao.organization.IMemberDao;
 import com.voole.parrot.service.dao.organization.IOrganizationDao;
@@ -16,6 +17,7 @@ import com.voole.parrot.service.dao.organization.IRoleDao;
 import com.voole.parrot.service.dao.organization.ITopOrganizationAuthorityDao;
 import com.voole.parrot.shared.account.Account;
 import com.voole.parrot.shared.authority.Authority;
+import com.voole.parrot.shared.authority.AuthorityEntrance;
 import com.voole.parrot.shared.authority.Role;
 import com.voole.parrot.shared.organization.Leader;
 import com.voole.parrot.shared.organization.Member;
@@ -40,6 +42,8 @@ public class TestEntityDaoService {
 	private IRoleDao roleDao;
 	@Autowired
 	private ITopOrganizationAuthorityDao topOrganizationAuthorityDao;
+	@Autowired
+	private IAuthorityEntranceDao authorityEntranceDao;
 	private Random r;
 
 	public TestEntityDaoService() {
@@ -105,15 +109,23 @@ public class TestEntityDaoService {
 		return account;
 	}
 
+	@Transactional
 	public Authority createAuthority() {
 		return createAuthority(null, null);
 	}
 
 	public Authority createAuthority(Integer i, Integer j) {
 		Authority authority = new Authority();
-		authority.setEntrance("entrance" + (i == null ? r.nextInt() : i));
+		authority.setEntrance(createEntrance(i));
 		authority.setName("name" + (j == null ? r.nextInt() : j));
 		return authority;
+	}
+
+	public AuthorityEntrance createEntrance(Integer i) {
+		AuthorityEntrance entrance = new AuthorityEntrance();
+		entrance.setName("entrance" + (i == null ? r.nextInt() : i));
+		authorityEntranceDao.save(entrance);
+		return entrance;
 	}
 
 	public Leader createLeader(Account account, Organization organization) {
