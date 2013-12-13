@@ -39,7 +39,7 @@ public class OrganizationDao extends EntityDao<Organization> implements
 		List<Role> roles = getCurrentSession().createCriteria(Role.class)
 				.add(Restrictions.eq("organization", t)).list();
 		roleDao.delete(roles);
-
+		flush();
 		if (t instanceof TopOrganization) {
 			TopOrganization top = (TopOrganization) t;
 			List<TopOrganizationAuthority> authorities = getCurrentSession()
@@ -53,6 +53,9 @@ public class OrganizationDao extends EntityDao<Organization> implements
 				.add(Restrictions.eq("parentOrganization", t)).list();
 		delete(subs);
 
+		flush();
+
 		super.delete(t);
 	}
+
 }

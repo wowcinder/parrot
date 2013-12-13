@@ -19,6 +19,11 @@ public abstract class EntityDao<T extends Serializable> implements
 		innerClass = (Class<T>) pt.getActualTypeArguments()[0];
 	}
 
+	public void flush() {
+		getCurrentSession().flush();
+		getCurrentSession().clear();
+	}
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

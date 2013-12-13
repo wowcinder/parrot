@@ -3,7 +3,6 @@
  */
 package com.voole.parrot.shared.account;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -28,17 +27,17 @@ public class Account extends EntityHasAutoId {
 
 	private String name;
 
-	@OneToOne(mappedBy = "account", cascade = { CascadeType.ALL })
+	@OneToOne(mappedBy = "account")
 	public Leader getLeader() {
 		return leader;
 	}
 
-	@OneToOne(mappedBy = "account", cascade = { CascadeType.ALL })
+	@OneToOne(mappedBy = "account")
 	public Member getMember() {
 		return member;
 	}
 
-	@Column(length = 100, nullable = false)
+	@Column(length = 100, nullable = false, unique = true)
 	@NotNull
 	@Length(min = 1, max = 100)
 	public String getName() {

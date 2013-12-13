@@ -21,6 +21,9 @@ public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao 
 				.createCriteria(TopOrganizationAuthority.class)
 				.add(Restrictions.eq("authority", t)).list();
 		topOrganizationAuthorityDao.delete(tops);
+
+		flush();
+
 		super.delete(t);
 	}
 }

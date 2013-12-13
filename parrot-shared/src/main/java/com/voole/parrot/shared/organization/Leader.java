@@ -6,8 +6,6 @@ package com.voole.parrot.shared.organization;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import com.voole.parrot.shared.EntityHasAutoId;
 import com.voole.parrot.shared.account.Account;
@@ -17,7 +15,6 @@ import com.voole.parrot.shared.account.Account;
  * @date 2013年12月2日
  */
 @Entity
-@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "account" }) })
 public class Leader extends EntityHasAutoId {
 	private static final long serialVersionUID = -1639115186521593269L;
 	/**
