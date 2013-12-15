@@ -29,29 +29,34 @@
 			<value>SELECT 1</value>
 		</property>
 	</bean>
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-	<bean id="parrotSf"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="parrotUnit" />
 		<property name="dataSource" ref="parrotDataSource" />
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.c3p0.min_size">${default.hibernate.c3p0.min_size}</prop>
-				<prop key="hibernate.c3p0.max_size">${default.hibernate.c3p0.max_size}</prop>
-				<prop key="hibernate.c3p0.timeout">${default.hibernate.c3p0.timeout}</prop>
-				<prop key="hibernate.c3p0.max_statements">${default.hibernate.c3p0.max_statements}</prop>
-				<prop key="hibernate.dialect">${default.hibernate.dialect}</prop>
-				<prop key="hibernate.max_fetch_depth">${default.hibernate.max_fetch_depth}</prop>
-				<prop key="hibernate.default_batch_fetch_size">${default.hibernate.default_batch_fetch_size}</prop>
-				<prop key="hibernate.id.new_generator_mappings">${default.hibernate.id.new_generator_mappings}</prop>
-
-				<prop key="hibernate.hbm2ddl.auto">${default.hibernate.hbm2ddl.auto}</prop>
-				<prop key="hibernate.show_sql">${default.hibernate.show_sql}</prop>
-				<prop key="hibernate.format_sql">${default.hibernate.format_sql}</prop>
-			</props>
-
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+			</bean>
 		</property>
-		<property name="namingStrategy">
-			<util:constant static-field="org.hibernate.cfg.ImprovedNamingStrategy.INSTANCE"/>
+
+		<property name="jpaPropertyMap">
+			<map>
+				<entry key="hibernate.c3p0.min_size" value="${default.hibernate.c3p0.min_size}" />
+				<entry key="hibernate.c3p0.max_size" value="${default.hibernate.c3p0.max_size}" />
+				<entry key="hibernate.c3p0.timeout" value="${default.hibernate.c3p0.timeout}" />
+				<entry key="hibernate.c3p0.max_statements" value="${default.hibernate.c3p0.max_statements}" />
+				<entry key="hibernate.dialect" value="${default.hibernate.dialect}" />
+				<entry key="hibernate.max_fetch_depth" value="${default.hibernate.max_fetch_depth}" />
+				<entry key="hibernate.default_batch_fetch_size" value="${default.hibernate.default_batch_fetch_size}" />
+				<entry key="hibernate.id.new_generator_mappings" value="${default.hibernate.id.new_generator_mappings}" />
+				<entry key="hibernate.hbm2ddl.auto" value="${default.hibernate.hbm2ddl.auto}" />
+				<entry key="hibernate.show_sql" value="${default.hibernate.show_sql}" />
+				<entry key="hibernate.format_sql" value="${default.hibernate.format_sql}" />
+				<entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"></entry>
+			</map>
 		</property>
 		<property name="packagesToScan">
 			<list>
@@ -60,11 +65,9 @@
 		</property>
 
 	</bean>
-	
 
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="parrotSf" />
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />

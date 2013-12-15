@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public abstract class EntityDao<T extends Serializable> implements
 		IEntityDao<T> {
-	private SessionFactory sessionFactory;
 	private final Class<T> innerClass;
+	@PersistenceContext(unitName = "parrotUnit")
+	protected EntityManager em;
 
 	@SuppressWarnings("unchecked")
 	public EntityDao() {
@@ -20,28 +21,16 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public void flush() {
-		getCurrentSession().flush();
-		getCurrentSession().clear();
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+		em.flush();
+		em.clear();
 	}
 
 	public Class<T> getInnerClass() {
 		return innerClass;
 	}
 
-	public Session getCurrentSession() {
-		return getSessionFactory().getCurrentSession();
-	}
-
 	public T save(T t) {
-		getCurrentSession().save(t);
+		em.persist(t);
 		return t;
 	}
 
@@ -53,8 +42,9 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public void delete(T t) {
-		getCurrentSession().refresh(t);
-		getCurrentSession().delete(t);
+		t = em.merge(t);
+		em.refresh(t);
+		em.remove(t);
 	}
 
 	public void delete(Collection<T> p) {
@@ -64,7 +54,7 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public T update(T t) {
-		getCurrentSession().update(t);
+		em.merge(t);
 		return t;
 	}
 

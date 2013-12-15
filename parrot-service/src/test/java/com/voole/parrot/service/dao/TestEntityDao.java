@@ -27,12 +27,12 @@ public class TestEntityDao {
 	@Test
 	public void test() {
 		Assert.assertEquals(String.class, t.getInnerClass());
-		Assert.assertNotNull(t.getSessionFactory());
+		Assert.assertNotNull(t.em);
 
 		Assert.assertEquals(Double.class, t2.getInnerClass());
-		Assert.assertNotNull(t2.getSessionFactory());
+		Assert.assertNotNull(t2.em);
 
-		Assert.assertEquals(t2.getSessionFactory(), t2.getSessionFactory());
+		Assert.assertEquals(t2.em, t2.em);
 	}
 
 }

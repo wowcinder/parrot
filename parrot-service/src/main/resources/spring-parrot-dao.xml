@@ -18,7 +18,6 @@
 
 	<bean id="entityDao" class="com.voole.parrot.service.dao.EntityDao"
 		abstract="true">
-		<property name="sessionFactory" ref="parrotSf" />
 	</bean>
 
 	<bean class="com.voole.parrot.service.dao.account.AccountDao"
