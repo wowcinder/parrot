@@ -56,6 +56,9 @@
 				<entry key="hibernate.show_sql" value="${default.hibernate.show_sql}" />
 				<entry key="hibernate.format_sql" value="${default.hibernate.format_sql}" />
 				<entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"></entry>
+				<entry key="hibernate.ejb.event.pre-collection-update" value="com.voole.parrot.shared.tree.TrunkPerInsert" />
+				<entry key="hibernate.ejb.event.pre-collection-remove" value="com.voole.parrot.shared.tree.TrunkPerInsert" />
+				<entry key="hibernate.ejb.event.pre-collection-recreate" value="com.voole.parrot.shared.tree.TrunkPerInsert" />
 			</map>
 		</property>
 		<property name="packagesToScan">
