@@ -59,6 +59,15 @@
 			</list>
 		</property>
 
+		<property name="eventListeners">
+			<map>
+				<entry key="create">
+					<ref local="childrenPersistEventListener" />
+				</entry>
+
+			</map>
+		</property>
+
 	</bean>
 
 

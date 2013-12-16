@@ -1,7 +1,5 @@
 package com.voole.parrot.service.dao.authority;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,13 +16,11 @@ public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao 
 	public Authority persist(Authority t) {
 		AuthorityEntrance entrance = t.getEntrance();
 		refresh(entrance);
-		if (entrance.getAuthorities() == null) {
-			entrance.setAuthorities(new ArrayList<Authority>());
-		}
-		if (t.getPos() == null) {
-			entrance.getAuthorities().add(t);
-		} else {
+		if (t.getPos() != null && entrance.getAuthorities().size() > t.getPos()) {
 			entrance.getAuthorities().add(t.getPos(), t);
+
+		} else {
+			entrance.getAuthorities().add(t);
 		}
 		entranceDao.persist(entrance);
 		return t;

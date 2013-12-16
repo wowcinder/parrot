@@ -9,8 +9,6 @@ import javax.annotation.Resource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.voole.parrot.shared.EntityWithOrderChildren;
-
 public abstract class EntityDao<T extends Serializable> implements
 		IEntityDao<T> {
 	private final Class<T> innerClass;
@@ -42,9 +40,6 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public T persist(T t) {
-		if (t instanceof EntityWithOrderChildren) {
-			((EntityWithOrderChildren) t).sortChildren();
-		}
 		getCurrSession().persist(t);
 		return t;
 	}
