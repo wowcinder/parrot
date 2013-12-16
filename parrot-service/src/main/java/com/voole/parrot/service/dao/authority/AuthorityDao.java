@@ -17,8 +17,7 @@ public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao 
 	@Override
 	public Authority persist(Authority t) {
 		AuthorityEntrance entrance = t.getEntrance();
-		entrance = em.merge(entrance);
-		t.setEntrance(entrance);
+		refresh(entrance);
 		if (entrance.getAuthorities() == null) {
 			entrance.setAuthorities(new ArrayList<Authority>());
 		}

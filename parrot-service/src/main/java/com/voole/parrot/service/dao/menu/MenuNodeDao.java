@@ -19,12 +19,10 @@ public class MenuNodeDao extends EntityDao<MenuNode> implements IMenuNodeDao {
 	@Override
 	public MenuNode persist(MenuNode t) {
 		if (t instanceof Menu) {
-			Menu menu = (Menu) t;
 			MenuGroup mg = t.getParent();
 			if (mg != null) {
-				mg = em.merge(mg);
-				menu.setParent(mg);
-				if (t.getPos() != null) {
+				refresh(mg);
+				if (t.getPos() != null && t.getPos() < mg.getNodes().size()) {
 					mg.getNodes().add(t.getPos(), t);
 				} else {
 					mg.getNodes().add(t);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
@@ -16,24 +17,27 @@ public class TestEntityDao {
 	private EntityDaoTest t;
 	@Autowired
 	private EntityDaoTest2 t2;
+
 	@Repository
 	public static class EntityDaoTest extends EntityDao<String> {
 
 	}
+
 	@Repository
 	public static class EntityDaoTest2 extends EntityDao<Double> {
 
 	}
 
 	@Test
+	@Transactional
 	public void test() {
 		Assert.assertEquals(String.class, t.getInnerClass());
-		Assert.assertNotNull(t.em);
+		Assert.assertNotNull(t.getCurrSession());
 
 		Assert.assertEquals(Double.class, t2.getInnerClass());
-		Assert.assertNotNull(t2.em);
+		Assert.assertNotNull(t2.getCurrSession());
 
-		Assert.assertEquals(t2.em, t2.em);
+		Assert.assertEquals(t2.getCurrSession(), t2.getCurrSession());
 	}
 
 }

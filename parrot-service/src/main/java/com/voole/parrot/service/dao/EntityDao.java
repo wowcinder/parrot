@@ -4,16 +4,18 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.annotation.Resource;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import com.voole.parrot.shared.EntityWithOrderChildren;
 
 public abstract class EntityDao<T extends Serializable> implements
 		IEntityDao<T> {
 	private final Class<T> innerClass;
-	@PersistenceContext(unitName = "parrotUnit")
-	public EntityManager em;
+	@Resource(name = "parrotSf")
+	private SessionFactory sessionFactory;
 
 	@SuppressWarnings("unchecked")
 	public EntityDao() {
@@ -23,8 +25,16 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public void flush() {
-		em.flush();
-		em.clear();
+		getCurrSession().flush();
+		getCurrSession().clear();
+	}
+
+	public <P> void refresh(P p) {
+		getCurrSession().refresh(p);
+	}
+
+	public Session getCurrSession() {
+		return getSessionFactory().getCurrentSession();
 	}
 
 	public Class<T> getInnerClass() {
@@ -35,7 +45,7 @@ public abstract class EntityDao<T extends Serializable> implements
 		if (t instanceof EntityWithOrderChildren) {
 			((EntityWithOrderChildren) t).sortChildren();
 		}
-		em.persist(t);
+		getCurrSession().persist(t);
 		return t;
 	}
 
@@ -47,15 +57,22 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public void delete(T t) {
-		t = em.merge(t);
-		em.refresh(t);
-		em.remove(t);
+		getCurrSession().refresh(t);
+		getCurrSession().delete(t);
 	}
 
 	public void delete(Collection<T> p) {
 		for (T t : p) {
 			delete(t);
 		}
+	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 }
