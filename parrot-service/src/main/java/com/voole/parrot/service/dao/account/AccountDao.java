@@ -9,10 +9,10 @@ import com.voole.parrot.shared.account.Account;
 public class AccountDao extends EntityDao<Account> implements IAccountDao {
 
 	@Override
-	public Account save(Account t) {
+	public Account persist(Account t) {
 		if (t.getPassword() != null) {
 			t.setPassword(DigestUtils.md5Hex(t.getPassword()));
 		}
-		return super.save(t);
+		return super.persist(t);
 	}
 }

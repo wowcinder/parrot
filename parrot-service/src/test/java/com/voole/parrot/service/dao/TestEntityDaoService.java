@@ -52,25 +52,25 @@ public class TestEntityDaoService {
 
 	@Transactional
 	public Account saveAccount(Account account) {
-		accountDao.save(account);
+		accountDao.persist(account);
 		return account;
 	}
 
 	@Transactional
 	public Authority saveAuthority(Authority authority) {
-		authorityDao.save(authority);
+		authorityDao.persist(authority);
 		return authority;
 	}
 
 	@Transactional
 	public Leader saveLeader(Leader leader) {
-		leaderDao.save(leader);
+		leaderDao.persist(leader);
 		return leader;
 	}
 
 	@Transactional
 	public TopOrganization saveTopOrganization(TopOrganization top) {
-		organizationDao.save(top);
+		organizationDao.persist(top);
 		return top;
 	}
 
@@ -87,7 +87,7 @@ public class TestEntityDaoService {
 	@Transactional
 	public Set<TopOrganizationAuthority> saveTopOrganizationAuthority(
 			Set<TopOrganizationAuthority> authorities) {
-		topOrganizationAuthorityDao.save(authorities);
+		topOrganizationAuthorityDao.persist(authorities);
 		return authorities;
 	}
 
@@ -124,7 +124,7 @@ public class TestEntityDaoService {
 	public AuthorityEntrance createEntrance(Integer i) {
 		AuthorityEntrance entrance = new AuthorityEntrance();
 		entrance.setName("entrance" + (i == null ? r.nextInt() : i));
-		authorityEntranceDao.save(entrance);
+		authorityEntranceDao.persist(entrance);
 		return entrance;
 	}
 
@@ -137,7 +137,7 @@ public class TestEntityDaoService {
 
 	@Transactional
 	public Member save(Member member) {
-		memberDao.save(member);
+		memberDao.persist(member);
 		return member;
 	}
 
@@ -152,7 +152,7 @@ public class TestEntityDaoService {
 
 	@Transactional
 	public SubOrganization save(SubOrganization sub) {
-		organizationDao.save(sub);
+		organizationDao.persist(sub);
 		return sub;
 	}
 
@@ -167,7 +167,7 @@ public class TestEntityDaoService {
 
 	@Transactional
 	public Role save(Role role) {
-		roleDao.save(role);
+		roleDao.persist(role);
 		return role;
 	}
 

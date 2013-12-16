@@ -31,7 +31,7 @@ public abstract class EntityDao<T extends Serializable> implements
 		return innerClass;
 	}
 
-	public T save(T t) {
+	public T persist(T t) {
 		if (t instanceof EntityWithOrderChildren) {
 			((EntityWithOrderChildren) t).sortChildren();
 		}
@@ -39,9 +39,9 @@ public abstract class EntityDao<T extends Serializable> implements
 		return t;
 	}
 
-	public <P extends Collection<T>> P save(P p) {
+	public <P extends Collection<T>> P persist(P p) {
 		for (T t : p) {
-			save(t);
+			persist(t);
 		}
 		return p;
 	}
@@ -56,21 +56,6 @@ public abstract class EntityDao<T extends Serializable> implements
 		for (T t : p) {
 			delete(t);
 		}
-	}
-
-	public T update(T t) {
-		if (t instanceof EntityWithOrderChildren) {
-			((EntityWithOrderChildren) t).sortChildren();
-		}
-		em.merge(t);
-		return t;
-	}
-
-	public <P extends Collection<T>> P update(P p) {
-		for (T t : p) {
-			update(t);
-		}
-		return p;
 	}
 
 }

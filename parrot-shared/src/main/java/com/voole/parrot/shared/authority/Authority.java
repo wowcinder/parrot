@@ -37,6 +37,7 @@ public class Authority implements Serializable {
 	private AuthorityEntrance entrance;
 	private String name;
 	private List<TopOrganizationAuthority> organizationAuthorities;
+	private Integer pos;
 
 	public Authority() {
 	}
@@ -64,6 +65,14 @@ public class Authority implements Serializable {
 	@OneToMany(mappedBy = "authority", cascade = { CascadeType.REMOVE })
 	public List<TopOrganizationAuthority> getOrganizationAuthorities() {
 		return organizationAuthorities;
+	}
+
+	public Integer getPos() {
+		return pos;
+	}
+
+	public void setPos(Integer pos) {
+		this.pos = pos;
 	}
 
 	public void setOrganizationAuthorities(

@@ -34,8 +34,8 @@ public class TestAuthorityDao {
 
 			authority.setEntrance(entrance);
 			authority.setName("name");
-			dao2.save(entrance);
-			dao.save(authority);
+			dao2.persist(entrance);
+			dao.persist(authority);
 		}
 
 		@Transactional
