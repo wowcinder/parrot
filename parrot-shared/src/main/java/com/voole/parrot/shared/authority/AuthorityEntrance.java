@@ -14,6 +14,7 @@ import com.voole.parrot.shared.EntityHasAutoId;
 import com.voole.parrot.shared.EntityWithOrderChildren;
 
 @Entity
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class AuthorityEntrance extends EntityHasAutoId implements
 		EntityWithOrderChildren {
 

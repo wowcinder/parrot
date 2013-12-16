@@ -24,6 +24,7 @@ import com.voole.parrot.shared.authority.Role;
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "organization",
 		"authority" }) })
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class TopOrganizationAuthority extends EntityHasAutoId {
 	private static final long serialVersionUID = 4186121982307714960L;
 	private TopOrganization organization;

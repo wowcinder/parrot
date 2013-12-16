@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * @date 2013年12月2日
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class SubOrganization extends Organization {
 
 	private static final long serialVersionUID = -111390578929008826L;

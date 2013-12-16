@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
  * @date 2013年12月2日
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class TopOrganization extends Organization {
 	private static final long serialVersionUID = -4769344538675997251L;
 

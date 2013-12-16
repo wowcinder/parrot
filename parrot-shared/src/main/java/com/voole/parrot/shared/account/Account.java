@@ -20,7 +20,7 @@ import com.voole.parrot.shared.organization.Member;
  * @date 2013年11月27日
  */
 @Entity
-@org.hibernate.annotations.Entity(dynamicUpdate = true)
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class Account extends EntityHasAutoId {
 	private static final long serialVersionUID = 8206791127888110185L;
 

@@ -25,6 +25,7 @@ import com.voole.parrot.shared.authority.Role;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public abstract class Organization extends EntityHasAutoId {
 	private static final long serialVersionUID = -6873521357227566626L;
 	/**

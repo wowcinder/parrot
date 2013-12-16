@@ -21,6 +21,7 @@ import com.voole.parrot.shared.authority.Role;
  * @date 2013年12月2日
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class Member extends EntityHasAutoId {
 
 	private static final long serialVersionUID = 6959507466773040621L;

@@ -30,6 +30,7 @@ import com.voole.parrot.shared.organization.TopOrganizationAuthority;
 @Entity
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "entrance",
 		"name" }) })
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class Authority implements Serializable {
 	private static final long serialVersionUID = 4903463335586557358L;
 

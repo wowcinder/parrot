@@ -17,6 +17,7 @@ import com.voole.parrot.shared.authority.Authority;
  * @date 2013年8月8日
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class Menu extends MenuNode {
 	private static final long serialVersionUID = -7971390347504825311L;
 

@@ -17,13 +17,14 @@ import com.voole.parrot.shared.EntityWithOrderChildren;
  * @date 2013年8月8日
  */
 @Entity
+@org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class MenuGroup extends MenuNode implements EntityWithOrderChildren {
 	private static final long serialVersionUID = 2138324039371528785L;
 
 	private List<MenuNode> nodes;
 
 	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-//	@OrderBy("pos")
+	@OrderBy("pos")
 	public List<MenuNode> getNodes() {
 		return nodes;
 	}
