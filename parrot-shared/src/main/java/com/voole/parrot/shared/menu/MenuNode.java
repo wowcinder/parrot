@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import com.voole.parrot.shared.EntityHasAutoId;
 
@@ -23,7 +22,7 @@ public class MenuNode extends EntityHasAutoId {
 
 	private String name;
 	private MenuGroup parent;
-	private MenuNode prev;
+	private Integer pos;
 
 	public MenuNode() {
 	}
@@ -38,9 +37,12 @@ public class MenuNode extends EntityHasAutoId {
 		return parent;
 	}
 
-	@OneToOne
-	public MenuNode getPrev() {
-		return prev;
+	public Integer getPos() {
+		return pos;
+	}
+
+	public void setPos(Integer pos) {
+		this.pos = pos;
 	}
 
 	public void setName(String name) {
@@ -49,10 +51,6 @@ public class MenuNode extends EntityHasAutoId {
 
 	public void setParent(MenuGroup parent) {
 		this.parent = parent;
-	}
-
-	public void setPrev(MenuNode prev) {
-		this.prev = prev;
 	}
 
 }

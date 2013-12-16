@@ -13,7 +13,7 @@ public abstract class EntityDao<T extends Serializable> implements
 		IEntityDao<T> {
 	private final Class<T> innerClass;
 	@PersistenceContext(unitName = "parrotUnit")
-	protected EntityManager em;
+	public EntityManager em;
 
 	@SuppressWarnings("unchecked")
 	public EntityDao() {
