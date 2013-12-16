@@ -17,7 +17,7 @@ import com.voole.parrot.shared.organization.TopOrganization;
 import com.voole.parrot.shared.organization.TopOrganizationAuthority;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "TestEntityDao.xml" })
+@ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
 public class TestEntityDao2 {
 	@Autowired
 	private TestEntityDaoService service;

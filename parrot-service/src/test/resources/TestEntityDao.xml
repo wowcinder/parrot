@@ -17,6 +17,5 @@
         http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<import resource="classpath:/spring-test.xml" />
-	<import resource="classpath:/spring-parrot-dao.xml" />
 
 </beans>

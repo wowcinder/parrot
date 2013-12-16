@@ -1,5 +1,8 @@
 package com.voole.parrot.shared.tree;
 
+import org.hibernate.HibernateException;
+import org.hibernate.event.DirtyCheckEvent;
+import org.hibernate.event.DirtyCheckEventListener;
 import org.hibernate.event.PreCollectionRecreateEvent;
 import org.hibernate.event.PreCollectionRecreateEventListener;
 import org.hibernate.event.PreCollectionRemoveEvent;
@@ -15,7 +18,7 @@ import com.voole.parrot.shared.EntityWithOrderChildren;
 
 public class TrunkPerInsert implements PreInsertEventListener,
 		PreUpdateEventListener, PreCollectionUpdateEventListener,
-		PreCollectionRecreateEventListener, PreCollectionRemoveEventListener {
+		PreCollectionRecreateEventListener, PreCollectionRemoveEventListener ,DirtyCheckEventListener{
 
 	private static final long serialVersionUID = 3553140078673897082L;
 
@@ -41,6 +44,7 @@ public class TrunkPerInsert implements PreInsertEventListener,
 
 	@Override
 	public void onPreRemoveCollection(PreCollectionRemoveEvent event) {
+		System.out.println("onPreRemoveCollection");
 		if (event.getAffectedOwnerOrNull() instanceof EntityWithOrderChildren) {
 			sortChildren((EntityWithOrderChildren) event
 					.getAffectedOwnerOrNull());
@@ -49,6 +53,7 @@ public class TrunkPerInsert implements PreInsertEventListener,
 
 	@Override
 	public void onPreRecreateCollection(PreCollectionRecreateEvent event) {
+		System.out.println("onPreRecreateCollection");
 		if (event.getAffectedOwnerOrNull() instanceof EntityWithOrderChildren) {
 			sortChildren((EntityWithOrderChildren) event
 					.getAffectedOwnerOrNull());
@@ -58,10 +63,16 @@ public class TrunkPerInsert implements PreInsertEventListener,
 
 	@Override
 	public void onPreUpdateCollection(PreCollectionUpdateEvent event) {
+		System.out.println("onPreUpdateCollection");
 		if (event.getAffectedOwnerOrNull() instanceof EntityWithOrderChildren) {
 			sortChildren((EntityWithOrderChildren) event
 					.getAffectedOwnerOrNull());
 		}
+	}
+
+	@Override
+	public void onDirtyCheck(DirtyCheckEvent event) throws HibernateException {
+		System.out.println("-----onDirtyCheck-----");
 	}
 
 }

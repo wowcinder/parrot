@@ -7,6 +7,8 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.voole.parrot.shared.EntityWithOrderChildren;
+
 public abstract class EntityDao<T extends Serializable> implements
 		IEntityDao<T> {
 	private final Class<T> innerClass;
@@ -30,6 +32,9 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public T save(T t) {
+		if (t instanceof EntityWithOrderChildren) {
+			((EntityWithOrderChildren) t).sortChildren();
+		}
 		em.persist(t);
 		return t;
 	}
@@ -54,6 +59,9 @@ public abstract class EntityDao<T extends Serializable> implements
 	}
 
 	public T update(T t) {
+		if (t instanceof EntityWithOrderChildren) {
+			((EntityWithOrderChildren) t).sortChildren();
+		}
 		em.merge(t);
 		return t;
 	}

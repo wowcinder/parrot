@@ -1,10 +1,11 @@
 package com.voole.parrot.service.dao.account;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.stereotype.Repository;
 
 import com.voole.parrot.service.dao.EntityDao;
 import com.voole.parrot.shared.account.Account;
-
+@Repository
 public class AccountDao extends EntityDao<Account> implements IAccountDao {
 
 	@Override
