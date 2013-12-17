@@ -1,10 +1,12 @@
 package com.voole.parrot.service.dao.account;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.voole.parrot.service.dao.EntityDao;
 import com.voole.parrot.shared.account.Account;
+
 @Repository
 public class AccountDao extends EntityDao<Account> implements IAccountDao {
 
@@ -14,5 +16,13 @@ public class AccountDao extends EntityDao<Account> implements IAccountDao {
 			t.setPassword(DigestUtils.md5Hex(t.getPassword()));
 		}
 		return super.persist(t);
+	}
+
+	@Override
+	public Account findAccount(String name, String password) {
+		password = DigestUtils.md5Hex(password);
+		return (Account) getCurrSession().createCriteria(Account.class)
+				.add(Restrictions.eq("name", name))
+				.add(Restrictions.eq("password", password)).uniqueResult();
 	}
 }

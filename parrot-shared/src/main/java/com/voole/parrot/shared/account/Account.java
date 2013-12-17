@@ -3,15 +3,21 @@
  */
 package com.voole.parrot.shared.account;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.EntityHasAutoId;
+import com.voole.parrot.shared.authority.Authority;
 import com.voole.parrot.shared.organization.Leader;
 import com.voole.parrot.shared.organization.Member;
 
@@ -26,6 +32,7 @@ public class Account extends EntityHasAutoId {
 
 	private Leader leader;
 	private Member member;
+	private Set<Authority> authorities;
 
 	private String name;
 	private String password;
@@ -50,6 +57,16 @@ public class Account extends EntityHasAutoId {
 	@Column(length = 32, nullable = true)
 	public String getPassword() {
 		return password;
+	}
+
+	@ManyToMany
+	@JoinTable(name = "account_authority", joinColumns = { @JoinColumn(name = "`authorities`") }, inverseJoinColumns = { @JoinColumn(name = "accounts") })
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 	public void setPassword(String password) {

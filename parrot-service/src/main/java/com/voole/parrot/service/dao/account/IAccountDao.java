@@ -5,4 +5,6 @@ import com.voole.parrot.shared.account.Account;
 
 public interface IAccountDao extends IEntityDao<Account> {
 
+	Account findAccount(String name, String password);
+
 }
