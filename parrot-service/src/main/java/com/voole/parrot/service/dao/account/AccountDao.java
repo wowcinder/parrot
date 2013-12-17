@@ -25,4 +25,13 @@ public class AccountDao extends EntityDao<Account> implements IAccountDao {
 				.add(Restrictions.eq("name", name))
 				.add(Restrictions.eq("password", password)).uniqueResult();
 	}
+
+	public static void main(String[] args) {
+		System.out.println(DigestUtils.md5Hex(""));
+	}
+
+	@Override
+	public Account update(Account t) {
+		return super.persist(t);
+	}
 }

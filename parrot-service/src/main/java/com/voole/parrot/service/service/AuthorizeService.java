@@ -14,7 +14,7 @@ import java.lang.reflect.Method;
 public interface AuthorizeService {
 	boolean verify(Class<?> targetClass, Method invokeMethod);
 
-	boolean login(String email, String password);
+	boolean login(String name, String password);
 
 	void logout();
 
@@ -22,6 +22,6 @@ public interface AuthorizeService {
 
 	boolean isAdmin();
 
-	Integer getUserId();
+	Long getUserId();
 
 }

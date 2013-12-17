@@ -7,4 +7,6 @@ public interface IAccountDao extends IEntityDao<Account> {
 
 	Account findAccount(String name, String password);
 
+	public Account update(Account t);
+
 }
