@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='ParrotTestWeb'>
-	<inherits name='com.google.gwt.user.User' />
-	<inherits name="com.google.gwt.editor.Editor" />
-	<inherits name='com.sencha.gxt.ui.GXT' />
-	<inherits name='com.sencha.gxt.theme.blue.Blue' />
-
-	<inherits name='com.voole.parrot.Shared' />
-	<inherits name='com.voole.parrot.gwt.common.Rpcservice' />
 	<inherits name='com.voole.parrot.gwt.common.Common' />
 	<inherits name='com.voole.parrot.gwt.menu.Menu' />
 
