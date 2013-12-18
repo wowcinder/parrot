@@ -87,6 +87,8 @@ public class GridBuilder<M> {
 		}
 		if (this.pagingProxyLoad != null) {
 			grid.setLoader(pagingProxyLoad.getPagingLoader(grid.getStore()));
+		} else if (this.listProxyLoad != null) {
+			grid.setLoader(listProxyLoad.getPagingLoader(grid.getStore()));
 		}
 		grid.setLoadMask(true);
 		return grid;

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.google.gwt.user.client.rpc.RemoteService;
-import com.sencha.gxt.data.shared.loader.PagingLoadResult;
+import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.voole.parrot.rpc.service.rpc.open.OpenRpcService;
 import com.voole.parrot.rpc.service.util.HibernateBeanUtil;
 import com.voole.parrot.service.service.AuthorizeService;
@@ -34,13 +34,13 @@ public class RpcAspect implements Ordered {
 
 	@Around(value = "execution(* com.voole.parrot.rpc.service.rpc..*(..))")
 	public Object dealResult(ProceedingJoinPoint pjp) throws Throwable {
-//		doAccessCheck(pjp);
+		// doAccessCheck(pjp);
 		Object retVal = pjp.proceed();
 		if (retVal != null
 				&& RequestContextHolder.getRequestAttributes() != null
 				&& pjp.getTarget() instanceof RemoteService) {
-			if (retVal instanceof PagingLoadResult) {
-				new HibernateBeanUtil().dealBean(((PagingLoadResult<?>) retVal)
+			if (retVal instanceof ListLoadResult) {
+				new HibernateBeanUtil().dealBean(((ListLoadResult<?>) retVal)
 						.getData());
 			} else {
 				new HibernateBeanUtil().dealBean(retVal);
@@ -49,7 +49,8 @@ public class RpcAspect implements Ordered {
 		return retVal;
 	}
 
-	public void doAccessCheck(JoinPoint jp) throws SecurityException, NoSuchMethodException {
+	public void doAccessCheck(JoinPoint jp) throws SecurityException,
+			NoSuchMethodException {
 		if (RequestContextHolder.getRequestAttributes() == null) {
 			return;
 		}
@@ -62,7 +63,8 @@ public class RpcAspect implements Ordered {
 		MethodSignature signature = (MethodSignature) jp.getSignature();
 		Method invokeMethod = signature.getMethod();
 		Class<?> targetClass = jp.getTarget().getClass();
-		invokeMethod = targetClass.getMethod(invokeMethod.getName(), invokeMethod.getParameterTypes());
+		invokeMethod = targetClass.getMethod(invokeMethod.getName(),
+				invokeMethod.getParameterTypes());
 		if (!authorizeService.verify(targetClass, invokeMethod)) {
 			throw new PermissionException();
 		}

@@ -128,8 +128,8 @@ public class PropertiesGenerator {
 				JExpr._new(columnConfigClass)
 						.arg(propertyUtils.staticRef(dc.name()).invoke(name))
 						.arg(JExpr.lit(200)).arg(name));
-		jMethod.body().invoke(jVar, "setSortable").arg(JExpr.lit(false));
-		jMethod.body().invoke(jVar, "setMenuDisabled").arg(JExpr.lit(true));
+//		jMethod.body().invoke(jVar, "setSortable").arg(JExpr.lit(false));
+//		jMethod.body().invoke(jVar, "setMenuDisabled").arg(JExpr.lit(true));
 		jMethod.body()._return(jVar);
 	}
 
