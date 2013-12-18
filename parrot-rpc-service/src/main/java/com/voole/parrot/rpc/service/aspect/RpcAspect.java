@@ -34,7 +34,7 @@ public class RpcAspect implements Ordered {
 
 	@Around(value = "execution(* com.voole.parrot.rpc.service.rpc..*(..))")
 	public Object dealResult(ProceedingJoinPoint pjp) throws Throwable {
-		doAccessCheck(pjp);
+//		doAccessCheck(pjp);
 		Object retVal = pjp.proceed();
 		if (retVal != null
 				&& RequestContextHolder.getRequestAttributes() != null
