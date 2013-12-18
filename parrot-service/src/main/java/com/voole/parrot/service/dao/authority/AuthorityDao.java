@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.voole.parrot.service.dao.EntityDao;
-import com.voole.parrot.shared.authority.Authority;
-import com.voole.parrot.shared.authority.AuthorityEntrance;
+import com.voole.parrot.shared.entity.authority.Authority;
+import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 
 @Repository
 public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao {

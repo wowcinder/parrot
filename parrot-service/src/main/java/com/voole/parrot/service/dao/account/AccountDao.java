@@ -5,7 +5,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.voole.parrot.service.dao.EntityDao;
-import com.voole.parrot.shared.account.Account;
+import com.voole.parrot.shared.entity.account.Account;
 
 @Repository
 public class AccountDao extends EntityDao<Account> implements IAccountDao {

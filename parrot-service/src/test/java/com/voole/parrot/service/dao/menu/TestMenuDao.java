@@ -14,9 +14,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.voole.parrot.shared.menu.Menu;
-import com.voole.parrot.shared.menu.MenuGroup;
-import com.voole.parrot.shared.menu.MenuNode;
+import com.voole.parrot.shared.entity.menu.Menu;
+import com.voole.parrot.shared.entity.menu.MenuGroup;
+import com.voole.parrot.shared.entity.menu.MenuNode;
 
 /**
  * @author XuehuiHe

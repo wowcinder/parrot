@@ -55,7 +55,7 @@
 		</property>
 		<property name="packagesToScan">
 			<list>
-				<value>com.voole.parrot.shared</value>
+				<value>com.voole.parrot.shared.entity</value>
 			</list>
 		</property>
 

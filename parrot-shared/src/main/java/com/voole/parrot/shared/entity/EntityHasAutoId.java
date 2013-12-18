@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared;
+package com.voole.parrot.shared.entity;
 
 import java.io.Serializable;
 

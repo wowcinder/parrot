@@ -25,12 +25,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.voole.parrot.service.dao.account.IAccountDao;
-import com.voole.parrot.shared.account.Account;
-import com.voole.parrot.shared.authority.Authority;
-import com.voole.parrot.shared.authority.Role;
-import com.voole.parrot.shared.organization.Organization;
-import com.voole.parrot.shared.organization.TopOrganization;
-import com.voole.parrot.shared.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.shared.entity.authority.Authority;
+import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.organization.Organization;
+import com.voole.parrot.shared.entity.organization.TopOrganization;
+import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 
 /**
  * 

@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.organization;
+package com.voole.parrot.shared.entity.organization;
 
 import java.util.Set;
 

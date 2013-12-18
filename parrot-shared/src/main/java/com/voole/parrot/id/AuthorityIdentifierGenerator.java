@@ -10,7 +10,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.SessionImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
-import com.voole.parrot.shared.authority.Authority;
+import com.voole.parrot.shared.entity.authority.Authority;
 
 /**
  * @author XuehuiHe

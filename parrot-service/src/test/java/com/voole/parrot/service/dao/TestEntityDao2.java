@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.voole.parrot.shared.account.Account;
-import com.voole.parrot.shared.authority.Authority;
-import com.voole.parrot.shared.authority.Role;
-import com.voole.parrot.shared.organization.SubOrganization;
-import com.voole.parrot.shared.organization.TopOrganization;
-import com.voole.parrot.shared.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.shared.entity.authority.Authority;
+import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.organization.SubOrganization;
+import com.voole.parrot.shared.entity.organization.TopOrganization;
+import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })

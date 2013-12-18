@@ -4,7 +4,7 @@
 package com.voole.parrot.service.dao.menu;
 
 import com.voole.parrot.service.dao.IEntityDao;
-import com.voole.parrot.shared.menu.MenuNode;
+import com.voole.parrot.shared.entity.menu.MenuNode;
 
 /**
  * @author XuehuiHe

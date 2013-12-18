@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.account;
+package com.voole.parrot.shared.entity.account;
 
 import java.util.Set;
 
@@ -16,10 +16,10 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.voole.parrot.shared.EntityHasAutoId;
-import com.voole.parrot.shared.authority.Authority;
-import com.voole.parrot.shared.organization.Leader;
-import com.voole.parrot.shared.organization.Member;
+import com.voole.parrot.shared.entity.EntityHasAutoId;
+import com.voole.parrot.shared.entity.authority.Authority;
+import com.voole.parrot.shared.entity.organization.Leader;
+import com.voole.parrot.shared.entity.organization.Member;
 
 /**
  * @author XuehuiHe

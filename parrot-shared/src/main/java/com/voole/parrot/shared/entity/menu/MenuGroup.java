@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.menu;
+package com.voole.parrot.shared.entity.menu;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
-import com.voole.parrot.shared.EntityWithOrderChildren;
+import com.voole.parrot.shared.entity.EntityWithOrderChildren;
 
 /**
  * @author XuehuiHe

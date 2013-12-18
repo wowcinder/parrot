@@ -6,9 +6,9 @@ package com.voole.parrot.service.dao.menu;
 import org.springframework.stereotype.Repository;
 
 import com.voole.parrot.service.dao.EntityDao;
-import com.voole.parrot.shared.menu.Menu;
-import com.voole.parrot.shared.menu.MenuGroup;
-import com.voole.parrot.shared.menu.MenuNode;
+import com.voole.parrot.shared.entity.menu.Menu;
+import com.voole.parrot.shared.entity.menu.MenuGroup;
+import com.voole.parrot.shared.entity.menu.MenuNode;
 
 /**
  * @author XuehuiHe

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.voole.parrot.service.dao.account.IAccountDao;
 import com.voole.parrot.service.dao.authority.IAuthorityEntranceDao;
-import com.voole.parrot.shared.account.Account;
+import com.voole.parrot.shared.entity.account.Account;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })

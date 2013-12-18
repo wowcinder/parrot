@@ -1,4 +1,4 @@
-package com.voole.parrot.shared.authority;
+package com.voole.parrot.shared.entity.authority;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.voole.parrot.shared.EntityHasAutoId;
-import com.voole.parrot.shared.EntityWithOrderChildren;
+import com.voole.parrot.shared.entity.EntityHasAutoId;
+import com.voole.parrot.shared.entity.EntityWithOrderChildren;
 
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)

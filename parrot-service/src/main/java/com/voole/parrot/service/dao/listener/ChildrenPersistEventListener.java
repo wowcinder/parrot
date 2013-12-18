@@ -7,7 +7,7 @@ import org.hibernate.event.PersistEvent;
 import org.hibernate.event.def.DefaultPersistEventListener;
 import org.springframework.stereotype.Component;
 
-import com.voole.parrot.shared.EntityWithOrderChildren;
+import com.voole.parrot.shared.entity.EntityWithOrderChildren;
 
 @Component("childrenPersistEventListener")
 public class ChildrenPersistEventListener extends DefaultPersistEventListener {

@@ -15,16 +15,16 @@ import com.voole.parrot.service.dao.organization.IMemberDao;
 import com.voole.parrot.service.dao.organization.IOrganizationDao;
 import com.voole.parrot.service.dao.organization.IRoleDao;
 import com.voole.parrot.service.dao.organization.ITopOrganizationAuthorityDao;
-import com.voole.parrot.shared.account.Account;
-import com.voole.parrot.shared.authority.Authority;
-import com.voole.parrot.shared.authority.AuthorityEntrance;
-import com.voole.parrot.shared.authority.Role;
-import com.voole.parrot.shared.organization.Leader;
-import com.voole.parrot.shared.organization.Member;
-import com.voole.parrot.shared.organization.Organization;
-import com.voole.parrot.shared.organization.SubOrganization;
-import com.voole.parrot.shared.organization.TopOrganization;
-import com.voole.parrot.shared.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.shared.entity.authority.Authority;
+import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
+import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.organization.Leader;
+import com.voole.parrot.shared.entity.organization.Member;
+import com.voole.parrot.shared.entity.organization.Organization;
+import com.voole.parrot.shared.entity.organization.SubOrganization;
+import com.voole.parrot.shared.entity.organization.TopOrganization;
+import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 
 @Service
 public class TestEntityDaoService {

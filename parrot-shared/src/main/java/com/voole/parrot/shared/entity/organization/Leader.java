@@ -1,14 +1,14 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.organization;
+package com.voole.parrot.shared.entity.organization;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.voole.parrot.shared.EntityHasAutoId;
-import com.voole.parrot.shared.account.Account;
+import com.voole.parrot.shared.entity.EntityHasAutoId;
+import com.voole.parrot.shared.entity.account.Account;
 
 /**
  * @author XuehuiHe
