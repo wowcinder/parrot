@@ -32,7 +32,7 @@ public class RpcAspect implements Ordered {
 	@Autowired
 	private AuthorizeService authorizeService;
 
-	@Around(value = "execution(* com.voole.rpc.service.rpc..*(..))")
+	@Around(value = "execution(* com.voole.parrot.rpc.service.rpc..*(..))")
 	public Object dealResult(ProceedingJoinPoint pjp) throws Throwable {
 		doAccessCheck(pjp);
 		Object retVal = pjp.proceed();
@@ -68,7 +68,7 @@ public class RpcAspect implements Ordered {
 		}
 	}
 
-	@AfterThrowing(pointcut = "execution(* com.voole.rpc.service.rpc..*(..))", throwing = "ex")
+	@AfterThrowing(pointcut = "execution(* com.voole.parrot.rpc.service.rpc..*(..))", throwing = "ex")
 	public void errorInterceptor(Exception ex) throws SharedException,
 			ConstraintViolationException {
 		if (ex instanceof SharedException) {
