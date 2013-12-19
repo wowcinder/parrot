@@ -20,17 +20,27 @@
 			<artifactId>parrot-rpc-service</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.voole</groupId>
+			<artifactId>parrot-rpc-service</artifactId>
+			<version>${parrot.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>com.voole</groupId>
 			<artifactId>parrot-shared</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.voole</groupId>
 			<artifactId>parrot-shared</artifactId>
-			<classifier>sources</classifier>
 			<version>${parrot.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -38,11 +48,27 @@
 			<artifactId>parrot-gwt-common</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.voole</groupId>
+			<artifactId>parrot-gwt-common</artifactId>
+			<version>${parrot.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.voole</groupId>
 			<artifactId>parrot-gwt-menu</artifactId>
 			<version>${parrot.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.voole</groupId>
+			<artifactId>parrot-gwt-menu</artifactId>
+			<version>${parrot.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
 		</dependency>
 		<!-- gwt -->
 
