@@ -2,6 +2,8 @@ package com.voole.parrot.service.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -38,7 +40,13 @@ public abstract class EntityDao<T extends Serializable> implements
 	public EntityDao() {
 		ParameterizedType pt = (ParameterizedType) this.getClass()
 				.getGenericSuperclass();
-		innerClass = (Class<T>) pt.getActualTypeArguments()[0];
+		Type type = pt.getActualTypeArguments()[0];
+		if (type instanceof TypeVariable) {
+			TypeVariable<?> typeVariable = (TypeVariable<?>) type;
+			innerClass = (Class<T>) typeVariable.getBounds()[0];
+		} else {
+			innerClass = (Class<T>) pt.getActualTypeArguments()[0];
+		}
 	}
 
 	public void flush() {
@@ -58,25 +66,25 @@ public abstract class EntityDao<T extends Serializable> implements
 		return innerClass;
 	}
 
-	public T persist(T t) {
+	public <C extends Serializable> C persist(C t) {
 		getCurrSession().persist(t);
 		return t;
 	}
 
-	public <P extends Collection<T>> P persist(P p) {
-		for (T t : p) {
+	public <C extends Serializable, P extends Collection<C>> P persist(P p) {
+		for (C t : p) {
 			persist(t);
 		}
 		return p;
 	}
 
-	public void delete(T t) {
+	public <C extends Serializable> void delete(C t) {
 		getCurrSession().refresh(t);
 		getCurrSession().delete(t);
 	}
 
-	public void delete(Collection<T> p) {
-		for (T t : p) {
+	public <C extends Serializable> void delete(Collection<C> p) {
+		for (C t : p) {
 			delete(t);
 		}
 	}
@@ -101,13 +109,13 @@ public abstract class EntityDao<T extends Serializable> implements
 	public <Condition extends QueryCondition> PagingLoadResult<T> paging(
 			GwtPagingLoadConfigBean<Condition> condition) {
 		Criteria criteria = getCurrSession().createCriteria(getInnerClass());
-		long rowCount = getTotalLength(criteria);
 		addOrder(criteria, condition);
 		criteria.setFirstResult(condition.getOffset());
 		criteria.setMaxResults(condition.getLimit());
 		criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
 		List<T> list = (List<T>) criteria.list();
 
+		long rowCount = getTotalLength(criteria);
 		PagingLoadResultBean<T> result = new PagingLoadResultBean<T>();
 		result.setOffset(condition.getOffset());
 		result.setTotalLength((int) rowCount);

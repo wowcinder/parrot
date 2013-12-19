@@ -52,13 +52,13 @@ public class TestEntityDaoService {
 
 	@Transactional
 	public Account saveAccount(Account account) {
-		accountDao.persist(account);
+		accountDao.save(account);
 		return account;
 	}
 
 	@Transactional
 	public Authority saveAuthority(Authority authority) {
-		authorityDao.persist(authority);
+		authorityDao.save(authority);
 		return authority;
 	}
 

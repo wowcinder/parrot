@@ -42,6 +42,21 @@
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>com.voole</groupId>
+			<artifactId>parrot-gwt-ui</artifactId>
+			<version>${parrot.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.voole</groupId>
+			<artifactId>parrot-gwt-ui</artifactId>
+			<version>${parrot.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.voole</groupId>

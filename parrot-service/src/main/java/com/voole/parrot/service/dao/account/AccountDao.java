@@ -11,7 +11,7 @@ import com.voole.parrot.shared.entity.account.Account;
 public class AccountDao extends EntityDao<Account> implements IAccountDao {
 
 	@Override
-	public Account persist(Account t) {
+	public Account save(Account t) {
 		if (t.getPassword() != null) {
 			t.setPassword(DigestUtils.md5Hex(t.getPassword()));
 		}
@@ -24,10 +24,6 @@ public class AccountDao extends EntityDao<Account> implements IAccountDao {
 		return (Account) getCurrSession().createCriteria(Account.class)
 				.add(Restrictions.eq("name", name))
 				.add(Restrictions.eq("password", password)).uniqueResult();
-	}
-
-	public static void main(String[] args) {
-		System.out.println(DigestUtils.md5Hex(""));
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +26,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.voole.parrot.service.dao.account.IAccountDao;
+import com.voole.parrot.service.dao.menu.IMenuGroupDao;
 import com.voole.parrot.shared.entity.account.Account;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.menu.MenuGroup;
+import com.voole.parrot.shared.entity.menu.MenuNode;
 import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.TopOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
@@ -46,6 +50,8 @@ public class AuthorizeServiceImpl implements AuthorizeService {
 
 	@Autowired
 	private IAccountDao accountDao;
+	@Autowired
+	private IMenuGroupDao menuGroupDao;
 
 	public AuthorizeServiceImpl() {
 	}
@@ -168,6 +174,25 @@ public class AuthorizeServiceImpl implements AuthorizeService {
 	@Override
 	public Long getUserId() {
 		return (Long) getSession().getAttribute(USER_ID_NAME_IN_SESSION);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public MenuGroup getMenuRoot() {
+		MenuGroup root = menuGroupDao.findRootMenu();
+		initMenuNodes(root);
+		return root;
+	}
+
+	protected void initMenuNodes(MenuGroup mg) {
+		if (!Hibernate.isInitialized(mg.getNodes())) {
+			Hibernate.initialize(mg.getNodes());
+		}
+		for (MenuNode node : mg.getNodes()) {
+			if (node instanceof MenuGroup) {
+				initMenuNodes((MenuGroup) node);
+			}
+		}
 	}
 
 	protected HttpSession getSession() {

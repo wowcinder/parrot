@@ -6,7 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.shared.entity.menu.Menu;
-import com.voole.parrot.shared.entity.menu.MenuNode;
+import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
@@ -19,6 +19,8 @@ public interface MenuNodeRpcServiceAsync {
 
     public void list(GwtListLoadConfigBean<?> arg0, AsyncCallback<ListLoadResult<Menu>> callback);
 
-    public void save(MenuNode arg0, AsyncCallback<MenuNode> callback);
+    public void save(Menu arg0, AsyncCallback<Menu> callback);
+
+    public void save(MenuGroup arg0, AsyncCallback<MenuGroup> callback);
 
 }

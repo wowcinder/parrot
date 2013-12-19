@@ -11,10 +11,10 @@
 	<modules>
 		<module>../parrot-common</module>
 		<module>../parrot-gwt-common</module>
-		<module>../parrot-gwt-menu</module>
 		<module>../parrot-rpc-service</module>
 		<module>../parrot-service</module>
 		<module>../parrot-shared</module>
 		<module>../parrot-util-scanner</module>
+		<module>../parrot-gwt-ui</module>
 	</modules>
 </project>

@@ -13,13 +13,13 @@ import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 import com.voole.parrot.shared.grid.QueryCondition;
 
 public interface IEntityDao<T extends Serializable> {
-	public T persist(T t);
+	public <C extends Serializable> C persist(C t);
 
-	public <P extends Collection<T>> P persist(P p);
+	public <C extends Serializable, P extends Collection<C>> P persist(P p);
 
-	public void delete(T t);
+	public <C extends Serializable> void delete(C t);
 
-	public void delete(Collection<T> p);
+	public <C extends Serializable> void delete(Collection<C> p);
 
 	public Session getCurrSession();
 

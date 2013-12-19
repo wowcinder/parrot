@@ -3,13 +3,11 @@ package com.voole.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.cell.client.AbstractSafeHtmlCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.text.shared.AbstractSafeHtmlRenderer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -40,10 +38,31 @@ public class ParrotTestWeb implements EntryPoint {
 			@Override
 			public void execute() {
 				// createMenus();
-				showGrid();
+				// showGrid();
+
+				getMenus();
 			}
 		});
 
+	}
+
+	/**
+	 * 
+	 */
+	protected void getMenus() {
+		RpcServiceUtils.OpenAuthorizeRpcService
+				.getUserMenus(new AsyncCallback<MenuGroup>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+
+					}
+
+					@Override
+					public void onSuccess(MenuGroup result) {
+						System.out.println(result.getName().length());
+					}
+				});
 	}
 
 	protected void showGrid() {
@@ -115,10 +134,10 @@ public class ParrotTestWeb implements EntryPoint {
 			list.add(menu);
 		}
 		RpcServiceUtils.MenuNodeRpcService.save(mg,
-				new RpcAsyncCallback<MenuNode>() {
+				new RpcAsyncCallback<MenuGroup>() {
 
 					@Override
-					protected void _onSuccess(MenuNode result) {
+					protected void _onSuccess(MenuGroup result) {
 					}
 				});
 	}

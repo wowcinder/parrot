@@ -8,8 +8,8 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
 
 /**
  * @author XuehuiHe
- * @date 2013年12月16日
+ * @date 2013年12月19日
  */
-public interface IMenuNodeDao extends IEntityDao<MenuNode> {
-
+public interface IMenuNodeDao<N extends MenuNode> extends IEntityDao<N> {
+	public N save(N t);
 }

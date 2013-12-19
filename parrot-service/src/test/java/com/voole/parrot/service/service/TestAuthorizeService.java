@@ -59,7 +59,7 @@ public class TestAuthorizeService {
 			Account account = new Account();
 			account.setName("admin3");
 			account.setPassword("admin3");
-			accountDao.persist(account);
+			accountDao.save(account);
 			/*
 			 * AuthorityEntrance entrance = new AuthorityEntrance();
 			 * entrance.setName("test_name"); Authority authority = new

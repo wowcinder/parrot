@@ -26,7 +26,9 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
 public class TestMenuDao {
 	@Autowired
-	private MenuNodeDao dao;
+	private IMenuDao menuDao;
+	@Autowired
+	private IMenuGroupDao menuGroupDao;
 
 	@Test
 	@Transactional
@@ -47,9 +49,9 @@ public class TestMenuDao {
 
 		mg.setNodes(menus);
 
-		dao.persist(mg);
+		menuGroupDao.save(mg);
 
-		dao.getCurrSession().flush();
+		menuGroupDao.getCurrSession().flush();
 
 		Menu menu = new Menu();
 		menu.setPos(7);
@@ -57,11 +59,11 @@ public class TestMenuDao {
 		menu.setParent(mg);
 		menu.setToken("kkkk");
 
-//		mg.getNodes().add(1, menu);
+		// mg.getNodes().add(1, menu);
 
-		dao.persist(menu);
+		menuDao.save(menu);
 
-		dao.getCurrSession().flush();
+		menuDao.getCurrSession().flush();
 	}
 
 	// @Test
@@ -77,6 +79,6 @@ public class TestMenuDao {
 		menu.setParent(mg);
 		menu.setToken("kkkk");
 
-		dao.persist(menu);
+		menuDao.persist(menu);
 	}
 }

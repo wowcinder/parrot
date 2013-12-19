@@ -5,6 +5,8 @@ package com.voole.parrot.service.service;
 
 import java.lang.reflect.Method;
 
+import com.voole.parrot.shared.entity.menu.MenuGroup;
+
 /**
  * 认证，授权服务
  * 
@@ -23,5 +25,7 @@ public interface AuthorizeService {
 	boolean isAdmin();
 
 	Long getUserId();
+
+	MenuGroup getMenuRoot();
 
 }
