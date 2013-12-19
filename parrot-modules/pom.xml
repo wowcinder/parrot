@@ -15,5 +15,6 @@
 		<module>../parrot-rpc-service</module>
 		<module>../parrot-service</module>
 		<module>../parrot-shared</module>
+		<module>../parrot-util-scanner</module>
 	</modules>
 </project>
