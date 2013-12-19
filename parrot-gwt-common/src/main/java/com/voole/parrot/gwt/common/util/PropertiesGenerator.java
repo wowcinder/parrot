@@ -50,8 +50,9 @@ public class PropertiesGenerator {
 			throws JClassAlreadyExistsException, ClassNotFoundException,
 			SecurityException, NoSuchFieldException {
 		JDefinedClass dc = getjCodeModel()._class(
-				"com.voole.parrot.gwt.common.shared.property." + clazz.getSimpleName()
-						+ "Property", ClassType.INTERFACE);
+				"com.voole.parrot.gwt.common.shared.property."
+						+ clazz.getSimpleName() + "Property",
+				ClassType.INTERFACE);
 		JDefinedClass dc2 = getjCodeModel()._class(
 				"com.voole.parrot.gwt.common.shared.gridcolumn."
 						+ clazz.getSimpleName() + "ColumnConfig");
@@ -96,9 +97,23 @@ public class PropertiesGenerator {
 		return field;
 	}
 
+	private static boolean isExists(String fullname) {
+		try {
+			Class.forName(fullname);
+		} catch (ClassNotFoundException e) {
+			return false;
+		}
+		return true;
+	}
+
 	public static void generatePropertyMethod(JDefinedClass dc, Method method,
 			Class<?> clazz, JDefinedClass dc2) throws ClassNotFoundException,
 			SecurityException, NoSuchFieldException {
+		if (isExists(dc.fullName())) {
+			dc.hide();
+			dc2.hide();
+			return;
+		}
 		String name = method.getName().replace("get", "");
 		name = name.substring(0, 1).toLowerCase() + name.substring(1);
 		if (isId(method, name, clazz)) {
@@ -128,8 +143,8 @@ public class PropertiesGenerator {
 				JExpr._new(columnConfigClass)
 						.arg(propertyUtils.staticRef(dc.name()).invoke(name))
 						.arg(JExpr.lit(200)).arg(name));
-//		jMethod.body().invoke(jVar, "setSortable").arg(JExpr.lit(false));
-//		jMethod.body().invoke(jVar, "setMenuDisabled").arg(JExpr.lit(true));
+		// jMethod.body().invoke(jVar, "setSortable").arg(JExpr.lit(false));
+		// jMethod.body().invoke(jVar, "setMenuDisabled").arg(JExpr.lit(true));
 		jMethod.body()._return(jVar);
 	}
 

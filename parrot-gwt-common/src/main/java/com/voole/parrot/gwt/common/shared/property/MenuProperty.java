@@ -9,11 +9,10 @@ import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 
 public interface MenuProperty extends PropertyAccess<Menu> {
-
-	public ValueProvider<Menu, String> token();
-
 	@Path("parent.name")
 	public ValueProvider<Menu, String> parentName();
+
+	public ValueProvider<Menu, String> token();
 
 	public ValueProvider<Menu, Authority> requireAuthority();
 
