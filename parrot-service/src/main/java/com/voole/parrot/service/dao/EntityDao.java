@@ -2,8 +2,11 @@ package com.voole.parrot.service.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -121,9 +124,44 @@ public abstract class EntityDao<T extends Serializable> implements
 
 	protected void addOrder(Criteria criteria, ListLoadConfigBean condition) {
 		List<SortInfoBean> sortInfos = condition.getSortInfo();
+		createAlias(criteria, sortInfos);
 		for (SortInfoBean sortInfo : sortInfos) {
 			criteria.addOrder(getOrder(sortInfo));
 		}
+	}
+
+	protected void createAlias(Criteria criteria, List<SortInfoBean> sortInfos) {
+		Set<String> aliases = new HashSet<String>();
+		for (SortInfoBean sortInfo : sortInfos) {
+			String propertyName = sortInfo.getSortField();
+			List<String> paths = getAliases(propertyName);
+			for (String path : paths) {
+				if (!aliases.contains(path)) {
+					criteria.createAlias(path, path, Criteria.LEFT_JOIN);
+					aliases.add(path);
+				}
+
+			}
+		}
+	}
+
+	protected List<String> getAliases(String path) {
+		List<String> aliases = new ArrayList<String>();
+		if (path.indexOf(".") != -1) {
+			String[] paths = path.split("\\.");
+			int len = paths.length;
+			String prev = null;
+			for (int i = 0; i < len - 1; i++) {
+				String itemPath = paths[i];
+				if (i == 0) {
+					aliases.add(itemPath);
+				} else {
+					aliases.add(prev + "." + itemPath);
+				}
+				prev = itemPath;
+			}
+		}
+		return aliases;
 	}
 
 	protected Order getOrder(SortInfoBean sortInfo) {

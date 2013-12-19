@@ -33,4 +33,5 @@ public class MenuNodeDao extends EntityDao<MenuNode> implements IMenuNodeDao {
 		}
 		return super.persist(t);
 	}
+
 }

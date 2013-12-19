@@ -3,11 +3,18 @@ package com.voole.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.cell.client.AbstractSafeHtmlCell;
+import com.google.gwt.cell.client.Cell;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
+import com.google.gwt.text.shared.AbstractSafeHtmlRenderer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.sencha.gxt.cell.core.client.SimpleSafeHtmlCell;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.Grid;
@@ -18,6 +25,8 @@ import com.voole.parrot.gwt.common.shared.gridcolumn.MenuColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.shared.entity.menu.Menu;
+import com.voole.parrot.shared.entity.menu.MenuGroup;
+import com.voole.parrot.shared.entity.menu.MenuNode;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.QueryCondition;
 
@@ -44,6 +53,26 @@ public class ParrotTestWeb implements EntryPoint {
 		columns.add(MenuColumnConfig.id());
 		columns.add(MenuColumnConfig.name());
 		columns.add(MenuColumnConfig.token());
+		ColumnConfig<Menu, MenuGroup> mg = MenuColumnConfig.parent();
+		// mg.setCell(new SimpleHt);
+		mg.setHeader("test");
+		Cell<MenuGroup> cell = new SimpleSafeHtmlCell<MenuGroup>(
+				new AbstractSafeHtmlRenderer<MenuGroup>() {
+
+					@Override
+					public SafeHtml render(MenuGroup object) {
+						if (object != null) {
+							return SafeHtmlUtils.fromString(object.getName());
+						}
+						return null;
+					}
+				});
+		mg.setCell(cell);
+		columns.add(mg);
+
+		ColumnConfig<Menu, String> parentName = new ColumnConfig<Menu, String>(
+				PropertyUtils.MenuProperty.parentName(), 200, "parentName");
+		columns.add(parentName);
 		gb.addColumns(columns);
 		// gb.enableMultiSelect();
 		// gb.disableMultiSelect();
@@ -69,21 +98,28 @@ public class ParrotTestWeb implements EntryPoint {
 		});
 		Grid<Menu> grid = gb.create();
 		RootPanel.get().add(grid);
-//		RootPanel.get().add(gb.getPagingToolBar(grid));
+		// RootPanel.get().add(gb.getPagingToolBar(grid));
 	}
 
 	private void createMenus() {
+		List<MenuNode> list = new ArrayList<MenuNode>();
+		MenuGroup mg = new MenuGroup();
+		mg.setName("test-mg");
+		mg.setNodes(list);
+
 		for (int i = 0; i < 10; i++) {
 			Menu menu = new Menu();
 			menu.setName("test-name-" + i);
 			menu.setToken("test-token-" + i);
-			RpcServiceUtils.MenuNodeRpcService.save(menu,
-					new RpcAsyncCallback<Menu>() {
-
-						@Override
-						protected void _onSuccess(Menu result) {
-						}
-					});
+			menu.setParent(mg);
+			list.add(menu);
 		}
+		RpcServiceUtils.MenuNodeRpcService.save(mg,
+				new RpcAsyncCallback<MenuNode>() {
+
+					@Override
+					protected void _onSuccess(MenuNode result) {
+					}
+				});
 	}
 }

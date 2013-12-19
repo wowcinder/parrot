@@ -26,8 +26,8 @@ public class MenuRpcServiceImpl implements MenuNodeRpcService {
 
 	@Override
 	@Transactional
-	public Menu save(Menu menu) {
-		return (Menu) dao.persist(menu);
+	public MenuNode save(MenuNode menu) {
+		return dao.persist(menu);
 	}
 
 	@Override
