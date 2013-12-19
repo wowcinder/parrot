@@ -6,8 +6,7 @@
 		<artifactId>parrot-parent</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>parrot-gwt-menu</artifactId>
-
+	<artifactId>parrot-gwt-ui</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>com.voole</groupId>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='ParrotTestWeb'>
 	<inherits name='com.voole.parrot.gwt.common.Common' />
-	<inherits name='com.voole.parrot.gwt.menu.Menu' />
+	<inherits name='com.voole.parrot.gwt.ui.UI' />
 
 	<entry-point class='com.voole.client.ParrotTestWeb' />
 
