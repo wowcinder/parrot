@@ -19,7 +19,9 @@ import com.sencha.gxt.core.client.Style.SelectionMode;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.widget.core.client.tree.Tree;
+import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
+import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
@@ -107,16 +109,13 @@ public class MenuView extends Tree<MenuNode, MenuNode> {
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 			@Override
 			public void execute() {
-				init();
+				getData();
 			}
 		});
 	}
 
-	public void init() {
-		getData();
-	}
-
-	protected void initData(List<MenuNode> result) {
+	protected void initData(MenuGroup root) {
+		List<MenuNode> result = root.getNodes();
 		store.clear();
 		for (MenuNode menuNode : result) {
 			initData(null, menuNode);
@@ -166,13 +165,13 @@ public class MenuView extends Tree<MenuNode, MenuNode> {
 	}
 
 	private void getData() {
-		// RpcServiceUtils.OpenAuthorizeRpcService
-		// .getUserMenus(new RpcAsyncCallback<List<MenuNode>>() {
-		// @Override
-		// public void _onSuccess(List<MenuNode> t) {
-		// initData(t);
-		// }
-		// });
+		RpcServiceUtils.OpenAuthorizeRpcService
+				.getUserMenus(new RpcAsyncCallback<MenuGroup>() {
+					@Override
+					public void _onSuccess(MenuGroup t) {
+						initData(t);
+					}
+				});
 	}
 
 	public class LogoutMenu extends MenuNode {

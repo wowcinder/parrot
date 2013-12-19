@@ -177,7 +177,7 @@ public class AuthorizeServiceImpl implements AuthorizeService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public MenuGroup getMenuRoot() {
 		MenuGroup root = menuGroupDao.findRootMenu();
 		initMenuNodes(root);

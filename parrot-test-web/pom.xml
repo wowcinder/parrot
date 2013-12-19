@@ -20,7 +20,7 @@
 			<artifactId>parrot-rpc-service</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.voole</groupId>
 			<artifactId>parrot-rpc-service</artifactId>
@@ -42,8 +42,8 @@
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>com.voole</groupId>
 			<artifactId>parrot-gwt-ui</artifactId>
@@ -63,7 +63,7 @@
 			<artifactId>parrot-gwt-common</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.voole</groupId>
 			<artifactId>parrot-gwt-common</artifactId>
@@ -72,19 +72,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.voole</groupId>
-			<artifactId>parrot-gwt-menu</artifactId>
-			<version>${parrot.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.voole</groupId>
-			<artifactId>parrot-gwt-menu</artifactId>
-			<version>${parrot.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
 		<!-- gwt -->
 
 		<dependency>

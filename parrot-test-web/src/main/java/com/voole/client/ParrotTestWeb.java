@@ -22,6 +22,7 @@ import com.voole.parrot.gwt.common.shared.core.grid.GridBuilder.RpcListProxyLoad
 import com.voole.parrot.gwt.common.shared.gridcolumn.MenuColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
+import com.voole.parrot.gwt.ui.shared.menu.MenuView;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
@@ -37,13 +38,19 @@ public class ParrotTestWeb implements EntryPoint {
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 			@Override
 			public void execute() {
-				// createMenus();
+				createMenus();
 				// showGrid();
 
-				getMenus();
+				// getMenus();
+				showMenuView();
 			}
 		});
 
+	}
+
+	protected void showMenuView() {
+		MenuView mv = new MenuView();
+		RootPanel.get().add(mv);
 	}
 
 	/**
