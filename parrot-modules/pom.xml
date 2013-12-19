@@ -8,4 +8,12 @@
 	<description>
 		parrot 项目所有模块的集合
 	</description>
+	<modules>
+		<module>../parrot-common</module>
+		<module>../parrot-gwt-common</module>
+		<module>../parrot-gwt-menu</module>
+		<module>../parrot-rpc-service</module>
+		<module>../parrot-service</module>
+		<module>../parrot-shared</module>
+	</modules>
 </project>
