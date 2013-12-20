@@ -13,13 +13,13 @@ public interface LeaderProperty
 {
 
 
-    public ValueProvider<Leader, Organization> organization();
-
-    public ValueProvider<Leader, Account> account();
-
     @com.google.gwt.editor.client.Editor.Path("id")
     public ModelKeyProvider<Leader> key();
 
     public ValueProvider<Leader, Long> id();
+
+    public ValueProvider<Leader, Organization> organization();
+
+    public ValueProvider<Leader, Account> account();
 
 }

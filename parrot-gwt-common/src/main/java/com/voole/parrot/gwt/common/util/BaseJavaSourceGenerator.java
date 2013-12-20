@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 
 import com.sun.codemodel.JCodeModel;
-import com.sun.codemodel.JDefinedClass;
 
 /**
  * @author XuehuiHe

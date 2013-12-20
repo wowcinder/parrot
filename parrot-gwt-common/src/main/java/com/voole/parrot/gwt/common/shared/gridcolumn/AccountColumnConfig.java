@@ -12,9 +12,9 @@ import com.voole.parrot.shared.entity.organization.Member;
 public class AccountColumnConfig {
 
 
-    public static ColumnConfig<Account, Leader> leader() {
-        ColumnConfig<Account, Leader> leader = new ColumnConfig<Account, Leader>(PropertyUtils.AccountProperty.leader(), 200, "leader");
-        return leader;
+    public static ColumnConfig<Account, Long> id() {
+        ColumnConfig<Account, Long> id = new ColumnConfig<Account, Long>(PropertyUtils.AccountProperty.id(), 200, "id");
+        return id;
     }
 
     public static ColumnConfig<Account, Member> member() {
@@ -32,14 +32,14 @@ public class AccountColumnConfig {
         return name;
     }
 
+    public static ColumnConfig<Account, Leader> leader() {
+        ColumnConfig<Account, Leader> leader = new ColumnConfig<Account, Leader>(PropertyUtils.AccountProperty.leader(), 200, "leader");
+        return leader;
+    }
+
     public static ColumnConfig<Account, String> password() {
         ColumnConfig<Account, String> password = new ColumnConfig<Account, String>(PropertyUtils.AccountProperty.password(), 200, "password");
         return password;
-    }
-
-    public static ColumnConfig<Account, Long> id() {
-        ColumnConfig<Account, Long> id = new ColumnConfig<Account, Long>(PropertyUtils.AccountProperty.id(), 200, "id");
-        return id;
     }
 
 }

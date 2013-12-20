@@ -14,9 +14,34 @@ import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 public class SubOrganizationColumnConfig {
 
 
+    public static ColumnConfig<SubOrganization, Long> id() {
+        ColumnConfig<SubOrganization, Long> id = new ColumnConfig<SubOrganization, Long>(PropertyUtils.SubOrganizationProperty.id(), 200, "id");
+        return id;
+    }
+
     public static ColumnConfig<SubOrganization, Set<TopOrganizationAuthority>> authorities() {
         ColumnConfig<SubOrganization, Set<TopOrganizationAuthority>> authorities = new ColumnConfig<SubOrganization, Set<TopOrganizationAuthority>>(PropertyUtils.SubOrganizationProperty.authorities(), 200, "authorities");
         return authorities;
+    }
+
+    public static ColumnConfig<SubOrganization, String> name() {
+        ColumnConfig<SubOrganization, String> name = new ColumnConfig<SubOrganization, String>(PropertyUtils.SubOrganizationProperty.name(), 200, "name");
+        return name;
+    }
+
+    public static ColumnConfig<SubOrganization, Set<Role>> roles() {
+        ColumnConfig<SubOrganization, Set<Role>> roles = new ColumnConfig<SubOrganization, Set<Role>>(PropertyUtils.SubOrganizationProperty.roles(), 200, "roles");
+        return roles;
+    }
+
+    public static ColumnConfig<SubOrganization, Set<SubOrganization>> subOrganizations() {
+        ColumnConfig<SubOrganization, Set<SubOrganization>> subOrganizations = new ColumnConfig<SubOrganization, Set<SubOrganization>>(PropertyUtils.SubOrganizationProperty.subOrganizations(), 200, "subOrganizations");
+        return subOrganizations;
+    }
+
+    public static ColumnConfig<SubOrganization, Set<Leader>> leaders() {
+        ColumnConfig<SubOrganization, Set<Leader>> leaders = new ColumnConfig<SubOrganization, Set<Leader>>(PropertyUtils.SubOrganizationProperty.leaders(), 200, "leaders");
+        return leaders;
     }
 
     public static ColumnConfig<SubOrganization, Organization> parentOrganization() {
@@ -27,31 +52,6 @@ public class SubOrganizationColumnConfig {
     public static ColumnConfig<SubOrganization, Set<Member>> members() {
         ColumnConfig<SubOrganization, Set<Member>> members = new ColumnConfig<SubOrganization, Set<Member>>(PropertyUtils.SubOrganizationProperty.members(), 200, "members");
         return members;
-    }
-
-    public static ColumnConfig<SubOrganization, Set<Role>> roles() {
-        ColumnConfig<SubOrganization, Set<Role>> roles = new ColumnConfig<SubOrganization, Set<Role>>(PropertyUtils.SubOrganizationProperty.roles(), 200, "roles");
-        return roles;
-    }
-
-    public static ColumnConfig<SubOrganization, Set<Leader>> leaders() {
-        ColumnConfig<SubOrganization, Set<Leader>> leaders = new ColumnConfig<SubOrganization, Set<Leader>>(PropertyUtils.SubOrganizationProperty.leaders(), 200, "leaders");
-        return leaders;
-    }
-
-    public static ColumnConfig<SubOrganization, Set<SubOrganization>> subOrganizations() {
-        ColumnConfig<SubOrganization, Set<SubOrganization>> subOrganizations = new ColumnConfig<SubOrganization, Set<SubOrganization>>(PropertyUtils.SubOrganizationProperty.subOrganizations(), 200, "subOrganizations");
-        return subOrganizations;
-    }
-
-    public static ColumnConfig<SubOrganization, String> name() {
-        ColumnConfig<SubOrganization, String> name = new ColumnConfig<SubOrganization, String>(PropertyUtils.SubOrganizationProperty.name(), 200, "name");
-        return name;
-    }
-
-    public static ColumnConfig<SubOrganization, Long> id() {
-        ColumnConfig<SubOrganization, Long> id = new ColumnConfig<SubOrganization, Long>(PropertyUtils.SubOrganizationProperty.id(), 200, "id");
-        return id;
     }
 
 }

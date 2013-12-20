@@ -15,17 +15,17 @@ public interface RoleProperty
 {
 
 
-    public ValueProvider<Role, Set<TopOrganizationAuthority>> authorities();
-
-    public ValueProvider<Role, Organization> organization();
-
-    public ValueProvider<Role, Set<Member>> members();
-
-    public ValueProvider<Role, String> name();
-
     @com.google.gwt.editor.client.Editor.Path("id")
     public ModelKeyProvider<Role> key();
 
     public ValueProvider<Role, Long> id();
+
+    public ValueProvider<Role, Organization> organization();
+
+    public ValueProvider<Role, Set<TopOrganizationAuthority>> authorities();
+
+    public ValueProvider<Role, String> name();
+
+    public ValueProvider<Role, Set<Member>> members();
 
 }

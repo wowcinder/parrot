@@ -13,13 +13,13 @@ public interface AuthorityEntranceProperty
 {
 
 
-    public ValueProvider<AuthorityEntrance, List<Authority>> authorities();
-
-    public ValueProvider<AuthorityEntrance, String> name();
-
     @com.google.gwt.editor.client.Editor.Path("id")
     public ModelKeyProvider<AuthorityEntrance> key();
 
     public ValueProvider<AuthorityEntrance, Long> id();
+
+    public ValueProvider<AuthorityEntrance, List<Authority>> authorities();
+
+    public ValueProvider<AuthorityEntrance, String> name();
 
 }

@@ -10,6 +10,11 @@ import com.voole.parrot.shared.entity.organization.Organization;
 public class LeaderColumnConfig {
 
 
+    public static ColumnConfig<Leader, Long> id() {
+        ColumnConfig<Leader, Long> id = new ColumnConfig<Leader, Long>(PropertyUtils.LeaderProperty.id(), 200, "id");
+        return id;
+    }
+
     public static ColumnConfig<Leader, Organization> organization() {
         ColumnConfig<Leader, Organization> organization = new ColumnConfig<Leader, Organization>(PropertyUtils.LeaderProperty.organization(), 200, "organization");
         return organization;
@@ -18,11 +23,6 @@ public class LeaderColumnConfig {
     public static ColumnConfig<Leader, Account> account() {
         ColumnConfig<Leader, Account> account = new ColumnConfig<Leader, Account>(PropertyUtils.LeaderProperty.account(), 200, "account");
         return account;
-    }
-
-    public static ColumnConfig<Leader, Long> id() {
-        ColumnConfig<Leader, Long> id = new ColumnConfig<Leader, Long>(PropertyUtils.LeaderProperty.id(), 200, "id");
-        return id;
     }
 
 }

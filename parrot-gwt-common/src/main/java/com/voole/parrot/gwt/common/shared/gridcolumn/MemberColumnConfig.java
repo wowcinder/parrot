@@ -12,14 +12,14 @@ import com.voole.parrot.shared.entity.organization.Organization;
 public class MemberColumnConfig {
 
 
+    public static ColumnConfig<Member, Long> id() {
+        ColumnConfig<Member, Long> id = new ColumnConfig<Member, Long>(PropertyUtils.MemberProperty.id(), 200, "id");
+        return id;
+    }
+
     public static ColumnConfig<Member, Organization> organization() {
         ColumnConfig<Member, Organization> organization = new ColumnConfig<Member, Organization>(PropertyUtils.MemberProperty.organization(), 200, "organization");
         return organization;
-    }
-
-    public static ColumnConfig<Member, Account> account() {
-        ColumnConfig<Member, Account> account = new ColumnConfig<Member, Account>(PropertyUtils.MemberProperty.account(), 200, "account");
-        return account;
     }
 
     public static ColumnConfig<Member, Set<Role>> roles() {
@@ -27,9 +27,9 @@ public class MemberColumnConfig {
         return roles;
     }
 
-    public static ColumnConfig<Member, Long> id() {
-        ColumnConfig<Member, Long> id = new ColumnConfig<Member, Long>(PropertyUtils.MemberProperty.id(), 200, "id");
-        return id;
+    public static ColumnConfig<Member, Account> account() {
+        ColumnConfig<Member, Account> account = new ColumnConfig<Member, Account>(PropertyUtils.MemberProperty.account(), 200, "account");
+        return account;
     }
 
 }

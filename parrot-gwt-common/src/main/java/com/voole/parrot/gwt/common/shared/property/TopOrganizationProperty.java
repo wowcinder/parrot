@@ -17,21 +17,21 @@ public interface TopOrganizationProperty
 {
 
 
-    public ValueProvider<TopOrganization, Set<TopOrganizationAuthority>> authorities();
-
-    public ValueProvider<TopOrganization, Set<Member>> members();
-
-    public ValueProvider<TopOrganization, Set<Role>> roles();
-
-    public ValueProvider<TopOrganization, Set<Leader>> leaders();
-
-    public ValueProvider<TopOrganization, Set<SubOrganization>> subOrganizations();
-
-    public ValueProvider<TopOrganization, String> name();
-
     @com.google.gwt.editor.client.Editor.Path("id")
     public ModelKeyProvider<TopOrganization> key();
 
     public ValueProvider<TopOrganization, Long> id();
+
+    public ValueProvider<TopOrganization, Set<TopOrganizationAuthority>> authorities();
+
+    public ValueProvider<TopOrganization, String> name();
+
+    public ValueProvider<TopOrganization, Set<Role>> roles();
+
+    public ValueProvider<TopOrganization, Set<SubOrganization>> subOrganizations();
+
+    public ValueProvider<TopOrganization, Set<Leader>> leaders();
+
+    public ValueProvider<TopOrganization, Set<Member>> members();
 
 }

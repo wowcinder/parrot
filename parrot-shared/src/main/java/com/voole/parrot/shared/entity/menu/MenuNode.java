@@ -9,6 +9,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 
+import com.google.gwt.editor.client.Editor.Path;
 import com.voole.parrot.shared.entity.EntityHasAutoId;
 
 /**
@@ -33,6 +34,7 @@ public class MenuNode extends EntityHasAutoId {
 	}
 
 	@ManyToOne
+	@Path("parent.name")
 	public MenuGroup getParent() {
 		return parent;
 	}

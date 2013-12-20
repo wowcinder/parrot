@@ -10,6 +10,11 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
 public class MenuGroupColumnConfig {
 
 
+    public static ColumnConfig<MenuGroup, Long> id() {
+        ColumnConfig<MenuGroup, Long> id = new ColumnConfig<MenuGroup, Long>(PropertyUtils.MenuGroupProperty.id(), 200, "id");
+        return id;
+    }
+
     public static ColumnConfig<MenuGroup, List<MenuNode>> nodes() {
         ColumnConfig<MenuGroup, List<MenuNode>> nodes = new ColumnConfig<MenuGroup, List<MenuNode>>(PropertyUtils.MenuGroupProperty.nodes(), 200, "nodes");
         return nodes;
@@ -30,9 +35,9 @@ public class MenuGroupColumnConfig {
         return pos;
     }
 
-    public static ColumnConfig<MenuGroup, Long> id() {
-        ColumnConfig<MenuGroup, Long> id = new ColumnConfig<MenuGroup, Long>(PropertyUtils.MenuGroupProperty.id(), 200, "id");
-        return id;
+    public static ColumnConfig<MenuGroup, String> parent_name() {
+        ColumnConfig<MenuGroup, String> parent_name = new ColumnConfig<MenuGroup, String>(PropertyUtils.MenuGroupProperty.parent_name(), 200, "parent_name");
+        return parent_name;
     }
 
 }

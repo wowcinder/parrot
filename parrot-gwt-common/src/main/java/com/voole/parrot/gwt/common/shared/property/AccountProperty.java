@@ -15,7 +15,10 @@ public interface AccountProperty
 {
 
 
-    public ValueProvider<Account, Leader> leader();
+    @com.google.gwt.editor.client.Editor.Path("id")
+    public ModelKeyProvider<Account> key();
+
+    public ValueProvider<Account, Long> id();
 
     public ValueProvider<Account, Member> member();
 
@@ -23,11 +26,8 @@ public interface AccountProperty
 
     public ValueProvider<Account, String> name();
 
+    public ValueProvider<Account, Leader> leader();
+
     public ValueProvider<Account, String> password();
-
-    @com.google.gwt.editor.client.Editor.Path("id")
-    public ModelKeyProvider<Account> key();
-
-    public ValueProvider<Account, Long> id();
 
 }

@@ -15,15 +15,15 @@ public interface MemberProperty
 {
 
 
-    public ValueProvider<Member, Organization> organization();
-
-    public ValueProvider<Member, Account> account();
-
-    public ValueProvider<Member, Set<Role>> roles();
-
     @com.google.gwt.editor.client.Editor.Path("id")
     public ModelKeyProvider<Member> key();
 
     public ValueProvider<Member, Long> id();
+
+    public ValueProvider<Member, Organization> organization();
+
+    public ValueProvider<Member, Set<Role>> roles();
+
+    public ValueProvider<Member, Account> account();
 
 }

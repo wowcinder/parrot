@@ -1,13 +1,17 @@
+/*
+ * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
+ */
 package com.voole.parrot.gwt.common.util;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
+import java.util.Map.Entry;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-
+import com.google.common.reflect.TypeToken;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor.Path;
 import com.sencha.gxt.core.client.ValueProvider;
@@ -17,146 +21,162 @@ import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sun.codemodel.ClassType;
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JClassAlreadyExistsException;
-import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
+import com.sun.codemodel.JType;
 import com.sun.codemodel.JVar;
-import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
+import com.voole.parrot.gwt.common.util.reflect.EntityClassUtil;
+import com.voole.parrot.gwt.common.util.reflect.EntityColumns;
+import com.voole.parrot.gwt.common.util.reflect.MethodFinder;
 import com.voole.parrot.util.ClassScanner;
 
-public class PropertiesGenerator {
-	private static JCodeModelUtil jCodeModelUtil;
-	private static JDefinedClass propertyUtils;
+/**
+ * @author XuehuiHe
+ * @date 2013年12月20日
+ */
+public class PropertiesGenerator extends BaseJavaSourceGenerator {
+	private static final String PROPERTY_SOURCE_PATH = "com.voole.parrot.gwt.common.shared.property.";
+	private static final String GRID_COLUMN_PROPERTY_SOURCE_PATH = "com.voole.parrot.gwt.common.shared.gridcolumn.";
+	private static final String[] ENTITY_PATHS = new String[] { "com.voole.parrot.shared.entity" };
+	private JDefinedClass propertyUtils;
+
+	public PropertiesGenerator() throws JClassAlreadyExistsException {
+		propertyUtils = getjCodeModel()._class(
+				PROPERTY_SOURCE_PATH + "PropertyUtils");
+	}
 
 	public static void main(String[] args) throws Exception {
-		jCodeModelUtil = new JCodeModelUtil();
-		propertyUtils = getjCodeModel()._class(PropertyUtils.class.getName());
+		PropertiesGenerator t = new PropertiesGenerator();
+		t.work();
+	}
 
-		ClassScanner scaner = new ClassScanner("com.voole.parrot.shared.entity");
+	public void work() throws Exception {
+		ClassScanner scaner = new ClassScanner(ENTITY_PATHS);
 		for (Class<?> clazz : scaner.getClazzes()) {
-			if (clazz.isAnnotationPresent(Entity.class)
-					&& !Modifier.isAbstract(clazz.getModifiers())) {
-
-				System.out.println(clazz.getName());
-				generatePropertyClass(clazz);
+			if (EntityClassUtil.isEntityClass(clazz)) {
+				generate(clazz);
 			}
 		}
-		getjCodeModel().build(jCodeModelUtil.getMainJavaPath());
+		build();
 	}
 
-	private static void generatePropertyClass(Class<?> clazz)
-			throws JClassAlreadyExistsException, ClassNotFoundException,
-			SecurityException, NoSuchFieldException {
-		JDefinedClass dc = getjCodeModel()._class(
-				"com.voole.parrot.gwt.common.shared.property."
-						+ clazz.getSimpleName() + "Property",
+	private void generate(Class<?> clazz) throws JClassAlreadyExistsException,
+			ClassNotFoundException, SecurityException, NoSuchFieldException {
+		EntityColumns entityColumns = EntityColumns.create(clazz);
+		TypeToken<?> typeToken = TypeToken.of(clazz);
+		Class<?> clazz1 = entityColumns.getClazz();
+		JType classJType = getJType(typeToken, clazz1);
+		JDefinedClass propertyDc = getjCodeModel()._class(
+				PROPERTY_SOURCE_PATH + clazz1.getSimpleName() + "Property",
 				ClassType.INTERFACE);
-		JDefinedClass dc2 = getjCodeModel()._class(
-				"com.voole.parrot.gwt.common.shared.gridcolumn."
-						+ clazz.getSimpleName() + "ColumnConfig");
-		dc._extends(getjCodeModel().ref(PropertyAccess.class).narrow(
-				jCodeModelUtil.getJType(clazz)));
-		for (Method method : clazz.getMethods()) {
-			if (isDoGeneratePropertyClass(method)) {
-				generatePropertyMethod(dc, method, clazz, dc2);
-			}
+		propertyDc._extends(getjCodeModel().ref(PropertyAccess.class).narrow(
+				classJType));
+		JDefinedClass gridColumnDc = getjCodeModel()._class(
+				GRID_COLUMN_PROPERTY_SOURCE_PATH + clazz1.getSimpleName()
+						+ "ColumnConfig");
+		Field idField = entityColumns.getId();
+		if (idField != null) {
+			JMethod jMethod = propertyDc.method(JMod.PUBLIC, getjCodeModel()
+					.ref(ModelKeyProvider.class).narrow(classJType), "key");
+			jMethod.annotate(Path.class).param("value", idField.getName());
 		}
-		writeGwtInstance(dc);
+		for (Entry<String, Field> entry : entityColumns.getColumsMap()
+				.entrySet()) {
+			String name = entry.getKey();
+			Field field = entry.getValue();
+			JType jType = getJType(typeToken, field.getGenericType());
+			propertyDc.method(JMod.PUBLIC,
+					getjCodeModel().ref(ValueProvider.class).narrow(classJType)
+							.narrow(jType), name);
+
+			writeGridColumn(classJType, propertyDc, gridColumnDc, name, jType);
+		}
+		for (Entry<String, Field> entry : entityColumns.getPathFields()
+				.entrySet()) {
+			String path = entry.getKey();
+			TypeToken<?> itemTypeToken = typeToken;
+			Class<?> itemClazz = clazz1;
+			String[] paths = path.split("\\.");
+			String pathName = "";
+			for (String itemPath : paths) {
+				if (pathName.length() != 0) {
+					pathName += "_";
+				}
+				pathName += itemPath;
+				itemTypeToken = itemTypeToken.method(
+						MethodFinder.getGetMethod(itemClazz, itemPath))
+						.getReturnType();
+				itemClazz = itemTypeToken.getRawType();
+			}
+			JType jType = getJType(itemTypeToken, itemTypeToken.getRawType());
+			JMethod jMethod = propertyDc.method(JMod.PUBLIC, getjCodeModel()
+					.ref(ValueProvider.class).narrow(classJType).narrow(jType),
+					pathName);
+			jMethod.annotate(Path.class).param("value", path);
+			writeGridColumn(classJType, propertyDc, gridColumnDc, pathName,
+					jType);
+		}
+		writeGwtInstance(propertyDc);
 	}
 
-	private static void writeGwtInstance(JDefinedClass dc)
+	private void writeGridColumn(JType classJType, JDefinedClass propertyDc,
+			JDefinedClass gridColumnDc, String name, JType jType) {
+		JClass columnConfigClass = getjCodeModel().ref(ColumnConfig.class)
+				.narrow(classJType).narrow(jType);
+		JMethod jMethod = gridColumnDc.method(JMod.PUBLIC + JMod.STATIC,
+				columnConfigClass, name);
+		JVar jVar = jMethod.body().decl(
+				columnConfigClass,
+				name,
+				JExpr._new(columnConfigClass)
+						.arg(propertyUtils.staticRef(propertyDc.name()).invoke(
+								name)).arg(JExpr.lit(200)).arg(name));
+		// jMethod.body().invoke(jVar, "setSortable").arg(JExpr.lit(false));
+		// jMethod.body().invoke(jVar,
+		// "setMenuDisabled").arg(JExpr.lit(true));
+		jMethod.body()._return(jVar);
+	}
+
+	protected <T> Type getRealType(TypeToken<T> typeToken, Type type) {
+		return typeToken.resolveType(type).getRawType();
+	}
+
+	protected <T> JType getJType(TypeToken<T> typeToken, Type type)
+			throws ClassNotFoundException {
+		if (type instanceof ParameterizedType) {
+			Type[] parameters = ((ParameterizedType) type)
+					.getActualTypeArguments();
+			JClass jClass = jCodeModel.ref(getJType(
+					typeToken,
+					getRealType(typeToken,
+							((ParameterizedType) type).getRawType()))
+					.fullName());
+			for (Type type2 : parameters) {
+				jClass = jClass.narrow((JClass) getJType(typeToken, type2));
+			}
+			return jClass;
+		} else if (type instanceof GenericArrayType) {
+			GenericArrayType arrayType = (GenericArrayType) type;
+			return getJType(typeToken, arrayType.getGenericComponentType())
+					.array();
+		} else if (type instanceof WildcardType) {
+			return jCodeModel.wildcard();
+		} else if (type instanceof TypeVariable) {
+			return null;
+			// return jCodeModel.ref(getClassHolder(holder).getActualType(
+			// (TypeVariable<?>) type));
+		} else {
+			return jCodeModel.parseType(((Class<?>) type).getName());
+		}
+	}
+
+	private void writeGwtInstance(JDefinedClass dc)
 			throws JClassAlreadyExistsException {
 		propertyUtils.field(JMod.PUBLIC + JMod.STATIC + JMod.FINAL, dc,
 				dc.name(), getjCodeModel().ref(GWT.class)
 						.staticInvoke("create").arg(JExpr.dotclass(dc)));
 	}
 
-	public static boolean isId(Method method, String name, Class<?> clazz) {
-		if (method.isAnnotationPresent(Id.class)) {
-			return true;
-		}
-		Field field = getField(name, clazz);
-		if (field != null && field.isAnnotationPresent(Id.class)) {
-			return true;
-		}
-		return false;
-	}
-
-	public static Field getField(String name, Class<?> clazz) {
-		Field field = null;
-		try {
-			field = clazz.getDeclaredField(name);
-		} catch (SecurityException e) {
-		} catch (NoSuchFieldException e) {
-		}
-		if (field == null && !Object.class.equals(clazz.getSuperclass())) {
-			field = getField(name, clazz.getSuperclass());
-		}
-		return field;
-	}
-
-	private static boolean isExists(String fullname) {
-		try {
-			Class.forName(fullname);
-		} catch (ClassNotFoundException e) {
-			return false;
-		}
-		return true;
-	}
-
-	public static void generatePropertyMethod(JDefinedClass dc, Method method,
-			Class<?> clazz, JDefinedClass dc2) throws ClassNotFoundException,
-			SecurityException, NoSuchFieldException {
-		if (isExists(dc.fullName())) {
-			dc.hide();
-			dc2.hide();
-			return;
-		}
-		String name = method.getName().replace("get", "");
-		name = name.substring(0, 1).toLowerCase() + name.substring(1);
-		if (isId(method, name, clazz)) {
-			JMethod jMethod = dc.method(
-					JMod.PUBLIC,
-					getjCodeModel().ref(ModelKeyProvider.class).narrow(
-							jCodeModelUtil.getJType(clazz)), "key");
-			jMethod.annotate(Path.class).param("value", name);
-		}
-		dc.method(
-				JMod.PUBLIC,
-				getjCodeModel()
-						.ref(ValueProvider.class)
-						.narrow(jCodeModelUtil.getJType(clazz))
-						.narrow(jCodeModelUtil.getJType(clazz,
-								method.getGenericReturnType())), name);
-		JClass columnConfigClass = getjCodeModel()
-				.ref(ColumnConfig.class)
-				.narrow(jCodeModelUtil.getJType(clazz))
-				.narrow(jCodeModelUtil.getJType(clazz,
-						method.getGenericReturnType()));
-		JMethod jMethod = dc2.method(JMod.PUBLIC + JMod.STATIC,
-				columnConfigClass, name);
-		JVar jVar = jMethod.body().decl(
-				columnConfigClass,
-				name,
-				JExpr._new(columnConfigClass)
-						.arg(propertyUtils.staticRef(dc.name()).invoke(name))
-						.arg(JExpr.lit(200)).arg(name));
-		// jMethod.body().invoke(jVar, "setSortable").arg(JExpr.lit(false));
-		// jMethod.body().invoke(jVar, "setMenuDisabled").arg(JExpr.lit(true));
-		jMethod.body()._return(jVar);
-	}
-
-	private static boolean isDoGeneratePropertyClass(Method method) {
-		Class<?> clazz = method.getDeclaringClass();
-		return method.getName().startsWith("get")
-				&& (clazz.isAnnotationPresent(Entity.class) || clazz
-						.isAnnotationPresent(MappedSuperclass.class))
-				&& method.getParameterTypes().length == 0;
-	}
-
-	public static JCodeModel getjCodeModel() {
-		return jCodeModelUtil.getjCodeModel();
-	}
 }

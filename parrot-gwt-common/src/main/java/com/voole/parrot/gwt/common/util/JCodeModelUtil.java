@@ -68,6 +68,7 @@ public class JCodeModelUtil {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public JType getJType(Type type) throws ClassNotFoundException {
 		if (type instanceof ParameterizedType) {
 			Type[] parameters = ((ParameterizedType) type)

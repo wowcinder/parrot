@@ -17,23 +17,23 @@ public interface SubOrganizationProperty
 {
 
 
-    public ValueProvider<SubOrganization, Set<TopOrganizationAuthority>> authorities();
-
-    public ValueProvider<SubOrganization, Organization> parentOrganization();
-
-    public ValueProvider<SubOrganization, Set<Member>> members();
-
-    public ValueProvider<SubOrganization, Set<Role>> roles();
-
-    public ValueProvider<SubOrganization, Set<Leader>> leaders();
-
-    public ValueProvider<SubOrganization, Set<SubOrganization>> subOrganizations();
-
-    public ValueProvider<SubOrganization, String> name();
-
     @com.google.gwt.editor.client.Editor.Path("id")
     public ModelKeyProvider<SubOrganization> key();
 
     public ValueProvider<SubOrganization, Long> id();
+
+    public ValueProvider<SubOrganization, Set<TopOrganizationAuthority>> authorities();
+
+    public ValueProvider<SubOrganization, String> name();
+
+    public ValueProvider<SubOrganization, Set<Role>> roles();
+
+    public ValueProvider<SubOrganization, Set<SubOrganization>> subOrganizations();
+
+    public ValueProvider<SubOrganization, Set<Leader>> leaders();
+
+    public ValueProvider<SubOrganization, Organization> parentOrganization();
+
+    public ValueProvider<SubOrganization, Set<Member>> members();
 
 }

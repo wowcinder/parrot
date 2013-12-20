@@ -13,6 +13,16 @@ import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 public class TopOrganizationAuthorityColumnConfig {
 
 
+    public static ColumnConfig<TopOrganizationAuthority, Long> id() {
+        ColumnConfig<TopOrganizationAuthority, Long> id = new ColumnConfig<TopOrganizationAuthority, Long>(PropertyUtils.TopOrganizationAuthorityProperty.id(), 200, "id");
+        return id;
+    }
+
+    public static ColumnConfig<TopOrganizationAuthority, Authority> authority() {
+        ColumnConfig<TopOrganizationAuthority, Authority> authority = new ColumnConfig<TopOrganizationAuthority, Authority>(PropertyUtils.TopOrganizationAuthorityProperty.authority(), 200, "authority");
+        return authority;
+    }
+
     public static ColumnConfig<TopOrganizationAuthority, TopOrganization> organization() {
         ColumnConfig<TopOrganizationAuthority, TopOrganization> organization = new ColumnConfig<TopOrganizationAuthority, TopOrganization>(PropertyUtils.TopOrganizationAuthorityProperty.organization(), 200, "organization");
         return organization;
@@ -26,16 +36,6 @@ public class TopOrganizationAuthorityColumnConfig {
     public static ColumnConfig<TopOrganizationAuthority, Set<SubOrganization>> subOrganizations() {
         ColumnConfig<TopOrganizationAuthority, Set<SubOrganization>> subOrganizations = new ColumnConfig<TopOrganizationAuthority, Set<SubOrganization>>(PropertyUtils.TopOrganizationAuthorityProperty.subOrganizations(), 200, "subOrganizations");
         return subOrganizations;
-    }
-
-    public static ColumnConfig<TopOrganizationAuthority, Authority> authority() {
-        ColumnConfig<TopOrganizationAuthority, Authority> authority = new ColumnConfig<TopOrganizationAuthority, Authority>(PropertyUtils.TopOrganizationAuthorityProperty.authority(), 200, "authority");
-        return authority;
-    }
-
-    public static ColumnConfig<TopOrganizationAuthority, Long> id() {
-        ColumnConfig<TopOrganizationAuthority, Long> id = new ColumnConfig<TopOrganizationAuthority, Long>(PropertyUtils.TopOrganizationAuthorityProperty.id(), 200, "id");
-        return id;
     }
 
 }

@@ -12,9 +12,9 @@ import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 public class RoleColumnConfig {
 
 
-    public static ColumnConfig<Role, Set<TopOrganizationAuthority>> authorities() {
-        ColumnConfig<Role, Set<TopOrganizationAuthority>> authorities = new ColumnConfig<Role, Set<TopOrganizationAuthority>>(PropertyUtils.RoleProperty.authorities(), 200, "authorities");
-        return authorities;
+    public static ColumnConfig<Role, Long> id() {
+        ColumnConfig<Role, Long> id = new ColumnConfig<Role, Long>(PropertyUtils.RoleProperty.id(), 200, "id");
+        return id;
     }
 
     public static ColumnConfig<Role, Organization> organization() {
@@ -22,9 +22,9 @@ public class RoleColumnConfig {
         return organization;
     }
 
-    public static ColumnConfig<Role, Set<Member>> members() {
-        ColumnConfig<Role, Set<Member>> members = new ColumnConfig<Role, Set<Member>>(PropertyUtils.RoleProperty.members(), 200, "members");
-        return members;
+    public static ColumnConfig<Role, Set<TopOrganizationAuthority>> authorities() {
+        ColumnConfig<Role, Set<TopOrganizationAuthority>> authorities = new ColumnConfig<Role, Set<TopOrganizationAuthority>>(PropertyUtils.RoleProperty.authorities(), 200, "authorities");
+        return authorities;
     }
 
     public static ColumnConfig<Role, String> name() {
@@ -32,9 +32,9 @@ public class RoleColumnConfig {
         return name;
     }
 
-    public static ColumnConfig<Role, Long> id() {
-        ColumnConfig<Role, Long> id = new ColumnConfig<Role, Long>(PropertyUtils.RoleProperty.id(), 200, "id");
-        return id;
+    public static ColumnConfig<Role, Set<Member>> members() {
+        ColumnConfig<Role, Set<Member>> members = new ColumnConfig<Role, Set<Member>>(PropertyUtils.RoleProperty.members(), 200, "members");
+        return members;
     }
 
 }

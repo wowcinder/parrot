@@ -12,15 +12,18 @@ public interface MenuNodeProperty
 {
 
 
+    @com.google.gwt.editor.client.Editor.Path("id")
+    public ModelKeyProvider<MenuNode> key();
+
+    public ValueProvider<MenuNode, Long> id();
+
     public ValueProvider<MenuNode, String> name();
 
     public ValueProvider<MenuNode, MenuGroup> parent();
 
     public ValueProvider<MenuNode, Integer> pos();
 
-    @com.google.gwt.editor.client.Editor.Path("id")
-    public ModelKeyProvider<MenuNode> key();
-
-    public ValueProvider<MenuNode, Long> id();
+    @com.google.gwt.editor.client.Editor.Path("parent.name")
+    public ValueProvider<MenuNode, String> parent_name();
 
 }
