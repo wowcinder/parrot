@@ -53,4 +53,9 @@ public class AuthorityColumnConfig {
         return pos;
     }
 
+    public static ColumnConfig<Authority, String> entrance_name() {
+        ColumnConfig<Authority, String> entrance_name = new ColumnConfig<Authority, String>(PropertyUtils.AuthorityProperty.entrance_name(), 200, "entrance_name");
+        return entrance_name;
+    }
+
 }

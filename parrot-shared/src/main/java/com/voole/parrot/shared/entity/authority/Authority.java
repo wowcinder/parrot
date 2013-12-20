@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
+import com.google.gwt.editor.client.Editor.Path;
 import com.voole.parrot.shared.entity.account.Account;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 
@@ -40,6 +41,7 @@ public class Authority implements Serializable {
 	private static final long serialVersionUID = 4903463335586557358L;
 
 	private String token;
+	@Path("entrance.name")
 	private AuthorityEntrance entrance;
 	private String name;
 	private List<TopOrganizationAuthority> organizationAuthorities;
@@ -87,6 +89,7 @@ public class Authority implements Serializable {
 	public Set<Authority> getReDependencies() {
 		return reDependencies;
 	}
+
 	@ManyToMany
 	@JoinTable(name = "account_authority", joinColumns = { @JoinColumn(name = "accounts") }, inverseJoinColumns = { @JoinColumn(name = "`authorities`") })
 	public Set<Account> getAccounts() {

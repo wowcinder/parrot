@@ -35,4 +35,7 @@ public interface AuthorityProperty
 
     public ValueProvider<Authority, Integer> pos();
 
+    @com.google.gwt.editor.client.Editor.Path("entrance.name")
+    public ValueProvider<Authority, String> entrance_name();
+
 }

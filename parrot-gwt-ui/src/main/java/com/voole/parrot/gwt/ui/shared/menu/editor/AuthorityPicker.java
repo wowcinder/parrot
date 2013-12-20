@@ -28,8 +28,7 @@ public class AuthorityPicker extends FixedWindow {
 
 	public AuthorityPicker() {
 		List<ColumnConfig<Authority, ?>> columns = new ArrayList<ColumnConfig<Authority, ?>>();
-		columns.add(new ColumnConfig<Authority, String>(
-				PropertyUtils.AuthorityProperty.entranceName()));
+		columns.add(AuthorityColumnConfig.entrance_name());
 		columns.add(AuthorityColumnConfig.name());
 
 		GridBuilder<Authority> gb = new GridBuilder<Authority>(

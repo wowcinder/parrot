@@ -125,9 +125,7 @@ public class ParrotTestWeb implements EntryPoint {
 		mg.setCell(cell);
 		columns.add(mg);
 
-		ColumnConfig<Menu, String> parentName = new ColumnConfig<Menu, String>(
-				PropertyUtils.MenuProperty.parentName(), 200, "parentName");
-		columns.add(parentName);
+		columns.add(MenuColumnConfig.parent_name());
 		gb.addColumns(columns);
 		// gb.enableMultiSelect();
 		// gb.disableMultiSelect();
