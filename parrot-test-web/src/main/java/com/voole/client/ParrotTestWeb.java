@@ -1,19 +1,25 @@
 package com.voole.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.cell.client.Cell;
+import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.text.shared.AbstractSafeHtmlRenderer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.cell.core.client.SimpleSafeHtmlCell;
+import com.sencha.gxt.cell.core.client.form.DateCell;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
+import com.sencha.gxt.widget.core.client.form.DateField;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
@@ -22,7 +28,7 @@ import com.voole.parrot.gwt.common.shared.core.grid.GridBuilder.RpcListProxyLoad
 import com.voole.parrot.gwt.common.shared.gridcolumn.MenuColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
-import com.voole.parrot.gwt.ui.shared.menu.MenuView;
+import com.voole.parrot.gwt.ui.shared.menu.LeftMenuView;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
@@ -38,18 +44,41 @@ public class ParrotTestWeb implements EntryPoint {
 		Scheduler.get().scheduleDeferred(new ScheduledCommand() {
 			@Override
 			public void execute() {
-				createMenus();
+				RootPanel.get().add(new DateField(new DateCell() {
+					@Override
+					protected void onNavigationKey(
+							com.google.gwt.cell.client.Cell.Context context,
+							Element parent, Date value, NativeEvent event,
+							ValueUpdater<Date> valueUpdater) {
+						System.out.println(event.getKeyCode());
+						super.onNavigationKey(context, parent, value, event,
+								valueUpdater);
+					}
+				}));
+				// showTestField();
+				// createMenus();
 				// showGrid();
 
 				// getMenus();
-				showMenuView();
+				// showMenuView();
 			}
 		});
 
 	}
 
+	public static void main(String[] args) {
+	}
+
+	/**
+	 * 
+	 */
+	protected void showTestField() {
+		TestBeanEditor e = new TestBeanEditor();
+		RootPanel.get().add(e);
+	}
+
 	protected void showMenuView() {
-		MenuView mv = new MenuView();
+		LeftMenuView mv = new LeftMenuView();
 		RootPanel.get().add(mv);
 	}
 

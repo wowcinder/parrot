@@ -14,6 +14,9 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.text.shared.SafeHtmlRenderer;
 import com.google.gwt.text.shared.SimpleSafeHtmlRenderer;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Widget;
 import com.sencha.gxt.cell.core.client.SimpleSafeHtmlCell;
 import com.sencha.gxt.core.client.Style.SelectionMode;
 import com.sencha.gxt.core.client.ValueProvider;
@@ -22,6 +25,7 @@ import com.sencha.gxt.widget.core.client.tree.Tree;
 import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
+import com.voole.parrot.gwt.ui.shared.event.MenuClickEvent;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
@@ -30,9 +34,11 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
  * @author XuehuiHe
  * @date 2013年8月9日
  */
-public class MenuView extends Tree<MenuNode, MenuNode> {
+public class LeftMenuView extends Tree<MenuNode, MenuNode> {
 
-	public MenuView() {
+	private Widget menuClickRecipient;
+
+	public LeftMenuView() {
 		super(new TreeStore<MenuNode>(PropertyUtils.MenuNodeProperty.key()),
 				new ValueProvider<MenuNode, MenuNode>() {
 
@@ -51,7 +57,6 @@ public class MenuView extends Tree<MenuNode, MenuNode> {
 						return "name";
 					}
 				});
-
 		SimpleSafeHtmlCell<MenuNode> cell = new SimpleSafeHtmlCell<MenuNode>(
 				new SafeHtmlRenderer<MenuNode>() {
 
@@ -77,22 +82,25 @@ public class MenuView extends Tree<MenuNode, MenuNode> {
 						valueUpdater);
 				if ("click".equals(event.getType())) {
 					if (value instanceof Menu) {
-						// getEtlView().fireEvent(
-						// new MenuClickEvent(((Menu) value).getToken()));
+						if (getMenuClickRecipient() != null) {
+							getMenuClickRecipient().fireEvent(
+									new MenuClickEvent(((Menu) value)
+											.getToken()));
+						}
 					} else if (value instanceof LogoutMenu) {
-						// RpcServiceUtils.OpenAuthorizeRpcService
-						// .logout(new AsyncCallback<Void>() {
-						//
-						// @Override
-						// public void onSuccess(Void result) {
-						// Window.Location.reload();
-						// }
-						//
-						// @Override
-						// public void onFailure(Throwable caught) {
-						//
-						// }
-						// });
+						RpcServiceUtils.OpenAuthorizeRpcService
+								.logout(new AsyncCallback<Void>() {
+
+									@Override
+									public void onSuccess(Void result) {
+										Window.Location.reload();
+									}
+
+									@Override
+									public void onFailure(Throwable caught) {
+
+									}
+								});
 					}
 				}
 			}
@@ -181,6 +189,14 @@ public class MenuView extends Tree<MenuNode, MenuNode> {
 			setName("登出");
 			setId(-1L);
 		}
+	}
+
+	public Widget getMenuClickRecipient() {
+		return menuClickRecipient;
+	}
+
+	public void setMenuClickRecipient(Widget menuClickRecipient) {
+		this.menuClickRecipient = menuClickRecipient;
 	}
 
 }

@@ -26,6 +26,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<parrot.version>1.0-SNAPSHOT</parrot.version>
+		<guava.version>15.0</guava.version>
 	</properties>
 
 	<repositories>
@@ -44,6 +45,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- guava -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+			<!-- guava -->
 			<!-- gwt -->
 			<dependency>
 				<groupId>com.google.gwt</groupId>

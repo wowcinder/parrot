@@ -85,8 +85,14 @@ public class JCodeModelUtil {
 			return jCodeModel.wildcard();
 			// return jCodeModel.ref(Object.class);
 		} else if (type instanceof TypeVariable) {
-			// TypeVariable tv = (TypeVariable) type;
-//			return jCodeModel.ref(CTypeLogModelColumn.class);
+			System.out.println(type);
+			TypeVariable tv = (TypeVariable) type;
+			System.out.println(tv.getClass().getName());
+			Type type2 = tv.getBounds()[0];
+			System.out.println(type2);
+			System.out
+					.println(tv.getGenericDeclaration().getTypeParameters()[0]);
+			// return jCodeModel.ref(CTypeLogModelColumn.class);
 			return null;
 		} else {
 			return jCodeModel.parseType(((Class<?>) type).getName());
