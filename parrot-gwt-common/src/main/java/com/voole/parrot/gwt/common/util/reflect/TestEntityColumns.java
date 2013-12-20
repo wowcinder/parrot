@@ -1,4 +1,4 @@
-package com.voole.parrot.gwt.common.util;
+package com.voole.parrot.gwt.common.util.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -10,8 +10,6 @@ import javax.persistence.MappedSuperclass;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gwt.editor.client.Editor.Path;
-import com.voole.parrot.gwt.common.util.reflect.EntityColumns;
-import com.voole.parrot.gwt.common.util.reflect.MethodFinder;
 
 public class TestEntityColumns {
 	@MappedSuperclass

@@ -36,7 +36,7 @@ public class BaseJavaSourceGenerator {
 	}
 
 	private File getMainJavaPath() {
-		String path = JCodeModelUtil.class.getClassLoader().getResource("")
+		String path = BaseJavaSourceGenerator.class.getClassLoader().getResource("")
 				.getFile();
 		File file = new File(path);
 		file = file.getParentFile().getParentFile();
