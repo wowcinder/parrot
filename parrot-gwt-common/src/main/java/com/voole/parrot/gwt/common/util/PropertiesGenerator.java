@@ -4,11 +4,6 @@
 package com.voole.parrot.gwt.common.util;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.lang.reflect.WildcardType;
 import java.util.Map.Entry;
 
 import com.google.common.reflect.TypeToken;
@@ -137,39 +132,6 @@ public class PropertiesGenerator extends BaseJavaSourceGenerator {
 		// jMethod.body().invoke(jVar,
 		// "setMenuDisabled").arg(JExpr.lit(true));
 		jMethod.body()._return(jVar);
-	}
-
-	protected <T> Type getRealType(TypeToken<T> typeToken, Type type) {
-		return typeToken.resolveType(type).getRawType();
-	}
-
-	protected <T> JType getJType(TypeToken<T> typeToken, Type type)
-			throws ClassNotFoundException {
-		if (type instanceof ParameterizedType) {
-			Type[] parameters = ((ParameterizedType) type)
-					.getActualTypeArguments();
-			JClass jClass = jCodeModel.ref(getJType(
-					typeToken,
-					getRealType(typeToken,
-							((ParameterizedType) type).getRawType()))
-					.fullName());
-			for (Type type2 : parameters) {
-				jClass = jClass.narrow((JClass) getJType(typeToken, type2));
-			}
-			return jClass;
-		} else if (type instanceof GenericArrayType) {
-			GenericArrayType arrayType = (GenericArrayType) type;
-			return getJType(typeToken, arrayType.getGenericComponentType())
-					.array();
-		} else if (type instanceof WildcardType) {
-			return jCodeModel.wildcard();
-		} else if (type instanceof TypeVariable) {
-			return null;
-			// return jCodeModel.ref(getClassHolder(holder).getActualType(
-			// (TypeVariable<?>) type));
-		} else {
-			return jCodeModel.parseType(((Class<?>) type).getName());
-		}
 	}
 
 	private void writeGwtInstance(JDefinedClass dc)
