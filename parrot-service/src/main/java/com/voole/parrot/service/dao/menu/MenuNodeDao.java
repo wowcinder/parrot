@@ -4,6 +4,7 @@
 package com.voole.parrot.service.dao.menu;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -53,6 +54,26 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		return mg;
 	}
 
+	protected MenuGroup createRoot() {
+		MenuGroup mg = new MenuGroup();
+		mg.setName("root");
+		mg.setNodes(new ArrayList<MenuNode>());
+		getSimpleDao().<MenuGroup> persist(mg);
+		return mg;
+	}
+
+	@Override
+	public MenuGroup findRootMenu() {
+		MenuGroup mg = (MenuGroup) getCurrSession()
+				.createCriteria(MenuGroup.class)
+				.add(Restrictions.eq("name", "root"))
+				.add(Restrictions.isNull("parent")).uniqueResult();
+		if (mg == null) {
+			mg = createRoot();
+		}
+		return mg;
+	}
+
 	protected MenuGroup findRoot() {
 		MenuGroup mg = (MenuGroup) getCurrSession()
 				.createCriteria(MenuGroup.class)
@@ -66,4 +87,26 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		return mg;
 	}
 
+	@Override
+	public List<MenuNode> move(MenuNode p, List<MenuNode> items, int index) {
+		List<MenuNode> items2 = new ArrayList<MenuNode>();
+		for (MenuNode node : items) {
+			node = refresh(node);
+			node.setParent(null);
+			items2.add(node);
+		}
+		getCurrSession().flush();
+		MenuGroup mg = null;
+		if (p == null) {
+			mg = findRoot();
+		} else {
+			mg = (MenuGroup) refresh(p);
+		}
+		mg.getNodes().addAll(index, items2);
+		for (MenuNode node : items2) {
+			node.setParent(mg);
+		}
+		getSimpleDao().<MenuGroup> persist(mg);
+		return items;
+	}
 }

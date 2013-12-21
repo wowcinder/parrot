@@ -7,6 +7,7 @@ import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
+import com.voole.parrot.shared.entity.menu.MenuNode;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
@@ -19,6 +20,10 @@ public interface MenuNodeRpcServiceAsync {
 
     public void list(GwtListLoadConfigBean<?> arg0, AsyncCallback<ListLoadResult<Menu>> callback);
 
+    public void delete(MenuGroup arg0, AsyncCallback<Void> callback);
+
+    public void delete(Menu arg0, AsyncCallback<Void> callback);
+
     public void create(Menu arg0, AsyncCallback<Menu> callback);
 
     public void create(MenuGroup arg0, AsyncCallback<MenuGroup> callback);
@@ -26,5 +31,7 @@ public interface MenuNodeRpcServiceAsync {
     public void update(Menu arg0, AsyncCallback<Menu> callback);
 
     public void update(MenuGroup arg0, AsyncCallback<MenuGroup> callback);
+
+    public void move(MenuNode arg0, List<MenuNode> arg1, int arg2, AsyncCallback<List<MenuNode>> callback);
 
 }

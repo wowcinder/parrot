@@ -3,7 +3,10 @@
  */
 package com.voole.parrot.service.dao.menu;
 
+import java.util.List;
+
 import com.voole.parrot.service.dao.IEntityDao;
+import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
 
 /**
@@ -14,4 +17,8 @@ public interface IMenuNodeDao<N extends MenuNode> extends IEntityDao<N> {
 	public N save(N t);
 
 	public N update(N t);
+
+	List<MenuNode> move(MenuNode p, List<MenuNode> items, int index);
+	
+	MenuGroup findRootMenu();
 }

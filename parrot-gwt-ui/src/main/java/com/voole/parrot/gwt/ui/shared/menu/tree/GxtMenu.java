@@ -5,6 +5,7 @@ package com.voole.parrot.gwt.ui.shared.menu.tree;
 
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.sencha.gxt.widget.core.client.event.BeforeShowEvent;
 import com.sencha.gxt.widget.core.client.event.BeforeShowEvent.BeforeShowHandler;
 import com.sencha.gxt.widget.core.client.event.HideEvent;
@@ -13,7 +14,9 @@ import com.sencha.gxt.widget.core.client.menu.Item;
 import com.sencha.gxt.widget.core.client.menu.MenuItem;
 import com.sencha.gxt.widget.core.client.menu.SeparatorMenuItem;
 import com.voole.parrot.gwt.common.shared.GwtCallBack;
+import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
 import com.voole.parrot.gwt.common.shared.core.event.EditEvent;
+import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.gwt.ui.shared.menu.editor.MenuEditor;
 import com.voole.parrot.gwt.ui.shared.menu.editor.MenuGroupEditor;
 import com.voole.parrot.shared.entity.menu.Menu;
@@ -127,19 +130,24 @@ public class GxtMenu extends com.sencha.gxt.widget.core.client.menu.Menu {
 			public void onSelection(SelectionEvent<Item> event) {
 				final MenuNode node = tree.getSelectionModel()
 						.getSelectedItem();
-				// RpcServiceUtils.MenuRpcService.deleteMenuNode(node.getId(),
-				// new RpcAsyncCallback<Void>() {
-				// @Override
-				// public void _onSuccess(Void t) {
-				// tree.getStore().remove(node);
-				// }
-				//
-				// @Override
-				// public void _onFailure(Throwable caught) {
-				// super._onFailure(caught);
-				// tree.reset();
-				// }
-				// });
+				AsyncCallback<Void> callback = new RpcAsyncCallback<Void>() {
+					@Override
+					protected void _onSuccess(Void result) {
+						tree.getStore().remove(node);
+					}
+
+					@Override
+					protected void _onFailure(Throwable caught) {
+						tree.reset();
+					}
+				};
+				if (node instanceof Menu) {
+					RpcServiceUtils.MenuNodeRpcService.delete((Menu) node,
+							callback);
+				} else {
+					RpcServiceUtils.MenuNodeRpcService.delete((MenuGroup) node,
+							callback);
+				}
 			}
 		});
 	}
@@ -152,17 +160,13 @@ public class GxtMenu extends com.sencha.gxt.widget.core.client.menu.Menu {
 						.getSelectionModel().getSelectedItem();
 				MenuGroup mg = new MenuGroup();
 				mg.setParent(selectItem);
-				MenuNode prev = tree.getStore().getLastChild(selectItem);
-				// mg.setPrev(prev);
-				//
-				// menuGroupEditor.fireEditEvent(new EditEvent<MenuGroup>(mg,
-				// new GwtCallBack<MenuGroup>() {
-				//
-				// @Override
-				// protected void _call(MenuGroup t) {
-				// tree.getStore().add(selectItem, t);
-				// }
-				// }));
+				menuGroupEditor.fireEditEvent(new EditEvent<MenuGroup>(mg,
+						new GwtCallBack<MenuGroup>() {
+							@Override
+							protected void _succeed() {
+								tree.getStore().add(selectItem, getResult());
+							}
+						}));
 			}
 		});
 	}
@@ -176,16 +180,14 @@ public class GxtMenu extends com.sencha.gxt.widget.core.client.menu.Menu {
 
 				Menu menu = new Menu();
 				menu.setParent(selectItem);
-				MenuNode prev = tree.getStore().getLastChild(selectItem);
-				// menu.setPrev(prev);
-				//
-				// menuEditor.fireEditEvent(new EditEvent<Menu>(menu,
-				// new GwtCallBack<Menu>() {
-				// @Override
-				// protected void _call(Menu t) {
-				// tree.getStore().add(selectItem, t);
-				// }
-				// }));
+
+				menuEditor.fireEditEvent(new EditEvent<Menu>(menu,
+						new GwtCallBack<Menu>() {
+							@Override
+							protected void _succeed() {
+								tree.getStore().add(selectItem, getResult());
+							}
+						}));
 			}
 		});
 	}
@@ -196,9 +198,10 @@ public class GxtMenu extends com.sencha.gxt.widget.core.client.menu.Menu {
 			public void onSelection(SelectionEvent<Item> event) {
 				final MenuNode selectItem = tree.getSelectionModel()
 						.getSelectedItem();
+				final Integer index = tree.getStore().indexOf(selectItem) + 1;
 				MenuGroup mg = new MenuGroup();
 				mg.setParent(selectItem.getParent());
-				// mg.setPrev(selectItem);
+				mg.setPos(index);
 
 				menuGroupEditor.fireEditEvent(new EditEvent<MenuGroup>(mg,
 						new GwtCallBack<MenuGroup>() {
@@ -210,7 +213,7 @@ public class GxtMenu extends com.sencha.gxt.widget.core.client.menu.Menu {
 									parent = (MenuGroup) tree.getStore()
 											.findModel(selectItem.getParent());
 								}
-								int index = tree.getStore().indexOf(selectItem) + 1;
+
 								if (parent == null) {
 									tree.getStore().insert(index, t);
 								} else {
@@ -230,7 +233,8 @@ public class GxtMenu extends com.sencha.gxt.widget.core.client.menu.Menu {
 						.getSelectedItem();
 				Menu menu = new Menu();
 				menu.setParent(selectItem.getParent());
-				// menu.setPrev(selectItem);
+				final Integer index = tree.getStore().indexOf(selectItem) + 1;
+				menu.setPos(index);
 				menuEditor.fireEvent(new EditEvent<Menu>(menu,
 						new GwtCallBack<Menu>() {
 
@@ -239,7 +243,6 @@ public class GxtMenu extends com.sencha.gxt.widget.core.client.menu.Menu {
 								Menu t = getResult();
 								MenuGroup parent = (MenuGroup) tree.getStore()
 										.findModel(selectItem.getParent());
-								int index = tree.getStore().indexOf(selectItem) + 1;
 								if (parent == null) {
 									tree.getStore().insert(index, t);
 								} else {

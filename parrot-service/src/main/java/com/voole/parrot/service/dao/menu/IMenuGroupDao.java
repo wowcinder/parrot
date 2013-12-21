@@ -10,5 +10,5 @@ import com.voole.parrot.shared.entity.menu.MenuGroup;
  * @date 2013年12月19日
  */
 public interface IMenuGroupDao extends IMenuNodeDao<MenuGroup> {
-	MenuGroup findRootMenu();
+
 }

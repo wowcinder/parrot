@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.engine.SessionImplementor;
 
 import com.sencha.gxt.data.shared.SortDir;
 import com.sencha.gxt.data.shared.SortInfoBean;
@@ -43,9 +44,12 @@ public abstract class BaseDao implements IBaseDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E extends Serializable> E refresh(E e, boolean force) {
-		if (force || !getCurrSession().contains(e)) {
-			getCurrSession().refresh(e);
-			return (E) getCurrSession().merge(e);
+		Session session = getCurrSession();
+		if (force || !session.contains(e)) {
+			Serializable id = session.getSessionFactory()
+					.getClassMetadata(e.getClass()).getIdentifier(e, (SessionImplementor)session);
+			e = (E) session.load(e.getClass(), id);
+			return e;
 		}
 		return e;
 	}

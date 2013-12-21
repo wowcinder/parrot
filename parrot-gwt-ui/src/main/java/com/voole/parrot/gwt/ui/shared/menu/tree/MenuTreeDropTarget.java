@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sencha.gxt.data.shared.TreeStore;
+import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
 import com.voole.parrot.gwt.common.shared.core.tree.FixedTreeDropTarget;
+import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
 
@@ -19,6 +21,7 @@ public class MenuTreeDropTarget extends FixedTreeDropTarget<MenuNode> {
 
 	public MenuTreeDropTarget(MenuTree tree) {
 		super(tree);
+		setAllowDropOnLeaf(true);
 	}
 
 	protected void appendModel(final MenuNode p, List<?> items, final int index) {
@@ -30,39 +33,23 @@ public class MenuTreeDropTarget extends FixedTreeDropTarget<MenuNode> {
 		for (TreeStore.TreeNode<MenuNode> treeNode : nodes) {
 			menuNodes.add(treeNode.getData());
 		}
-		MenuNode prev = null;
-		if (index > 0) {
-			if (p == null) {
-				prev = getWidget().getStore().getChild(index - 1);
-			} else {
-				prev = getWidget().getStore().getChildren(p).get(index - 1);
-			}
-		}
-		//
-		// Integer parentId = null;
-		// Integer prevId = null;
-		// if (p != null) {
-		// parentId = p.getId();
-		// }
-		// if (prev != null) {
-		// prevId = prev.getId();
-		// }
-		// RpcServiceUtils.MenuRpcService.moveMenuNode(parentId, prevId,
-		// menuNodes, new RpcAsyncCallback<List<MenuNode>>() {
-		// @Override
-		// public void _onSuccess(List<MenuNode> t) {
-		// TreeStore<MenuNode> store = getWidget().getStore();
-		// update(p, nodes, index);
-		// for (MenuNode menuNode : t) {
-		// store.update(menuNode);
-		// }
-		// }
-		//
-		// public void _onFailure(Throwable caught) {
-		// super._onFailure(caught);
-		// ((MenuTree) getWidget()).reset();
-		// }
-		// });
+		RpcServiceUtils.MenuNodeRpcService.move(p, menuNodes, index,
+				new RpcAsyncCallback<List<MenuNode>>() {
+
+					@Override
+					protected void _onSuccess(List<MenuNode> result) {
+						TreeStore<MenuNode> store = getWidget().getStore();
+						update(p, nodes, index);
+						for (MenuNode menuNode : result) {
+							store.update(menuNode);
+						}
+					}
+
+					public void _onFailure(Throwable caught) {
+						super._onFailure(caught);
+						((MenuTree) getWidget()).reset();
+					}
+				});
 	}
 
 	protected void update(MenuNode p, List<TreeStore.TreeNode<MenuNode>> nodes,
