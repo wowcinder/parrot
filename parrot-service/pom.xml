@@ -18,6 +18,10 @@
 			<artifactId>parrot-common</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
 		<!-- gwt -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>

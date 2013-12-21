@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.voole.parrot.service.dao.ISimpleDao;
 import com.voole.parrot.service.dao.account.IAccountDao;
-import com.voole.parrot.service.dao.authority.IAuthorityEntranceDao;
 import com.voole.parrot.shared.entity.account.Account;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -52,7 +52,7 @@ public class TestAuthorizeService {
 		@Autowired
 		private IAccountDao accountDao;
 		@Autowired
-		private IAuthorityEntranceDao authorityEntranceDao;
+		private ISimpleDao authorityEntranceDao;
 
 		@Transactional
 		public void initData() {

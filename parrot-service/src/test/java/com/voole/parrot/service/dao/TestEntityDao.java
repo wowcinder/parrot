@@ -17,6 +17,8 @@ public class TestEntityDao {
 	private EntityDaoTest t;
 	@Autowired
 	private EntityDaoTest2 t2;
+	@Autowired
+	private ISimpleDao simpleDao;
 
 	@Repository
 	public static class EntityDaoTest extends EntityDao<String> {
@@ -31,13 +33,14 @@ public class TestEntityDao {
 	@Test
 	@Transactional
 	public void test() {
-		Assert.assertEquals(String.class, t.getInnerClass());
+		Assert.assertEquals(String.class, t.getRawType());
 		Assert.assertNotNull(t.getCurrSession());
 
-		Assert.assertEquals(Double.class, t2.getInnerClass());
+		Assert.assertEquals(Double.class, t2.getRawType());
 		Assert.assertNotNull(t2.getCurrSession());
 
-		Assert.assertEquals(t2.getCurrSession(), t2.getCurrSession());
+		Assert.assertEquals(t2.getCurrSession(), t.getCurrSession());
+		Assert.assertEquals(t2.getCurrSession(), simpleDao.getCurrSession());
 	}
 
 }

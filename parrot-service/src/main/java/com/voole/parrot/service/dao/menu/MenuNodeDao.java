@@ -19,12 +19,15 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
 @Repository
 public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		IMenuNodeDao<N> {
-	
+
 	@Override
 	public N save(N t) {
 		MenuGroup mg = t.getParent();
 		if (mg != null) {
-			refresh(mg);
+			mg = refresh(mg);
+			for (MenuNode node : mg.getNodes()) {
+				node.setParent(mg);
+			}
 		} else {
 			mg = findRoot();
 			t.setParent(mg);
@@ -34,7 +37,7 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		} else {
 			mg.getNodes().add(t);
 		}
-		persist(mg);
+		getSimpleDao().<MenuGroup> persist(mg);
 		return t;
 	}
 

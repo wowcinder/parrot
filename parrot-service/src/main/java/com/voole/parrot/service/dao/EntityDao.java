@@ -1,202 +1,98 @@
 package com.voole.parrot.service.dao;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-
-import com.sencha.gxt.data.shared.SortDir;
-import com.sencha.gxt.data.shared.SortInfoBean;
-import com.sencha.gxt.data.shared.loader.ListLoadConfigBean;
+import com.google.common.reflect.TypeToken;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
-import com.sencha.gxt.data.shared.loader.ListLoadResultBean;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
-import com.sencha.gxt.data.shared.loader.PagingLoadResultBean;
+import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 import com.voole.parrot.shared.grid.QueryCondition;
 
-public abstract class EntityDao<T extends Serializable> implements
-		IEntityDao<T> {
-	private final Class<T> innerClass;
-	@Resource(name = "parrotSf")
-	private SessionFactory sessionFactory;
+public class EntityDao<E extends Serializable> extends BaseDao implements
+		IEntityDao<E> {
 
-	@SuppressWarnings("unchecked")
-	public EntityDao() {
-		ParameterizedType pt = (ParameterizedType) this.getClass()
-				.getGenericSuperclass();
-		Type type = pt.getActualTypeArguments()[0];
-		if (type instanceof TypeVariable) {
-			TypeVariable<?> typeVariable = (TypeVariable<?>) type;
-			innerClass = (Class<T>) typeVariable.getBounds()[0];
-		} else {
-			innerClass = (Class<T>) pt.getActualTypeArguments()[0];
-		}
+	@SuppressWarnings("serial")
+	protected TypeToken<E> typeToken = new TypeToken<E>(getClass()) {
+	};
+
+	@Autowired
+	private ISimpleDao simpleDao;
+
+	@Override
+	public E persist(E e) {
+		return simpleDao.persist(e);
 	}
 
-	public void flush() {
-		getCurrSession().flush();
-		getCurrSession().clear();
+	@Override
+	public <C extends Collection<E>> C persist(C list) {
+		return simpleDao.persist(list);
 	}
 
-	public <P> void refresh(P p) {
-		getCurrSession().refresh(p);
+	@Override
+	public void delete(E e) {
+		simpleDao.delete(e);
 	}
 
-	public Session getCurrSession() {
-		return getSessionFactory().getCurrentSession();
-	}
-
-	public Class<T> getInnerClass() {
-		return innerClass;
-	}
-
-	public <C extends Serializable> C persist(C t) {
-		getCurrSession().persist(t);
-		return t;
-	}
-
-	public <C extends Serializable, P extends Collection<C>> P persist(P p) {
-		for (C t : p) {
-			persist(t);
-		}
-		return p;
-	}
-
-	public <C extends Serializable> void delete(C t) {
-		getCurrSession().refresh(t);
-		getCurrSession().delete(t);
-	}
-
-	public <C extends Serializable> void delete(Collection<C> p) {
-		for (C t : p) {
-			delete(t);
-		}
+	@Override
+	public void delete(Collection<E> list) {
+		simpleDao.delete(list);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> get() {
-		return (List<T>) getCurrSession().createCriteria(getInnerClass())
-				.list();
+	@Override
+	public List<E> get() {
+		return simpleDao.get((Class<E>) typeToken.getRawType());
+	}
 
+	@Override
+	public E get(E e) {
+		return simpleDao.get(e);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <Condition extends QueryCondition> ListLoadResult<T> list(
+	@Override
+	public <Condition extends QueryCondition> ListLoadResult<E> list(
+			GwtListLoadConfigBean<Condition> condition,
+			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
+		return simpleDao.list(condition, (Class<E>) typeToken.getRawType(),
+				conditionAnalyzer);
+	}
+
+	@Override
+	public <Condition extends QueryCondition> ListLoadResult<E> list(
 			GwtListLoadConfigBean<Condition> condition) {
-		Criteria criteria = getCurrSession().createCriteria(getInnerClass());
-		addOrder(criteria, condition);
-		criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
-		return new ListLoadResultBean<T>((List<T>) criteria.list());
+		return list(condition, new EmptyQueryConditionAnalyzer<Condition>());
 	}
 
 	@SuppressWarnings("unchecked")
-	public <Condition extends QueryCondition> PagingLoadResult<T> paging(
+	@Override
+	public <Condition extends QueryCondition> PagingLoadResult<E> paging(
+			GwtPagingLoadConfigBean<Condition> condition,
+			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
+		return simpleDao.paging(condition, (Class<E>) typeToken.getRawType(),
+				conditionAnalyzer);
+	}
+
+	@Override
+	public <Condition extends QueryCondition> PagingLoadResult<E> paging(
 			GwtPagingLoadConfigBean<Condition> condition) {
-		Criteria criteria = getCurrSession().createCriteria(getInnerClass());
-		addOrder(criteria, condition);
-		criteria.setFirstResult(condition.getOffset());
-		criteria.setMaxResults(condition.getLimit());
-		criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
-		List<T> list = (List<T>) criteria.list();
-
-		long rowCount = getTotalLength(criteria);
-		PagingLoadResultBean<T> result = new PagingLoadResultBean<T>();
-		result.setOffset(condition.getOffset());
-		result.setTotalLength((int) rowCount);
-		result.setData(list);
-		return result;
+		return paging(condition, new EmptyQueryConditionAnalyzer<Condition>());
 	}
 
-	private int getTotalLength(Criteria criteria) {
-		long rowCount = (Long) criteria.setProjection(Projections.rowCount())
-				.uniqueResult();
-		criteria.setProjection(null);
-		return (int) rowCount;
+	@Override
+	public ISimpleDao getSimpleDao() {
+		return simpleDao;
 	}
 
-	protected void addOrder(Criteria criteria, ListLoadConfigBean condition) {
-		List<SortInfoBean> sortInfos = condition.getSortInfo();
-		createAlias(criteria, sortInfos);
-		for (SortInfoBean sortInfo : sortInfos) {
-			criteria.addOrder(getOrder(sortInfo));
-		}
+	@SuppressWarnings("unchecked")
+	@Override
+	public Class<E> getRawType() {
+		return (Class<E>) typeToken.getRawType();
 	}
-
-	protected void createAlias(Criteria criteria, List<SortInfoBean> sortInfos) {
-		Set<String> aliases = new HashSet<String>();
-		for (SortInfoBean sortInfo : sortInfos) {
-			String propertyName = sortInfo.getSortField();
-			List<String> paths = getAliases(propertyName);
-			for (String path : paths) {
-				if (!aliases.contains(path)) {
-					criteria.createAlias(path, path, Criteria.LEFT_JOIN);
-					aliases.add(path);
-				}
-
-			}
-		}
-	}
-
-	protected List<String> getAliases(String path) {
-		List<String> aliases = new ArrayList<String>();
-		if (path.indexOf(".") != -1) {
-			String[] paths = path.split("\\.");
-			int len = paths.length;
-			String prev = null;
-			for (int i = 0; i < len - 1; i++) {
-				String itemPath = paths[i];
-				if (i == 0) {
-					aliases.add(itemPath);
-				} else {
-					aliases.add(prev + "." + itemPath);
-				}
-				prev = itemPath;
-			}
-		}
-		return aliases;
-	}
-
-	protected Order getOrder(SortInfoBean sortInfo) {
-		String propertyName = sortInfo.getSortField();
-		if (isAsc(sortInfo.getSortDir())) {
-			return Order.asc(propertyName);
-		} else {
-			return Order.desc(propertyName);
-		}
-	}
-
-	protected boolean isAsc(SortDir sortDir) {
-		if (sortDir != null) {
-			if (sortDir == SortDir.ASC) {
-				return true;
-			}
-			return false;
-		}
-		return true;
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 }
