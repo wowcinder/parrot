@@ -9,6 +9,6 @@ public interface IAccountDao extends IEntityDao<Account> {
 
 	public Account update(Account t);
 
-	public Account save(Account t);
+	public Account create(Account t);
 
 }

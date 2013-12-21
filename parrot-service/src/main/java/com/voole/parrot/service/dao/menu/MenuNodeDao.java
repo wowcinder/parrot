@@ -22,6 +22,24 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 
 	@Override
 	public N save(N t) {
+		MenuGroup mg = findParent(t);
+		if (t.getPos() != null && t.getPos() < mg.getNodes().size()) {
+			mg.getNodes().add(t.getPos(), t);
+		} else {
+			mg.getNodes().add(t);
+		}
+		getSimpleDao().<MenuGroup> persist(mg);
+		return t;
+	}
+
+	@Override
+	public N update(N t) {
+		MenuGroup mg = findParent(t);
+		getSimpleDao().<MenuGroup> persist(mg);
+		return t;
+	}
+
+	protected MenuGroup findParent(N t) {
 		MenuGroup mg = t.getParent();
 		if (mg != null) {
 			mg = refresh(mg);
@@ -32,13 +50,7 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 			mg = findRoot();
 			t.setParent(mg);
 		}
-		if (t.getPos() != null && t.getPos() < mg.getNodes().size()) {
-			mg.getNodes().add(t.getPos(), t);
-		} else {
-			mg.getNodes().add(t);
-		}
-		getSimpleDao().<MenuGroup> persist(mg);
-		return t;
+		return mg;
 	}
 
 	protected MenuGroup findRoot() {
@@ -53,4 +65,5 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		}
 		return mg;
 	}
+
 }

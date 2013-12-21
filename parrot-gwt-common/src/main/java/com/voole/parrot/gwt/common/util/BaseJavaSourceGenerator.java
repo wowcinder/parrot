@@ -36,8 +36,8 @@ public class BaseJavaSourceGenerator {
 	}
 
 	private File getMainJavaPath() {
-		String path = BaseJavaSourceGenerator.class.getClassLoader().getResource("")
-				.getFile();
+		String path = BaseJavaSourceGenerator.class.getClassLoader()
+				.getResource("").getFile();
 		File file = new File(path);
 		file = file.getParentFile().getParentFile();
 		path = file.getAbsolutePath() + File.separator + "src" + File.separator
@@ -71,9 +71,13 @@ public class BaseJavaSourceGenerator {
 		} else if (type instanceof WildcardType) {
 			return jCodeModel.wildcard();
 		} else if (type instanceof TypeVariable) {
-			return jCodeModel.ref(getJType(typeToken, getRealType(typeToken, type))
-					.fullName());
-//			return null;
+			// TypeVariable<?> typeVariable = (TypeVariable<?>) type;
+
+			return jCodeModel.ref(getJType(typeToken,
+					getRealType(typeToken, type)).fullName());
+			// return jCodeModel.ref(getJType(typeToken,
+			// typeVariable.getBounds()[0]).fullName());
+			// return null;
 			// return jCodeModel.ref(getClassHolder(holder).getActualType(
 			// (TypeVariable<?>) type));
 		} else {

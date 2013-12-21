@@ -12,7 +12,7 @@ import com.voole.parrot.shared.entity.authority.Authority;
  * @date 2013年12月20日
  */
 @RemoteServiceRelativePath("rpc/authority.rpc")
-public interface AuthorityRpcService extends NormalRpcService<Authority>,
+public interface AuthorityRpcService extends EntityRpcService<Authority>,
 		RemoteService {
 
 }

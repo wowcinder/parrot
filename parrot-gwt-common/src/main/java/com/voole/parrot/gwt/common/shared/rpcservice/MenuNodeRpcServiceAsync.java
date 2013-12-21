@@ -19,8 +19,12 @@ public interface MenuNodeRpcServiceAsync {
 
     public void list(GwtListLoadConfigBean<?> arg0, AsyncCallback<ListLoadResult<Menu>> callback);
 
-    public void save(Menu arg0, AsyncCallback<Menu> callback);
+    public void create(Menu arg0, AsyncCallback<Menu> callback);
 
-    public void save(MenuGroup arg0, AsyncCallback<MenuGroup> callback);
+    public void create(MenuGroup arg0, AsyncCallback<MenuGroup> callback);
+
+    public void update(Menu arg0, AsyncCallback<Menu> callback);
+
+    public void update(MenuGroup arg0, AsyncCallback<MenuGroup> callback);
 
 }

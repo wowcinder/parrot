@@ -19,6 +19,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.cell.core.client.SimpleSafeHtmlCell;
 import com.sencha.gxt.cell.core.client.form.DateCell;
+import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
@@ -37,6 +38,7 @@ import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.gwt.ui.shared.menu.LeftMenuView;
 import com.voole.parrot.gwt.ui.shared.menu.editor.AuthorityField;
 import com.voole.parrot.gwt.ui.shared.menu.editor.MenuEditor;
+import com.voole.parrot.gwt.ui.shared.menu.tree.MenuTree;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
@@ -56,9 +58,13 @@ public class ParrotTestWeb implements EntryPoint {
 				// AuthorityPicker picker = new AuthorityPicker();
 				// picker.show();
 
-				testField1();
+				// testField1();
 
-				testField2();
+				// testField2();
+
+				MenuTree menuView = new MenuTree(new TreeStore<MenuNode>(
+						PropertyUtils.MenuNodeProperty.key()));
+				RootPanel.get().add(menuView);
 
 				// testDateField();
 				// showTestField();
@@ -228,7 +234,7 @@ public class ParrotTestWeb implements EntryPoint {
 			menu.setParent(mg);
 			list.add(menu);
 		}
-		RpcServiceUtils.MenuNodeRpcService.save(mg,
+		RpcServiceUtils.MenuNodeRpcService.create(mg,
 				new RpcAsyncCallback<MenuGroup>() {
 
 					@Override

@@ -22,9 +22,13 @@ import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 @RemoteServiceRelativePath("rpc/menu.rpc")
 public interface MenuNodeRpcService extends RemoteService {
 
-	Menu save(Menu menu) throws SharedException;
+	Menu create(Menu menu) throws SharedException;
 
-	MenuGroup save(MenuGroup menu) throws SharedException;
+	MenuGroup create(MenuGroup menu) throws SharedException;
+	
+	Menu update(Menu menu) throws SharedException;
+
+	MenuGroup update(MenuGroup menu) throws SharedException;
 
 	List<Menu> get() throws SharedException;
 

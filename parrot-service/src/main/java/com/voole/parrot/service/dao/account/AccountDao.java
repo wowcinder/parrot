@@ -11,7 +11,7 @@ import com.voole.parrot.shared.entity.account.Account;
 public class AccountDao extends EntityDao<Account> implements IAccountDao {
 
 	@Override
-	public Account save(Account t) {
+	public Account create(Account t) {
 		if (t.getPassword() != null) {
 			t.setPassword(DigestUtils.md5Hex(t.getPassword()));
 		}

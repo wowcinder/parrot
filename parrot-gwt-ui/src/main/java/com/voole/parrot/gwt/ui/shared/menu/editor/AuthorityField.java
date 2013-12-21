@@ -93,7 +93,6 @@ public class AuthorityField extends TriggerField<Authority> {
 		protected void onBlur(com.google.gwt.cell.client.Cell.Context context,
 				XElement parent, Authority value, NativeEvent event,
 				ValueUpdater<Authority> valueUpdater) {
-			System.out.println("------------失去焦点-----------");
 			super.onBlur(context, parent, value, event, valueUpdater);
 		}
 
@@ -101,7 +100,6 @@ public class AuthorityField extends TriggerField<Authority> {
 		protected void onFocus(com.google.gwt.cell.client.Cell.Context context,
 				XElement parent, Authority value, NativeEvent event,
 				ValueUpdater<Authority> valueUpdater) {
-			System.out.println("------------获得焦点-----------");
 			super.onFocus(context, parent, value, event, valueUpdater);
 		}
 
@@ -166,8 +164,6 @@ public class AuthorityField extends TriggerField<Authority> {
 			boolean result = parent.isOrHasChild(target)
 					|| (picker != null && (picker.getElement()
 							.isOrHasChild(target)));
-			System.out.println("----------------focus click result:" + result
-					+ "---------------");
 			return result;
 		}
 

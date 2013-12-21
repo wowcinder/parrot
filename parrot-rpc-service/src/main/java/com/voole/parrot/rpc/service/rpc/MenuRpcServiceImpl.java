@@ -18,6 +18,7 @@ import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
 @Service
+@Transactional
 public class MenuRpcServiceImpl implements MenuNodeRpcService {
 	@Autowired
 	private IMenuGroupDao menuGroupDao;
@@ -25,33 +26,38 @@ public class MenuRpcServiceImpl implements MenuNodeRpcService {
 	private IMenuDao menuDao;
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<Menu> get() throws SharedException {
 		return menuDao.get();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public ListLoadResult<Menu> list(GwtListLoadConfigBean<?> condition) {
 		return menuDao.list(condition);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public PagingLoadResult<Menu> paging(GwtPagingLoadConfigBean<?> condition) {
 		return menuDao.paging(condition);
 	}
 
 	@Override
-	@Transactional
-	public Menu save(Menu menu) throws SharedException {
+	public Menu create(Menu menu) throws SharedException {
 		return menuDao.save(menu);
 	}
 
 	@Override
-	@Transactional
-	public MenuGroup save(MenuGroup menu) throws SharedException {
+	public MenuGroup create(MenuGroup menu) throws SharedException {
 		return menuGroupDao.save(menu);
+	}
+
+	@Override
+	public Menu update(Menu menu) throws SharedException {
+		return menuDao.update(menu);
+	}
+
+	@Override
+	public MenuGroup update(MenuGroup menu) throws SharedException {
+		return menuGroupDao.update(menu);
 	}
 
 }

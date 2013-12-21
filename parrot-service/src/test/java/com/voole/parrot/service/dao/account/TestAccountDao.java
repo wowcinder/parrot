@@ -33,7 +33,7 @@ public class TestAccountDao {
 		public void save() {
 			account = new Account();
 			account.setName("test_name");
-			dao.save(account);
+			dao.create(account);
 		}
 
 		@Transactional
