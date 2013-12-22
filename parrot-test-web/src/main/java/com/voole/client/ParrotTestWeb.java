@@ -19,7 +19,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sencha.gxt.cell.core.client.SimpleSafeHtmlCell;
 import com.sencha.gxt.cell.core.client.form.DateCell;
-import com.sencha.gxt.data.shared.TreeStore;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
@@ -35,10 +34,10 @@ import com.voole.parrot.gwt.common.shared.core.grid.GridBuilder.RpcListProxyLoad
 import com.voole.parrot.gwt.common.shared.gridcolumn.MenuColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
+import com.voole.parrot.gwt.ui.shared.authority.tree.AuthorityTree;
 import com.voole.parrot.gwt.ui.shared.menu.LeftMenuView;
 import com.voole.parrot.gwt.ui.shared.menu.editor.AuthorityField;
 import com.voole.parrot.gwt.ui.shared.menu.editor.MenuEditor;
-import com.voole.parrot.gwt.ui.shared.menu.tree.MenuTree;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
@@ -62,9 +61,11 @@ public class ParrotTestWeb implements EntryPoint {
 
 				// testField2();
 
-				MenuTree menuView = new MenuTree(new TreeStore<MenuNode>(
-						PropertyUtils.MenuNodeProperty.key()));
-				RootPanel.get().add(menuView);
+				// MenuTree menuView = new MenuTree(new TreeStore<MenuNode>(
+				// PropertyUtils.MenuNodeProperty.key()));
+				AuthorityTree tree = new AuthorityTree();
+				RootPanel.get().add(tree);
+//				RootPanel.get().add(menuView);
 
 				// testDateField();
 				// showTestField();

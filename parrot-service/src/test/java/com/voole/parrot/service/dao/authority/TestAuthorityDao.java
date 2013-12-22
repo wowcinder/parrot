@@ -57,6 +57,6 @@ public class TestAuthorityDao {
 	@Test
 	public void test() {
 		service.save();
-		service.delete();
+//		service.delete();
 	}
 }

@@ -9,16 +9,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.EntityWithOrderChildren;
+import com.voole.parrot.shared.entity.authority.Authority;
 
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
-public class AuthorityEntrance extends EntityHasAutoId implements
-		EntityWithOrderChildren {
+public class AuthorityEntrance extends EntityHasAutoId {
 
 	private static final long serialVersionUID = 2924510788634515506L;
 
@@ -44,18 +42,6 @@ public class AuthorityEntrance extends EntityHasAutoId implements
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Override
-	public void sortChildren() {
-		if (authorities == null || authorities.size() == 0) {
-			return;
-		}
-		for (Authority authority : authorities) {
-			authority.setPos(authorities.indexOf(authority));
-			authority.setToken(DigestUtils.md5Hex(this.getName() + "_"
-					+ authority.getName()));
-		}
 	}
 
 }

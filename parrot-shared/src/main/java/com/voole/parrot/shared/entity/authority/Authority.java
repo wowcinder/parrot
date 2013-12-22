@@ -3,16 +3,12 @@
  */
 package com.voole.parrot.shared.entity.authority;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -22,10 +18,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
 import com.google.gwt.editor.client.Editor.Path;
+import com.voole.parrot.shared.entity.EntityHasAutoId;
 import com.voole.parrot.shared.entity.account.Account;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 
@@ -37,7 +33,7 @@ import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "entrance",
 		"name" }) })
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
-public class Authority implements Serializable {
+public class Authority extends EntityHasAutoId {
 	private static final long serialVersionUID = 4903463335586557358L;
 
 	private String token;
@@ -53,9 +49,6 @@ public class Authority implements Serializable {
 	public Authority() {
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "authority_token")
-	@GenericGenerator(name = "authority_token", strategy = "com.voole.parrot.id.AuthorityIdentifierGenerator")
 	@Column(length = 32)
 	public String getToken() {
 		return token;

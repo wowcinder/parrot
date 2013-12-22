@@ -11,9 +11,9 @@ public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao 
 	@Override
 	public Authority create(Authority t) {
 		AuthorityEntrance entrance = findParent(t);
+		t.setEntrance(entrance);
 		if (t.getPos() != null && entrance.getAuthorities().size() > t.getPos()) {
 			entrance.getAuthorities().add(t.getPos(), t);
-
 		} else {
 			entrance.getAuthorities().add(t);
 		}
