@@ -12,6 +12,7 @@ import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.dao.ISimpleDao;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
@@ -24,22 +25,23 @@ public class SimpleServiceImpl implements SimpleService {
 
 	@Override
 	public <E extends Serializable> E create(E e) {
-		return simpleDao.create(e);
+		return simpleDao.persist(e);
 	}
 
 	@Override
 	public <E extends Serializable, C extends Collection<E>> C create(C list) {
-		return simpleDao.create(list);
+		return simpleDao.persist(list);
 	}
 
 	@Override
-	public <E extends Serializable> E update(E e) {
-		return simpleDao.update(e);
+	public <E extends Serializable> E update(E e, EntityUpdater<E> updater) {
+		return simpleDao.update(e, updater);
 	}
 
 	@Override
-	public <E extends Serializable, C extends Collection<E>> C update(C list) {
-		return simpleDao.update(list);
+	public <E extends Serializable, C extends Collection<E>> C update(C list,
+			EntityUpdater<E> updater) {
+		return simpleDao.update(list, updater);
 	}
 
 	@Override

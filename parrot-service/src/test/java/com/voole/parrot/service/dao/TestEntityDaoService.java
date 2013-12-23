@@ -13,6 +13,7 @@ import com.voole.parrot.service.service.organization.SubOrganizationService;
 import com.voole.parrot.service.service.organization.TopOrganizationAuthorityService;
 import com.voole.parrot.service.service.organization.TopOrganizationService;
 import com.voole.parrot.service.service.organization.UserService;
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 import com.voole.parrot.shared.entity.authority.Role;
@@ -151,11 +152,8 @@ public class TestEntityDaoService {
 		return topOrganizationAuthority;
 	}
 
-	/**
-	 * @param account
-	 */
-	public void updateUser(User account) {
-		accountDao.update(account);
+	public void updateUser(User account, EntityUpdater<User> updater) {
+		accountDao.update(account, updater);
 	}
 
 }

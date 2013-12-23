@@ -8,20 +8,21 @@ import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.dao.IEntityDao;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
 public interface EntityService<E extends Serializable> {
-	public  IEntityDao<E> getEntityDao();
-	
+	public IEntityDao<E> getEntityDao();
+
 	public E create(E e);
 
 	public <C extends Collection<E>> C create(C list);
 
-	public E update(E e);
+	public E update(E e, EntityUpdater<E> updater);
 
-	public <C extends Collection<E>> C update(C list);
+	public <C extends Collection<E>> C update(C list, EntityUpdater<E> updater);
 
 	public void delete(E e);
 

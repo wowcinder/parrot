@@ -9,18 +9,20 @@ import org.hibernate.Criteria;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.conditionprocessor.ConditionProcessor;
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
 public interface ISimpleDao extends IBaseDao {
-	public <E extends Serializable> E create(E e);
+	public <E extends Serializable> E persist(E e);
 
-	public <E extends Serializable, C extends Collection<E>> C create(C list);
+	public <E extends Serializable, C extends Collection<E>> C persist(C list);
 
-	public <E extends Serializable> E update(E e);
+	public <E extends Serializable> E update(E e, EntityUpdater<E> updater);
 
-	public <E extends Serializable, C extends Collection<E>> C update(C list);
+	public <E extends Serializable, C extends Collection<E>> C update(C list,
+			EntityUpdater<E> updater);
 
 	public <E extends Serializable> void delete(E e);
 

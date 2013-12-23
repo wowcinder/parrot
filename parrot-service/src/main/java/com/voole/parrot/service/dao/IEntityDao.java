@@ -7,6 +7,7 @@ import java.util.List;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
@@ -16,9 +17,9 @@ public interface IEntityDao<E extends Serializable> extends IBaseDao {
 
 	public <C extends Collection<E>> C create(C list);
 
-	public E update(E e);
+	public E update(E e, EntityUpdater<E> updater);
 
-	public <C extends Collection<E>> C update(C list);
+	public <C extends Collection<E>> C update(C list, EntityUpdater<E> updater);
 
 	public void delete(E e);
 

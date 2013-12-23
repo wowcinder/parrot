@@ -14,6 +14,7 @@ import com.sencha.gxt.data.shared.loader.ListLoadResultBean;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResultBean;
 import com.voole.parrot.service.conditionprocessor.ConditionProcessor;
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
@@ -22,30 +23,33 @@ import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 public class SimpleDao extends BaseDao implements ISimpleDao {
 
 	@Override
-	public <E extends Serializable> E create(E e) {
+	public <E extends Serializable> E persist(E e) {
 		getCurrSession().persist(e);
 		return e;
 	}
 
 	@Override
-	public <E extends Serializable, C extends Collection<E>> C create(C list) {
+	public <E extends Serializable, C extends Collection<E>> C persist(C list) {
 		for (E e : list) {
-			create(e);
+			persist(e);
 		}
 		return list;
 	}
 
 	@Override
-	public <E extends Serializable> E update(E e) {
-		getCurrSession().update(e);
-		return e;
+	public <E extends Serializable> E update(E e, EntityUpdater<E> updater) {
+		final E old = refresh(e);
+		updater.invoke(old, e);
+		getCurrSession().persist(old);
+		return old;
 	}
 
 	@Override
-	public <E extends Serializable, C extends Collection<E>> C update(C list) {
+	public <E extends Serializable, C extends Collection<E>> C update(C list,
+			EntityUpdater<E> updater) {
 		List<E> result = new ArrayList<E>();
 		for (E e : list) {
-			result.add(update(e));
+			result.add(update(e, updater));
 		}
 		list.clear();
 		list.addAll(result);

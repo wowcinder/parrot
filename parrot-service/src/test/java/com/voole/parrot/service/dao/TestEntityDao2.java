@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.Role;
 import com.voole.parrot.shared.entity.organization.SubOrganization;
@@ -46,7 +47,14 @@ public class TestEntityDao2 {
 		User account = service.saveAccount(service.createAccount(top));
 		account.setLeader(true);
 		account.setRoles(roles);
-		service.updateUser(account);
+		service.updateUser(account, new EntityUpdater<User>() {
+
+			@Override
+			public void invoke(User old, User e) {
+				old.setLeader(e.isLeader());
+				old.setRoles(e.getRoles());
+			}
+		});
 
 		SubOrganization sub = service.createSub(top, authorities);
 		service.save(sub);

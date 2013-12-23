@@ -6,13 +6,12 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.voole.parrot.service.service.authority.AuthorityEntranceService;
 import com.voole.parrot.service.service.authority.AuthorityService;
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 
@@ -44,14 +43,17 @@ public class TestAuthorityDao {
 	}
 
 	@Test
-	@Transactional
-	@Rollback(false)
 	public void update() {
 		save();
-		authorityService.getEntityDao().getCurrSession().flush();
-		authorityService.getEntityDao().getCurrSession().clear();
 		authority.setEntrance(entrance);
 		entrance.setName("sjdlfjsldj");
-		entranceService.update(entrance);
+		entranceService.update(entrance,
+				new EntityUpdater<AuthorityEntrance>() {
+					@Override
+					public void invoke(AuthorityEntrance old,
+							AuthorityEntrance e) {
+						old.setName(e.getName());
+					}
+				});
 	}
 }

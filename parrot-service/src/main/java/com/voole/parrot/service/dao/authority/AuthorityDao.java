@@ -17,15 +17,7 @@ public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao 
 		} else {
 			entrance.getAuthorities().add(t);
 		}
-		getSimpleDao().create(entrance);
-		return t;
-	}
-
-	@Override
-	public Authority update(Authority t) {
-		AuthorityEntrance entrance = findParent(t);
-		getCurrSession().merge(t);
-		getSimpleDao().create(entrance);
+		getSimpleDao().persist(entrance);
 		return t;
 	}
 

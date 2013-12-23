@@ -65,7 +65,7 @@ public class AuthorityRpcServiceImpl extends EntityRpcServiceImpl<Authority>
 			dependencies2.add(authority2);
 		}
 		authority.getDependencies().addAll(dependencies2);
-		simpleDao.create(authority);
+		simpleDao.persist(authority);
 	}
 
 }

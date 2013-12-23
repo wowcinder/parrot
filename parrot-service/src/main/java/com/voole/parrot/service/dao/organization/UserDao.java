@@ -24,8 +24,4 @@ public class UserDao extends EntityDao<User> implements IUserDao {
 				.add(Restrictions.eq("password", password)).uniqueResult();
 	}
 
-	@Override
-	public User update(User t) {
-		return super.update(t);
-	}
 }

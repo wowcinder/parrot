@@ -10,6 +10,7 @@ import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.dao.IEntityDao;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
+import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
@@ -31,13 +32,13 @@ public abstract class EntityServiceImpl<E extends Serializable> implements
 	}
 
 	@Override
-	public E update(E e) {
-		return getEntityDao().update(e);
+	public E update(E e, EntityUpdater<E> updater) {
+		return getEntityDao().update(e, updater);
 	}
 
 	@Override
-	public <C extends Collection<E>> C update(C list) {
-		return getEntityDao().update(list);
+	public <C extends Collection<E>> C update(C list, EntityUpdater<E> updater) {
+		return getEntityDao().update(list, updater);
 	}
 
 	@Override
