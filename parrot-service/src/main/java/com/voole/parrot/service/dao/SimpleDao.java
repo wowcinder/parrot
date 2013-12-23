@@ -12,9 +12,7 @@ import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.ListLoadResultBean;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResultBean;
-import com.voole.parrot.service.dao.conditionprocessor.ConditionProcessor;
-import com.voole.parrot.service.dao.conditionprocessor.GwtListConditionProcessor;
-import com.voole.parrot.service.dao.conditionprocessor.GwtPagingConditionProcessor;
+import com.voole.parrot.service.conditionprocessor.ConditionProcessor;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
@@ -82,8 +80,7 @@ public class SimpleDao extends BaseDao implements ISimpleDao {
 			Class<E> clazz, Condition condition,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
 		Criteria criteria = getCurrSession().createCriteria(clazz);
-		new ConditionProcessor<Condition>(criteria, condition,
-				conditionAnalyzer).process();
+		ConditionProcessor.process(criteria, condition, conditionAnalyzer);
 		return (List<E>) criteria.list();
 	}
 
@@ -93,8 +90,7 @@ public class SimpleDao extends BaseDao implements ISimpleDao {
 			GwtListLoadConfigBean<Condition> configBean, Class<E> clazz,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
 		Criteria criteria = getCurrSession().createCriteria(clazz);
-		new GwtListConditionProcessor<Condition>(criteria, configBean,
-				conditionAnalyzer).process();
+		ConditionProcessor.process(criteria, configBean, conditionAnalyzer);
 		return new ListLoadResultBean<E>((List<E>) criteria.list());
 	}
 
@@ -108,19 +104,17 @@ public class SimpleDao extends BaseDao implements ISimpleDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <E extends Serializable, Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition, Class<E> clazz,
+			GwtPagingLoadConfigBean<Condition> configBean, Class<E> clazz,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
 		Criteria criteria = getCurrSession().createCriteria(clazz);
-
-		new GwtPagingConditionProcessor<Condition>(criteria, condition,
-				conditionAnalyzer).process();
-		criteria.setFirstResult(condition.getOffset());
-		criteria.setMaxResults(condition.getLimit());
+		ConditionProcessor.process(criteria, configBean, conditionAnalyzer);
+		criteria.setFirstResult(configBean.getOffset());
+		criteria.setMaxResults(configBean.getLimit());
 		List<E> list = (List<E>) criteria.list();
 
 		long rowCount = getTotalLength(criteria);
 		PagingLoadResultBean<E> result = new PagingLoadResultBean<E>();
-		result.setOffset(condition.getOffset());
+		result.setOffset(configBean.getOffset());
 		result.setTotalLength((int) rowCount);
 		result.setData(list);
 		return result;

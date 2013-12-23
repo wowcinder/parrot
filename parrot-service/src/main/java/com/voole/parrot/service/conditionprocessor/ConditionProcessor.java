@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.service.dao.conditionprocessor;
+package com.voole.parrot.service.conditionprocessor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
 
 import com.sencha.gxt.data.shared.SortDir;
@@ -16,6 +17,7 @@ import com.sencha.gxt.data.shared.SortInfoBean;
 import com.sencha.gxt.data.shared.loader.ListLoadConfigBean;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
 import com.voole.parrot.shared.condition.QueryCondition;
+import com.voole.parrot.shared.grid.ConditionLoadConfig;
 
 /**
  * @author XuehuiHe
@@ -27,7 +29,7 @@ public class ConditionProcessor<Condition extends QueryCondition> {
 	private final Condition condition;
 	private final QueryConditionAnalyzer<Condition> queryConditionAnalyzer;
 
-	public ConditionProcessor(Criteria criteria, Condition condition,
+	protected ConditionProcessor(Criteria criteria, Condition condition,
 			QueryConditionAnalyzer<Condition> queryConditionAnalyzer) {
 		this.criteria = criteria;
 		this.condition = condition;
@@ -35,8 +37,23 @@ public class ConditionProcessor<Condition extends QueryCondition> {
 		this.aliases = new HashSet<String>();
 	}
 
+	public static <Condition extends QueryCondition> void process(
+			Criteria criteria, Condition condition,
+			QueryConditionAnalyzer<Condition> queryConditionAnalyzer) {
+		new ConditionProcessor<Condition>(criteria, condition,
+				queryConditionAnalyzer).process();
+	}
+
+	public static <Condition extends QueryCondition, T extends ListLoadConfigBean & ConditionLoadConfig<Condition>> void process(
+			Criteria criteria, T configBean,
+			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
+		new GwtListLoadConfigBeanConditionProcessor<Condition, T>(criteria,
+				configBean, conditionAnalyzer);
+	}
+
 	public void process() {
 		queryConditionAnalyzer.analyze(criteria, condition, this);
+		criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
 	}
 
 	public Criteria getCriteria() {

@@ -1,27 +1,26 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.service.dao.conditionprocessor;
+package com.voole.parrot.service.conditionprocessor;
 
 import org.hibernate.Criteria;
 
+import com.sencha.gxt.data.shared.loader.ListLoadConfigBean;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
 import com.voole.parrot.shared.condition.QueryCondition;
-import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
+import com.voole.parrot.shared.grid.ConditionLoadConfig;
 
 /**
  * @author XuehuiHe
  * @date 2013年12月23日
  */
-public class GwtPagingConditionProcessor<Condition extends QueryCondition>
+public class GwtListLoadConfigBeanConditionProcessor<Condition extends QueryCondition, T extends ListLoadConfigBean & ConditionLoadConfig<Condition>>
 		extends ConditionProcessor<Condition> {
-
-	private final GwtPagingLoadConfigBean<Condition> configBean;
+	private final T configBean;
 	private final QueryConditionAnalyzer<Condition> conditionAnalyzer;
 
-	public GwtPagingConditionProcessor(Criteria criteria,
-			GwtPagingLoadConfigBean<Condition> configBean,
-			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
+	protected GwtListLoadConfigBeanConditionProcessor(Criteria criteria,
+			T configBean, QueryConditionAnalyzer<Condition> conditionAnalyzer) {
 		super(criteria, configBean.getCondition(), conditionAnalyzer);
 		this.configBean = configBean;
 		this.conditionAnalyzer = conditionAnalyzer;
@@ -33,7 +32,7 @@ public class GwtPagingConditionProcessor<Condition extends QueryCondition>
 		super.process();
 	}
 
-	public GwtPagingLoadConfigBean<Condition> getConfigBean() {
+	public T getConfigBean() {
 		return configBean;
 	}
 

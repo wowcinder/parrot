@@ -8,7 +8,7 @@ import org.hibernate.Criteria;
 
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
-import com.voole.parrot.service.dao.conditionprocessor.ConditionProcessor;
+import com.voole.parrot.service.conditionprocessor.ConditionProcessor;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
