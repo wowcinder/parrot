@@ -6,12 +6,13 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.voole.parrot.service.dao.ISimpleDao;
+import com.voole.parrot.service.service.authority.AuthorityEntranceService;
+import com.voole.parrot.service.service.authority.AuthorityService;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 
@@ -19,44 +20,38 @@ import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
 public class TestAuthorityDao {
 	@Autowired
-	private TestAuthorityService service;
+	private AuthorityService authorityService;
+	@Autowired
+	private AuthorityEntranceService entranceService;
 
-	@Service
-	public static class TestAuthorityService {
-		@Autowired
-		private IAuthorityDao dao;
-		@Autowired
-		private ISimpleDao dao2;
-		private Authority authority;
-		private AuthorityEntrance entrance;
+	private Authority authority;
+	private AuthorityEntrance entrance;
+	List<Authority> authorities;
 
-		@Transactional
-		public void save() {
-			List<Authority> authorities = new ArrayList<Authority>();
-			authority = new Authority();
-			authorities.add(authority);
+	public void save() {
+		authorities = new ArrayList<Authority>();
+		authority = new Authority();
+		authorities.add(authority);
 
-			entrance = new AuthorityEntrance();
-			entrance.setName("entrance");
-			entrance.setAuthorities(authorities);
+		entrance = new AuthorityEntrance();
+		entrance.setName("entrance");
 
-			authority.setEntrance(entrance);
-			authority.setName("name");
-			dao2.create(entrance);
-			System.out.println(entrance);
-			// dao.save(authority);
-		}
+		authority.setEntrance(entrance);
+		authority.setName("name");
+		entrance.setAuthorities(authorities);
+		entrance = entranceService.create(entrance);
 
-		@Transactional
-		public void delete() {
-			// dao.delete(authority);
-			dao2.delete(entrance);
-		}
 	}
 
 	@Test
-	public void test() {
-		service.save();
-//		service.delete();
+	@Transactional
+	@Rollback(false)
+	public void update() {
+		save();
+		authorityService.getEntityDao().getCurrSession().flush();
+		authorityService.getEntityDao().getCurrSession().clear();
+		authority.setEntrance(entrance);
+		entrance.setName("sjdlfjsldj");
+		entranceService.update(entrance);
 	}
 }

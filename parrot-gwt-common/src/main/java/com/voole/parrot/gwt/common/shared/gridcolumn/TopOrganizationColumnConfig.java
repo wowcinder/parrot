@@ -5,11 +5,10 @@ import java.util.Set;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.shared.entity.authority.Role;
-import com.voole.parrot.shared.entity.organization.Leader;
-import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.SubOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 public class TopOrganizationColumnConfig {
 
@@ -39,13 +38,8 @@ public class TopOrganizationColumnConfig {
         return subOrganizations;
     }
 
-    public static ColumnConfig<TopOrganization, Set<Leader>> leaders() {
-        ColumnConfig<TopOrganization, Set<Leader>> leaders = new ColumnConfig<TopOrganization, Set<Leader>>(PropertyUtils.TopOrganizationProperty.leaders(), 200, "leaders");
-        return leaders;
-    }
-
-    public static ColumnConfig<TopOrganization, Set<Member>> members() {
-        ColumnConfig<TopOrganization, Set<Member>> members = new ColumnConfig<TopOrganization, Set<Member>>(PropertyUtils.TopOrganizationProperty.members(), 200, "members");
+    public static ColumnConfig<TopOrganization, Set<User>> members() {
+        ColumnConfig<TopOrganization, Set<User>> members = new ColumnConfig<TopOrganization, Set<User>>(PropertyUtils.TopOrganizationProperty.members(), 200, "members");
         return members;
     }
 

@@ -64,6 +64,12 @@
 				<entry key="create">
 					<ref local="childrenPersistEventListener" />
 				</entry>
+				<entry key="pre-update">
+					<ref local="childrenPersistEventListener" />
+				</entry>
+				<entry key="merge">
+					<ref local="childrenMergeEventListener" />
+				</entry>
 
 			</map>
 		</property>

@@ -8,10 +8,4 @@ import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 @Repository
 public class AuthorityEntranceDao extends EntityDao<AuthorityEntrance>
 		implements IAuthorityEntranceDao {
-	@Override
-	public AuthorityEntrance update(AuthorityEntrance e) {
-		AuthorityEntrance old = refresh(e);
-		old.setName(e.getName());
-		return super.update(old);
-	}
 }

@@ -5,9 +5,9 @@ import java.util.Set;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.shared.entity.authority.Role;
-import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 public class RoleColumnConfig {
 
@@ -32,8 +32,8 @@ public class RoleColumnConfig {
         return name;
     }
 
-    public static ColumnConfig<Role, Set<Member>> members() {
-        ColumnConfig<Role, Set<Member>> members = new ColumnConfig<Role, Set<Member>>(PropertyUtils.RoleProperty.members(), 200, "members");
+    public static ColumnConfig<Role, Set<User>> members() {
+        ColumnConfig<Role, Set<User>> members = new ColumnConfig<Role, Set<User>>(PropertyUtils.RoleProperty.members(), 200, "members");
         return members;
     }
 

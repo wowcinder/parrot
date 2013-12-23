@@ -11,10 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.Role;
-import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.SubOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
@@ -43,10 +43,10 @@ public class TestEntityDao2 {
 		service.save(role);
 		roles.add(role);
 
-		User account = service.saveAccount(service.createAccount());
-		service.saveLeader(service.createLeader(account, top));
-
-		service.save(service.createMember(account, top, roles));
+		User account = service.saveAccount(service.createAccount(top));
+		account.setLeader(true);
+		account.setRoles(roles);
+		service.updateUser(account);
 
 		SubOrganization sub = service.createSub(top, authorities);
 		service.save(sub);
@@ -55,9 +55,9 @@ public class TestEntityDao2 {
 		service.save(role);
 		roles.clear();
 		roles.add(role);
-		account = service.saveAccount(service.createAccount());
-		service.save(service.createMember(account, sub, roles));
-		service.saveLeader(service.createLeader(account, sub));
+		account = service.saveAccount(service.createAccount(sub));
+		account.setLeader(true);
+		account.setRoles(roles);
 
 		service.delete(account);
 		service.deleteTopOrganization(top);

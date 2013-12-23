@@ -10,6 +10,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.voole</groupId>
+			<artifactId>parrot-util-scanner</artifactId>
+			<version>${parrot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.voole</groupId>
 			<artifactId>parrot-shared</artifactId>
 			<version>${parrot.version}</version>
 		</dependency>
@@ -21,6 +26,11 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.codemodel</groupId>
+			<artifactId>codemodel</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!-- gwt -->
 		<dependency>

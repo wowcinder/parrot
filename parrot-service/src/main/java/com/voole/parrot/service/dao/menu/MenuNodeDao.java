@@ -29,14 +29,15 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		} else {
 			mg.getNodes().add(t);
 		}
-		getSimpleDao().update(mg);
+		getSimpleDao().create(mg);
 		return t;
 	}
 
 	@Override
 	public N update(N t) {
 		MenuGroup mg = findParent(t);
-		getSimpleDao().update(mg);
+		getCurrSession().merge(t);
+		getSimpleDao().create(mg);
 		return t;
 	}
 

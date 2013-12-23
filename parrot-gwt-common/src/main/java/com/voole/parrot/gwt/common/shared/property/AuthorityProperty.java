@@ -3,22 +3,23 @@ package com.voole.parrot.gwt.common.shared.property;
 
 import java.util.List;
 import java.util.Set;
-
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
-import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 public interface AuthorityProperty
     extends PropertyAccess<Authority>
 {
 
 
-    @com.google.gwt.editor.client.Editor.Path("token")
+    @com.google.gwt.editor.client.Editor.Path("id")
     public ModelKeyProvider<Authority> key();
+
+    public ValueProvider<Authority, Long> id();
 
     public ValueProvider<Authority, Set<User>> accounts();
 

@@ -14,6 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.voole.parrot.service.service.menu.MenuGroupService;
+import com.voole.parrot.service.service.menu.MenuService;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
@@ -26,9 +28,9 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
 public class TestMenuDao {
 	@Autowired
-	private IMenuDao menuDao;
+	private MenuService menuDao;
 	@Autowired
-	private IMenuGroupDao menuGroupDao;
+	private MenuGroupService menuGroupDao;
 
 	@Test
 	@Transactional
@@ -49,9 +51,7 @@ public class TestMenuDao {
 
 		mg.setNodes(menus);
 
-		menuGroupDao.save(mg);
-
-		menuGroupDao.getCurrSession().flush();
+		menuGroupDao.create(mg);
 
 		Menu menu = new Menu();
 		menu.setPos(7);
@@ -61,9 +61,8 @@ public class TestMenuDao {
 
 		// mg.getNodes().add(1, menu);
 
-		menuDao.save(menu);
+		menuDao.create(menu);
 
-		menuDao.getCurrSession().flush();
 	}
 
 	// @Test

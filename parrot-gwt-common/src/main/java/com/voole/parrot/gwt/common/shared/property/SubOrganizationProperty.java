@@ -6,11 +6,10 @@ import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 import com.voole.parrot.shared.entity.authority.Role;
-import com.voole.parrot.shared.entity.organization.Leader;
-import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.SubOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 public interface SubOrganizationProperty
     extends PropertyAccess<SubOrganization>
@@ -30,10 +29,8 @@ public interface SubOrganizationProperty
 
     public ValueProvider<SubOrganization, Set<SubOrganization>> subOrganizations();
 
-    public ValueProvider<SubOrganization, Set<Leader>> leaders();
-
     public ValueProvider<SubOrganization, Organization> parentOrganization();
 
-    public ValueProvider<SubOrganization, Set<Member>> members();
+    public ValueProvider<SubOrganization, Set<User>> members();
 
 }

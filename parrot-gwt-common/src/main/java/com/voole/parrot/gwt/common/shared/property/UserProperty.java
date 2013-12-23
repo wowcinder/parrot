@@ -2,16 +2,15 @@
 package com.voole.parrot.gwt.common.shared.property;
 
 import java.util.Set;
-
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 import com.voole.parrot.shared.entity.authority.Authority;
+import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.User;
-import com.voole.parrot.shared.entity.organization.Leader;
-import com.voole.parrot.shared.entity.organization.Member;
 
-public interface AccountProperty
+public interface UserProperty
     extends PropertyAccess<User>
 {
 
@@ -21,13 +20,15 @@ public interface AccountProperty
 
     public ValueProvider<User, Long> id();
 
-    public ValueProvider<User, Member> member();
+    public ValueProvider<User, Organization> organization();
 
     public ValueProvider<User, Set<Authority>> authorities();
 
     public ValueProvider<User, String> name();
 
-    public ValueProvider<User, Leader> leader();
+    public ValueProvider<User, Set<Role>> roles();
+
+    public ValueProvider<User, Boolean> isLeader();
 
     public ValueProvider<User, String> password();
 

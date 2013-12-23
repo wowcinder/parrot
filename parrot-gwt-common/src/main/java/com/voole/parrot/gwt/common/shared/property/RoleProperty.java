@@ -6,9 +6,9 @@ import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 import com.voole.parrot.shared.entity.authority.Role;
-import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 public interface RoleProperty
     extends PropertyAccess<Role>
@@ -26,6 +26,6 @@ public interface RoleProperty
 
     public ValueProvider<Role, String> name();
 
-    public ValueProvider<Role, Set<Member>> members();
+    public ValueProvider<Role, Set<User>> members();
 
 }

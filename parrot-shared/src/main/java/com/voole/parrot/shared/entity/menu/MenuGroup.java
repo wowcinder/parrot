@@ -42,8 +42,6 @@ public class MenuGroup extends MenuNode implements EntityWithOrderChildren {
 				}
 				int index = nodes.indexOf(node);
 				node.setPos(index);
-				System.out.println("------------name:" + node.getName()
-						+ "-------------");
 			}
 		}
 	}

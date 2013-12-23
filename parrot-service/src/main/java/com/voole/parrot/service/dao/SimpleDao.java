@@ -1,6 +1,7 @@
 package com.voole.parrot.service.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,15 +37,18 @@ public class SimpleDao extends BaseDao implements ISimpleDao {
 
 	@Override
 	public <E extends Serializable> E update(E e) {
-		getCurrSession().persist(e);
+		getCurrSession().update(e);
 		return e;
 	}
 
 	@Override
 	public <E extends Serializable, C extends Collection<E>> C update(C list) {
+		List<E> result = new ArrayList<E>();
 		for (E e : list) {
-			update(e);
+			result.add(update(e));
 		}
+		list.clear();
+		list.addAll(result);
 		return list;
 	}
 

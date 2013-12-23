@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.dao.IEntityDao;
@@ -12,18 +14,11 @@ import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
+@Transactional
 public abstract class EntityServiceImpl<E extends Serializable> implements
 		EntityService<E> {
 
-	private IEntityDao<E> entityDao;
-
-	public void setEntityDao(IEntityDao<E> entityDao) {
-		this.entityDao = entityDao;
-	}
-
-	public IEntityDao<E> getEntityDao() {
-		return this.entityDao;
-	}
+	public abstract IEntityDao<E> getEntityDao();
 
 	@Override
 	public E create(E e) {

@@ -5,87 +5,85 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.voole.parrot.service.dao.authority.IAuthorityDao;
-import com.voole.parrot.service.dao.organization.IUserDao;
+import com.voole.parrot.service.service.authority.AuthorityEntranceService;
+import com.voole.parrot.service.service.authority.AuthorityService;
+import com.voole.parrot.service.service.authority.RoleService;
+import com.voole.parrot.service.service.organization.SubOrganizationService;
+import com.voole.parrot.service.service.organization.TopOrganizationAuthorityService;
+import com.voole.parrot.service.service.organization.TopOrganizationService;
+import com.voole.parrot.service.service.organization.UserService;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 import com.voole.parrot.shared.entity.authority.Role;
-import com.voole.parrot.shared.entity.organization.User;
-import com.voole.parrot.shared.entity.organization.Leader;
-import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.SubOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 @Service
 public class TestEntityDaoService {
 	@Autowired
-	private IUserDao accountDao;
+	private UserService accountDao;
 	@Autowired
-	private IAuthorityDao authorityDao;
+	private AuthorityService authorityDao;
 	@Autowired
-	private ISimpleDao simpleDao;
+	private AuthorityEntranceService entranceService;
+	@Autowired
+	private TopOrganizationService topOrganizationService;
+	@Autowired
+	private TopOrganizationAuthorityService topOrganizationAuthorityService;
+	@Autowired
+	private SubOrganizationService subOrganizationService;
+	@Autowired
+	private RoleService roleService;
 	private Random r;
 
 	public TestEntityDaoService() {
 		r = new Random();
 	}
 
-	@Transactional
 	public User saveAccount(User account) {
 		accountDao.create(account);
 		return account;
 	}
 
-	@Transactional
 	public Authority saveAuthority(Authority authority) {
 		authorityDao.create(authority);
 		return authority;
 	}
 
-	@Transactional
-	public Leader saveLeader(Leader leader) {
-		simpleDao.create(leader);
-		return leader;
-	}
-
-	@Transactional
 	public TopOrganization saveTopOrganization(TopOrganization top) {
-		simpleDao.create(top);
+		topOrganizationService.create(top);
 		return top;
 	}
 
-	@Transactional
 	public void deleteTopOrganization(TopOrganization top) {
-		simpleDao.delete(top);
+		topOrganizationService.delete(top);
 	}
 
-	@Transactional
 	public void deleteAuthority(Authority authority) {
 		authorityDao.delete(authority);
 	}
 
-	@Transactional
 	public Set<TopOrganizationAuthority> saveTopOrganizationAuthority(
 			Set<TopOrganizationAuthority> authorities) {
-		simpleDao.create(authorities);
+		topOrganizationAuthorityService.create(authorities);
 		return authorities;
 	}
 
-	@Transactional
 	public void delete(User account) {
 		accountDao.delete(account);
 	}
 
-	public User createAccount() {
-		return createAccount(null);
+	public User createAccount(Organization organization) {
+		return createAccount(organization, null);
 	}
 
-	public User createAccount(Integer i) {
+	public User createAccount(Organization organization, Integer i) {
 		User account = new User();
+		account.setOrganization(organization);
 		if (i == null) {
 			i = r.nextInt();
 		}
@@ -93,7 +91,6 @@ public class TestEntityDaoService {
 		return account;
 	}
 
-	@Transactional
 	public Authority createAuthority() {
 		return createAuthority(null, null);
 	}
@@ -108,35 +105,12 @@ public class TestEntityDaoService {
 	public AuthorityEntrance createEntrance(Integer i) {
 		AuthorityEntrance entrance = new AuthorityEntrance();
 		entrance.setName("entrance" + (i == null ? r.nextInt() : i));
-		simpleDao.create(entrance);
+		entranceService.create(entrance);
 		return entrance;
 	}
 
-	public Leader createLeader(User account, Organization organization) {
-		Leader leader = new Leader();
-		leader.setAccount(account);
-		leader.setOrganization(organization);
-		return leader;
-	}
-
-	@Transactional
-	public Member save(Member member) {
-		simpleDao.create(member);
-		return member;
-	}
-
-	public Member createMember(User account, Organization organization,
-			Set<Role> roles) {
-		Member member = new Member();
-		member.setAccount(account);
-		member.setOrganization(organization);
-		member.setRoles(roles);
-		return member;
-	}
-
-	@Transactional
 	public SubOrganization save(SubOrganization sub) {
-		simpleDao.create(sub);
+		subOrganizationService.create(sub);
 		return sub;
 	}
 
@@ -149,9 +123,8 @@ public class TestEntityDaoService {
 		return sub;
 	}
 
-	@Transactional
 	public Role save(Role role) {
-		simpleDao.create(role);
+		roleService.create(role);
 		return role;
 	}
 
@@ -176,6 +149,13 @@ public class TestEntityDaoService {
 		topOrganizationAuthority.setAuthority(authority);
 		topOrganizationAuthority.setOrganization(organization);
 		return topOrganizationAuthority;
+	}
+
+	/**
+	 * @param account
+	 */
+	public void updateUser(User account) {
+		accountDao.update(account);
 	}
 
 }

@@ -5,11 +5,10 @@ import java.util.Set;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.shared.entity.authority.Role;
-import com.voole.parrot.shared.entity.organization.Leader;
-import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.SubOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 public class SubOrganizationColumnConfig {
 
@@ -39,18 +38,13 @@ public class SubOrganizationColumnConfig {
         return subOrganizations;
     }
 
-    public static ColumnConfig<SubOrganization, Set<Leader>> leaders() {
-        ColumnConfig<SubOrganization, Set<Leader>> leaders = new ColumnConfig<SubOrganization, Set<Leader>>(PropertyUtils.SubOrganizationProperty.leaders(), 200, "leaders");
-        return leaders;
-    }
-
     public static ColumnConfig<SubOrganization, Organization> parentOrganization() {
         ColumnConfig<SubOrganization, Organization> parentOrganization = new ColumnConfig<SubOrganization, Organization>(PropertyUtils.SubOrganizationProperty.parentOrganization(), 200, "parentOrganization");
         return parentOrganization;
     }
 
-    public static ColumnConfig<SubOrganization, Set<Member>> members() {
-        ColumnConfig<SubOrganization, Set<Member>> members = new ColumnConfig<SubOrganization, Set<Member>>(PropertyUtils.SubOrganizationProperty.members(), 200, "members");
+    public static ColumnConfig<SubOrganization, Set<User>> members() {
+        ColumnConfig<SubOrganization, Set<User>> members = new ColumnConfig<SubOrganization, Set<User>>(PropertyUtils.SubOrganizationProperty.members(), 200, "members");
         return members;
     }
 

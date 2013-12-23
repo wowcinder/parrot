@@ -41,7 +41,8 @@ public class TopOrganizationAuthority extends EntityHasAutoId {
 		return organization;
 	}
 
-	@ManyToOne(optional = false)
+	@ManyToOne
+//	(optional = false)
 	public Authority getAuthority() {
 		return authority;
 	}
