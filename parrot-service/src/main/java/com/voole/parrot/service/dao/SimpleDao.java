@@ -96,8 +96,8 @@ public class SimpleDao extends BaseDao implements ISimpleDao {
 
 	@Override
 	public <E extends Serializable, Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition, Class<E> clazz) {
-		return list(condition, clazz,
+			GwtListLoadConfigBean<Condition> configBean, Class<E> clazz) {
+		return list(configBean, clazz,
 				new EmptyQueryConditionAnalyzer<Condition>());
 	}
 
@@ -122,8 +122,8 @@ public class SimpleDao extends BaseDao implements ISimpleDao {
 
 	@Override
 	public <E extends Serializable, Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition, Class<E> clazz) {
-		return paging(condition, clazz,
+			GwtPagingLoadConfigBean<Condition> configBean, Class<E> clazz) {
+		return paging(configBean, clazz,
 				new EmptyQueryConditionAnalyzer<Condition>());
 	}
 

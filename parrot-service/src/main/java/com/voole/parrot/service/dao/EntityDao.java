@@ -63,31 +63,31 @@ public abstract class EntityDao<E extends Serializable> extends BaseDao
 	@SuppressWarnings("unchecked")
 	@Override
 	public <Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition,
+			GwtListLoadConfigBean<Condition> configBean,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
-		return simpleDao.list(condition, (Class<E>) typeToken.getRawType(),
+		return simpleDao.list(configBean, (Class<E>) typeToken.getRawType(),
 				conditionAnalyzer);
 	}
 
 	@Override
 	public <Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition) {
-		return list(condition, new EmptyQueryConditionAnalyzer<Condition>());
+			GwtListLoadConfigBean<Condition> configBean) {
+		return list(configBean, new EmptyQueryConditionAnalyzer<Condition>());
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition,
+			GwtPagingLoadConfigBean<Condition> configBean,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
-		return simpleDao.paging(condition, (Class<E>) typeToken.getRawType(),
+		return simpleDao.paging(configBean, (Class<E>) typeToken.getRawType(),
 				conditionAnalyzer);
 	}
 
 	@Override
 	public <Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition) {
-		return paging(condition, new EmptyQueryConditionAnalyzer<Condition>());
+			GwtPagingLoadConfigBean<Condition> configBean) {
+		return paging(configBean, new EmptyQueryConditionAnalyzer<Condition>());
 	}
 
 	@Override

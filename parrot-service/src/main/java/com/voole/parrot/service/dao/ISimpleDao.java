@@ -35,18 +35,18 @@ public interface ISimpleDao extends IBaseDao {
 			QueryConditionAnalyzer<Condition> conditionAnalyzer);
 
 	public <E extends Serializable, Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition, Class<E> clazz,
+			GwtListLoadConfigBean<Condition> configBean, Class<E> clazz,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer);
 
 	public <E extends Serializable, Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition, Class<E> clazz);
+			GwtListLoadConfigBean<Condition> configBean, Class<E> clazz);
 
 	public <E extends Serializable, Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition, Class<E> clazz,
+			GwtPagingLoadConfigBean<Condition> configBean, Class<E> clazz,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer);
 
 	public <E extends Serializable, Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition, Class<E> clazz);
+			GwtPagingLoadConfigBean<Condition> configBean, Class<E> clazz);
 
 	public interface QueryConditionAnalyzer<Condition extends QueryCondition> {
 		public void analyze(Criteria criteria, Condition condition,

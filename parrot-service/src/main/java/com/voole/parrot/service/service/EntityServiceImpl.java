@@ -73,28 +73,28 @@ public abstract class EntityServiceImpl<E extends Serializable> implements
 
 	@Override
 	public <Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition,
+			GwtListLoadConfigBean<Condition> configBean,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
-		return getEntityDao().list(condition, conditionAnalyzer);
+		return getEntityDao().list(configBean, conditionAnalyzer);
 	}
 
 	@Override
 	public <Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition) {
-		return getEntityDao().list(condition);
+			GwtListLoadConfigBean<Condition> configBean) {
+		return getEntityDao().list(configBean);
 	}
 
 	@Override
 	public <Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition,
+			GwtPagingLoadConfigBean<Condition> configBean,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
-		return getEntityDao().paging(condition, conditionAnalyzer);
+		return getEntityDao().paging(configBean, conditionAnalyzer);
 	}
 
 	@Override
 	public <Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition) {
-		return getEntityDao().paging(condition);
+			GwtPagingLoadConfigBean<Condition> configBean) {
+		return getEntityDao().paging(configBean);
 	}
 
 	public Class<E> getRawType() {

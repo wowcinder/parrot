@@ -32,18 +32,18 @@ public interface IEntityDao<E extends Serializable> extends IBaseDao {
 			QueryConditionAnalyzer<Condition> conditionAnalyzer);
 
 	public <Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition,
+			GwtListLoadConfigBean<Condition> configBean,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer);
 
 	public <Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition);
+			GwtListLoadConfigBean<Condition> configBean);
 
 	public <Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition,
+			GwtPagingLoadConfigBean<Condition> configBean,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer);
 
 	public <Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition);
+			GwtPagingLoadConfigBean<Condition> configBean);
 
 	public ISimpleDao getSimpleDao();
 

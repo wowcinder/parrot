@@ -71,28 +71,28 @@ public class SimpleServiceImpl implements SimpleService {
 
 	@Override
 	public <E extends Serializable, Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition, Class<E> clazz,
+			GwtListLoadConfigBean<Condition> configBean, Class<E> clazz,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
-		return simpleDao.list(condition, clazz, conditionAnalyzer);
+		return simpleDao.list(configBean, clazz, conditionAnalyzer);
 	}
 
 	@Override
 	public <E extends Serializable, Condition extends QueryCondition> ListLoadResult<E> list(
-			GwtListLoadConfigBean<Condition> condition, Class<E> clazz) {
-		return simpleDao.list(condition, clazz);
+			GwtListLoadConfigBean<Condition> configBean, Class<E> clazz) {
+		return simpleDao.list(configBean, clazz);
 	}
 
 	@Override
 	public <E extends Serializable, Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition, Class<E> clazz,
+			GwtPagingLoadConfigBean<Condition> configBean, Class<E> clazz,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
-		return simpleDao.paging(condition, clazz, conditionAnalyzer);
+		return simpleDao.paging(configBean, clazz, conditionAnalyzer);
 	}
 
 	@Override
 	public <E extends Serializable, Condition extends QueryCondition> PagingLoadResult<E> paging(
-			GwtPagingLoadConfigBean<Condition> condition, Class<E> clazz) {
-		return simpleDao.paging(condition, clazz);
+			GwtPagingLoadConfigBean<Condition> configBean, Class<E> clazz) {
+		return simpleDao.paging(configBean, clazz);
 	}
 
 }
