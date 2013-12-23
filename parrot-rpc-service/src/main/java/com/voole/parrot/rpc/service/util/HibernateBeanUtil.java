@@ -18,6 +18,7 @@ import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.hibernate.collection.AbstractPersistentCollection;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.proxy.LazyInitializer;
@@ -28,6 +29,8 @@ import org.hibernate.proxy.LazyInitializer;
  * 
  */
 public class HibernateBeanUtil {
+	
+	Session session;
 
 	private final static Map<Class<?>, List<Field>> columnFieldMap = new HashMap<Class<?>, List<Field>>();
 	private HashSet<Object> hasDealed;

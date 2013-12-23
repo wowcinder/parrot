@@ -22,7 +22,7 @@ import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.gwt.ui.shared.menu.LeftMenuView;
 import com.voole.parrot.gwt.ui.shared.menu.editor.AuthorityField;
 import com.voole.parrot.gwt.ui.shared.menu.editor.MenuEditor;
-import com.voole.parrot.gwt.ui.shared.menu.tree.MenuTree;
+import com.voole.parrot.gwt.ui.shared.organization.grid.OrganizationTreeGrid;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
@@ -42,8 +42,7 @@ public class ParrotTestWeb implements EntryPoint {
 				// testField1();
 
 				// testField2();
-				
-				MenuTree view = new MenuTree();
+				OrganizationTreeGrid view = new OrganizationTreeGrid();
 				RootPanel.get().add(view);
 
 				// AuthorityTree tree = new AuthorityTree();

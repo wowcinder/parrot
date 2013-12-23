@@ -26,8 +26,7 @@ public class EntityClassUtil {
 	}
 
 	public static boolean isEntityClass(Class<?> clazz) {
-		if (clazz.isAnnotationPresent(Entity.class)
-				&& !Modifier.isAbstract(clazz.getModifiers())) {
+		if (clazz.isAnnotationPresent(Entity.class)) {
 			return true;
 		}
 		return false;

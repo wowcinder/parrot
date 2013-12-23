@@ -28,16 +28,16 @@ import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
 public class GridBuilder<M> {
-	private boolean isMultiSelect;
-	private final ModelKeyProvider<M> keyProvider;
-	private final List<ColumnConfig<M, ?>> columns;
+	protected boolean isMultiSelect;
+	protected final ModelKeyProvider<M> keyProvider;
+	protected final List<ColumnConfig<M, ?>> columns;
 
-	private RpcPagingProxyLoad<M, ?, ?> pagingProxyLoad;
-	private RpcListProxyLoad<M, ?, ?> listProxyLoad;
-	private boolean isShowPagingBar;
-	private PagingToolBar pagingToolBar;
-	private int pageSize;
-	private boolean isShowDataImmediately;
+	protected RpcPagingProxyLoad<M, ?, ?> pagingProxyLoad;
+	protected RpcListProxyLoad<M, ?, ?> listProxyLoad;
+	protected boolean isShowPagingBar;
+	protected PagingToolBar pagingToolBar;
+	protected int pageSize;
+	protected boolean isShowDataImmediately;
 
 	public GridBuilder(ModelKeyProvider<M> keyProvider) {
 		this.pageSize = 50;

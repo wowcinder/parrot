@@ -63,6 +63,13 @@ public class PropertiesGenerator extends BaseJavaSourceGenerator {
 		TypeToken<?> typeToken = TypeToken.of(clazz);
 		Class<?> clazz1 = entityColumns.getClazz();
 		JType classJType = getJType(typeToken, clazz1);
+		// JDefinedClass propertyDc = null;
+		// try {
+		//
+		// } catch (Exception e) {
+		// // TODO: handle exception
+		// }
+		System.out.println(clazz1.getName());
 		JDefinedClass propertyDc = getjCodeModel()._class(
 				PROPERTY_SOURCE_PATH + clazz1.getSimpleName() + "Property",
 				ClassType.INTERFACE);
