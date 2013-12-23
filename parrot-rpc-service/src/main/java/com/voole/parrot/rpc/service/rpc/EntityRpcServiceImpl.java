@@ -49,7 +49,7 @@ public abstract class EntityRpcServiceImpl<E extends Serializable> implements
 
 	@Override
 	public List<E> get() {
-		return simpleService.get(getRawType());
+		return simpleService.list(getRawType());
 	}
 
 	@Override

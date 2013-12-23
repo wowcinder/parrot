@@ -46,12 +46,12 @@ public class MenuRpcServiceImpl implements MenuNodeRpcService {
 
 	@Override
 	public Menu create(Menu menu) throws SharedException {
-		return menuDao.save(menu);
+		return menuDao.create(menu);
 	}
 
 	@Override
 	public MenuGroup create(MenuGroup menu) throws SharedException {
-		return menuGroupDao.save(menu);
+		return menuGroupDao.create(menu);
 	}
 
 	@Override
