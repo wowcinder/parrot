@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.google.gwt.editor.client.Editor.Path;
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 
 /**
@@ -44,7 +44,7 @@ public class Authority extends EntityHasAutoId {
 	private Integer pos;
 	private Set<Authority> dependencies;
 	private Set<Authority> reDependencies;
-	private Set<Account> accounts;
+	private Set<User> accounts;
 
 	public Authority() {
 	}
@@ -85,11 +85,11 @@ public class Authority extends EntityHasAutoId {
 
 	@ManyToMany
 	@JoinTable(name = "account_authority", joinColumns = { @JoinColumn(name = "accounts") }, inverseJoinColumns = { @JoinColumn(name = "`authorities`") })
-	public Set<Account> getAccounts() {
+	public Set<User> getAccounts() {
 		return accounts;
 	}
 
-	public void setAccounts(Set<Account> accounts) {
+	public void setAccounts(Set<User> accounts) {
 		this.accounts = accounts;
 	}
 

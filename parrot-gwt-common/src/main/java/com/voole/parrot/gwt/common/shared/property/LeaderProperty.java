@@ -4,7 +4,7 @@ package com.voole.parrot.gwt.common.shared.property;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
-import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.Leader;
 import com.voole.parrot.shared.entity.organization.Organization;
 
@@ -20,6 +20,6 @@ public interface LeaderProperty
 
     public ValueProvider<Leader, Organization> organization();
 
-    public ValueProvider<Leader, Account> account();
+    public ValueProvider<Leader, User> account();
 
 }

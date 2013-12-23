@@ -20,9 +20,9 @@ import com.voole.parrot.gwt.common.shared.core.window.FixedWindow;
 import com.voole.parrot.gwt.common.shared.gridcolumn.AuthorityColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 /**
  * @author XuehuiHe

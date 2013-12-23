@@ -28,7 +28,7 @@ public class AuthorityRpcServiceImpl extends EntityRpcServiceImpl<Authority>
 
 	@Override
 	public Authority persist(Authority e) {
-		return authorityDao.persist(e);
+		return authorityDao.create(e);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -65,7 +65,7 @@ public class AuthorityRpcServiceImpl extends EntityRpcServiceImpl<Authority>
 			dependencies2.add(authority2);
 		}
 		authority.getDependencies().addAll(dependencies2);
-		simpleDao.persist(authority);
+		simpleDao.create(authority);
 	}
 
 }

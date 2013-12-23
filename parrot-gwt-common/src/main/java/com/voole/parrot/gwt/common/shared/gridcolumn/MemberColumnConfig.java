@@ -2,10 +2,11 @@
 package com.voole.parrot.gwt.common.shared.gridcolumn;
 
 import java.util.Set;
+
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
-import com.voole.parrot.shared.entity.account.Account;
 import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
 
@@ -27,8 +28,8 @@ public class MemberColumnConfig {
         return roles;
     }
 
-    public static ColumnConfig<Member, Account> account() {
-        ColumnConfig<Member, Account> account = new ColumnConfig<Member, Account>(PropertyUtils.MemberProperty.account(), 200, "account");
+    public static ColumnConfig<Member, User> account() {
+        ColumnConfig<Member, User> account = new ColumnConfig<Member, User>(PropertyUtils.MemberProperty.account(), 200, "account");
         return account;
     }
 

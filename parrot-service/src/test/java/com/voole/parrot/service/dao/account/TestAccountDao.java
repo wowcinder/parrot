@@ -10,7 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.service.dao.organization.IUserDao;
+import com.voole.parrot.shared.entity.organization.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
@@ -21,17 +22,17 @@ public class TestAccountDao {
 	@org.springframework.stereotype.Service
 	public static class TestAccountService {
 		@Autowired
-		private IAccountDao dao;
-		private Account account;
-		private List<Account> list;
+		private IUserDao dao;
+		private User account;
+		private List<User> list;
 
 		public TestAccountService() {
-			list = new ArrayList<Account>();
+			list = new ArrayList<User>();
 		}
 
 		@Transactional
 		public void save() {
-			account = new Account();
+			account = new User();
 			account.setName("test_name");
 			dao.create(account);
 		}
@@ -43,15 +44,15 @@ public class TestAccountDao {
 
 		@Transactional
 		public void saves() {
-			account = new Account();
+			account = new User();
 			account.setName("test_name");
 			list.add(account);
 
-			account = new Account();
+			account = new User();
 			account.setName("test_name2");
 			list.add(account);
 
-			dao.persist(list);
+			dao.create(list);
 		}
 
 		@Transactional

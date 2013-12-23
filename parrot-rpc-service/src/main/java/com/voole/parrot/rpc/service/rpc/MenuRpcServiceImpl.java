@@ -31,7 +31,7 @@ public class MenuRpcServiceImpl implements MenuNodeRpcService {
 
 	@Override
 	public List<Menu> get() throws SharedException {
-		return menuDao.get();
+		return menuDao.list();
 	}
 
 	@Override

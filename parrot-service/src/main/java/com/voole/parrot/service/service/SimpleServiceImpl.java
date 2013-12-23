@@ -12,9 +12,9 @@ import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.dao.ISimpleDao;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 @Service
 @Transactional
@@ -23,13 +23,23 @@ public class SimpleServiceImpl implements SimpleService {
 	private ISimpleDao simpleDao;
 
 	@Override
-	public <E extends Serializable> E persist(E e) {
-		return simpleDao.persist(e);
+	public <E extends Serializable> E create(E e) {
+		return simpleDao.create(e);
 	}
 
 	@Override
-	public <E extends Serializable, C extends Collection<E>> C persist(C list) {
-		return simpleDao.persist(list);
+	public <E extends Serializable, C extends Collection<E>> C create(C list) {
+		return simpleDao.create(list);
+	}
+
+	@Override
+	public <E extends Serializable> E update(E e) {
+		return simpleDao.update(e);
+	}
+
+	@Override
+	public <E extends Serializable, C extends Collection<E>> C update(C list) {
+		return simpleDao.update(list);
 	}
 
 	@Override
@@ -43,8 +53,15 @@ public class SimpleServiceImpl implements SimpleService {
 	}
 
 	@Override
-	public <E extends Serializable> List<E> get(Class<E> clazz) {
-		return simpleDao.get(clazz);
+	public <E extends Serializable> List<E> list(Class<E> clazz) {
+		return simpleDao.list(clazz);
+	}
+
+	@Override
+	public <E extends Serializable, Condition extends QueryCondition> List<E> list(
+			Class<E> clazz, Condition condition,
+			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
+		return simpleDao.list(clazz, condition, conditionAnalyzer);
 	}
 
 	@Override

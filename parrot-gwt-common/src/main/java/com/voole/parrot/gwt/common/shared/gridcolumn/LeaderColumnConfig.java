@@ -3,7 +3,7 @@ package com.voole.parrot.gwt.common.shared.gridcolumn;
 
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
-import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.Leader;
 import com.voole.parrot.shared.entity.organization.Organization;
 
@@ -20,8 +20,8 @@ public class LeaderColumnConfig {
         return organization;
     }
 
-    public static ColumnConfig<Leader, Account> account() {
-        ColumnConfig<Leader, Account> account = new ColumnConfig<Leader, Account>(PropertyUtils.LeaderProperty.account(), 200, "account");
+    public static ColumnConfig<Leader, User> account() {
+        ColumnConfig<Leader, User> account = new ColumnConfig<Leader, User>(PropertyUtils.LeaderProperty.account(), 200, "account");
         return account;
     }
 

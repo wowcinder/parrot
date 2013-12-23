@@ -16,9 +16,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 /**
  * @author XuehuiHe
@@ -41,7 +41,7 @@ public class Role extends EntityHasAutoId {
 	 */
 	private String name;
 
-	private Set<Member> members;
+	private Set<User> members;
 
 	@Column(nullable = false, length = 50)
 	@NotNull
@@ -63,11 +63,11 @@ public class Role extends EntityHasAutoId {
 
 	@ManyToMany
 	@JoinTable(name = "member_roles", joinColumns = { @JoinColumn(name = "role") }, inverseJoinColumns = { @JoinColumn(name = "member") })
-	public Set<Member> getMembers() {
+	public Set<User> getMembers() {
 		return members;
 	}
 
-	public void setMembers(Set<Member> members) {
+	public void setMembers(Set<User> members) {
 		this.members = members;
 	}
 

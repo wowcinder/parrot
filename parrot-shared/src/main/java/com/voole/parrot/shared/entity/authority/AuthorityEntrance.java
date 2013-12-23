@@ -9,11 +9,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.entity.EntityHasAutoId;
 import com.voole.parrot.shared.entity.EntityWithOrderChildren;
+import com.voole.parrot.util.AuthorityTokenUtil;
 
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
@@ -53,8 +53,8 @@ public class AuthorityEntrance extends EntityHasAutoId implements
 		}
 		for (Authority authority : authorities) {
 			authority.setPos(authorities.indexOf(authority));
-			authority.setToken(DigestUtils.md5Hex(this.getName() + "_"
-					+ authority.getName()));
+			authority.setToken(AuthorityTokenUtil.getToken(this.getName(),
+					authority.getName()));
 		}
 	}
 

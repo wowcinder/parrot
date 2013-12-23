@@ -3,8 +3,8 @@ package com.voole.parrot.gwt.common.shared.core.grid;
 import com.sencha.gxt.data.shared.loader.DataProxy;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoader;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 public class GwtPagingLoader<T, PC extends QueryCondition, PR extends PagingLoadResult<T>>
 		extends PagingLoader<GwtPagingLoadConfigBean<PC>, PR> {

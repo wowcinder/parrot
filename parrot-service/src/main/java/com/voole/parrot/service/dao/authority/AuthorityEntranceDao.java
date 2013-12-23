@@ -12,6 +12,6 @@ public class AuthorityEntranceDao extends EntityDao<AuthorityEntrance>
 	public AuthorityEntrance changeName(AuthorityEntrance e) {
 		AuthorityEntrance old = refresh(e);
 		old.setName(e.getName());
-		return super.persist(old);
+		return super.create(old);
 	}
 }

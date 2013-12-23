@@ -10,9 +10,9 @@ import com.google.common.reflect.TypeToken;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 public abstract class EntityDao<E extends Serializable> extends BaseDao
 		implements IEntityDao<E> {
@@ -25,13 +25,16 @@ public abstract class EntityDao<E extends Serializable> extends BaseDao
 	private ISimpleDao simpleDao;
 
 	@Override
-	public E persist(E e) {
-		return simpleDao.persist(e);
+	public E create(E e) {
+		return simpleDao.create(e);
 	}
 
 	@Override
-	public <C extends Collection<E>> C persist(C list) {
-		return simpleDao.persist(list);
+	public <C extends Collection<E>> C create(C list) {
+		for (E e : list) {
+			create(e);
+		}
+		return list;
 	}
 
 	@Override
@@ -41,13 +44,15 @@ public abstract class EntityDao<E extends Serializable> extends BaseDao
 
 	@Override
 	public void delete(Collection<E> list) {
-		simpleDao.delete(list);
+		for (E e : list) {
+			delete(e);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<E> get() {
-		return simpleDao.get((Class<E>) typeToken.getRawType());
+	public List<E> list() {
+		return simpleDao.list((Class<E>) typeToken.getRawType());
 	}
 
 	@Override
@@ -94,5 +99,24 @@ public abstract class EntityDao<E extends Serializable> extends BaseDao
 	@Override
 	public Class<E> getRawType() {
 		return (Class<E>) typeToken.getRawType();
+	}
+
+	@Override
+	public E update(E e) {
+		return simpleDao.update(e);
+	}
+
+	@Override
+	public <C extends Collection<E>> C update(C list) {
+		for (E e : list) {
+			update(e);
+		}
+		return list;
+	}
+
+	@Override
+	public <Condition extends QueryCondition> List<E> list(Condition condition,
+			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
+		return simpleDao.list(getRawType(), condition, conditionAnalyzer);
 	}
 }

@@ -3,12 +3,13 @@ package com.voole.parrot.gwt.common.shared.property;
 
 import java.util.List;
 import java.util.Set;
+
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
-import com.voole.parrot.shared.entity.account.Account;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
+import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 
 public interface AuthorityProperty
@@ -19,7 +20,7 @@ public interface AuthorityProperty
     @com.google.gwt.editor.client.Editor.Path("token")
     public ModelKeyProvider<Authority> key();
 
-    public ValueProvider<Authority, Set<Account>> accounts();
+    public ValueProvider<Authority, Set<User>> accounts();
 
     public ValueProvider<Authority, Set<Authority>> dependencies();
 

@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.voole.parrot.service.dao.account.IAccountDao;
 import com.voole.parrot.service.dao.authority.IAuthorityDao;
-import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.service.dao.organization.IUserDao;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.Leader;
 import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
@@ -23,7 +23,7 @@ import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 @Service
 public class TestEntityDaoService {
 	@Autowired
-	private IAccountDao accountDao;
+	private IUserDao accountDao;
 	@Autowired
 	private IAuthorityDao authorityDao;
 	@Autowired
@@ -35,26 +35,26 @@ public class TestEntityDaoService {
 	}
 
 	@Transactional
-	public Account saveAccount(Account account) {
+	public User saveAccount(User account) {
 		accountDao.create(account);
 		return account;
 	}
 
 	@Transactional
 	public Authority saveAuthority(Authority authority) {
-		authorityDao.persist(authority);
+		authorityDao.create(authority);
 		return authority;
 	}
 
 	@Transactional
 	public Leader saveLeader(Leader leader) {
-		simpleDao.persist(leader);
+		simpleDao.create(leader);
 		return leader;
 	}
 
 	@Transactional
 	public TopOrganization saveTopOrganization(TopOrganization top) {
-		simpleDao.persist(top);
+		simpleDao.create(top);
 		return top;
 	}
 
@@ -71,21 +71,21 @@ public class TestEntityDaoService {
 	@Transactional
 	public Set<TopOrganizationAuthority> saveTopOrganizationAuthority(
 			Set<TopOrganizationAuthority> authorities) {
-		simpleDao.persist(authorities);
+		simpleDao.create(authorities);
 		return authorities;
 	}
 
 	@Transactional
-	public void delete(Account account) {
+	public void delete(User account) {
 		accountDao.delete(account);
 	}
 
-	public Account createAccount() {
+	public User createAccount() {
 		return createAccount(null);
 	}
 
-	public Account createAccount(Integer i) {
-		Account account = new Account();
+	public User createAccount(Integer i) {
+		User account = new User();
 		if (i == null) {
 			i = r.nextInt();
 		}
@@ -108,11 +108,11 @@ public class TestEntityDaoService {
 	public AuthorityEntrance createEntrance(Integer i) {
 		AuthorityEntrance entrance = new AuthorityEntrance();
 		entrance.setName("entrance" + (i == null ? r.nextInt() : i));
-		simpleDao.persist(entrance);
+		simpleDao.create(entrance);
 		return entrance;
 	}
 
-	public Leader createLeader(Account account, Organization organization) {
+	public Leader createLeader(User account, Organization organization) {
 		Leader leader = new Leader();
 		leader.setAccount(account);
 		leader.setOrganization(organization);
@@ -121,11 +121,11 @@ public class TestEntityDaoService {
 
 	@Transactional
 	public Member save(Member member) {
-		simpleDao.persist(member);
+		simpleDao.create(member);
 		return member;
 	}
 
-	public Member createMember(Account account, Organization organization,
+	public Member createMember(User account, Organization organization,
 			Set<Role> roles) {
 		Member member = new Member();
 		member.setAccount(account);
@@ -136,7 +136,7 @@ public class TestEntityDaoService {
 
 	@Transactional
 	public SubOrganization save(SubOrganization sub) {
-		simpleDao.persist(sub);
+		simpleDao.create(sub);
 		return sub;
 	}
 
@@ -151,7 +151,7 @@ public class TestEntityDaoService {
 
 	@Transactional
 	public Role save(Role role) {
-		simpleDao.persist(role);
+		simpleDao.create(role);
 		return role;
 	}
 

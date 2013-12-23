@@ -3,6 +3,7 @@
  */
 package com.voole.parrot.shared.entity.organization;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -29,10 +30,6 @@ import com.voole.parrot.shared.entity.authority.Role;
 public abstract class Organization extends EntityHasAutoId {
 	private static final long serialVersionUID = -6873521357227566626L;
 	/**
-	 * 该组织的领导者们
-	 */
-	private Set<Leader> leaders;
-	/**
 	 * 该组织拥有的角色
 	 */
 	private Set<Role> roles;
@@ -43,7 +40,7 @@ public abstract class Organization extends EntityHasAutoId {
 	/**
 	 * 该组织的成员
 	 */
-	private Set<Member> members;
+	private Set<User> members;
 	/**
 	 * 组织名称
 	 */
@@ -59,11 +56,6 @@ public abstract class Organization extends EntityHasAutoId {
 			Set<TopOrganizationAuthority> authorities);
 
 	@OneToMany(mappedBy = "organization", cascade = { CascadeType.REMOVE })
-	public Set<Leader> getLeaders() {
-		return leaders;
-	}
-
-	@OneToMany(mappedBy = "organization", cascade = { CascadeType.REMOVE })
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -74,8 +66,23 @@ public abstract class Organization extends EntityHasAutoId {
 	}
 
 	@OneToMany(mappedBy = "organization", cascade = { CascadeType.REMOVE })
-	public Set<Member> getMembers() {
+	public Set<User> getMembers() {
 		return members;
+	}
+
+	@Transient
+	public Set<User> getLeaders() {
+		Set<User> users = getMembers();
+		if (users != null && users.size() > 0) {
+			Set<User> leaders = new HashSet<User>();
+			for (User user : users) {
+				if (user.isLeader()) {
+					leaders.add(user);
+				}
+			}
+			return leaders;
+		}
+		return null;
 	}
 
 	@Column(length = 50, nullable = false)
@@ -83,10 +90,6 @@ public abstract class Organization extends EntityHasAutoId {
 	@Length(min = 1, max = 50)
 	public String getName() {
 		return name;
-	}
-
-	public void setLeaders(Set<Leader> leaders) {
-		this.leaders = leaders;
 	}
 
 	public void setRoles(Set<Role> roles) {
@@ -97,7 +100,7 @@ public abstract class Organization extends EntityHasAutoId {
 		this.subOrganizations = subOrganizations;
 	}
 
-	public void setMembers(Set<Member> members) {
+	public void setMembers(Set<User> members) {
 		this.members = members;
 	}
 

@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.voole.parrot.service.dao.ISimpleDao;
-import com.voole.parrot.service.dao.account.IAccountDao;
-import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.service.dao.organization.IUserDao;
+import com.voole.parrot.shared.entity.organization.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
@@ -50,13 +50,13 @@ public class TestAuthorizeService {
 	@Service
 	public static class Helper {
 		@Autowired
-		private IAccountDao accountDao;
+		private IUserDao accountDao;
 		@Autowired
 		private ISimpleDao authorityEntranceDao;
 
 		@Transactional
 		public void initData() {
-			Account account = new Account();
+			User account = new User();
 			account.setName("admin3");
 			account.setPassword("admin3");
 			accountDao.create(account);

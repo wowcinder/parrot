@@ -79,6 +79,6 @@ public class TestMenuDao {
 		menu.setParent(mg);
 		menu.setToken("kkkk");
 
-		menuDao.persist(menu);
+		menuDao.create(menu);
 	}
 }

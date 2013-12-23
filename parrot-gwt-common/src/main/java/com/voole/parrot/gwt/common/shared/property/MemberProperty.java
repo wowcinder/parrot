@@ -2,11 +2,12 @@
 package com.voole.parrot.gwt.common.shared.property;
 
 import java.util.Set;
+
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
-import com.voole.parrot.shared.entity.account.Account;
 import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.Member;
 import com.voole.parrot.shared.entity.organization.Organization;
 
@@ -24,6 +25,6 @@ public interface MemberProperty
 
     public ValueProvider<Member, Set<Role>> roles();
 
-    public ValueProvider<Member, Account> account();
+    public ValueProvider<Member, User> account();
 
 }

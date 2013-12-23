@@ -1,6 +1,7 @@
 package com.voole.parrot.shared.grid;
 
 import com.sencha.gxt.data.shared.loader.ListLoadConfigBean;
+import com.voole.parrot.shared.condition.QueryCondition;
 
 public class GwtListLoadConfigBean<Condition extends QueryCondition> extends
 		ListLoadConfigBean implements ConditionLoadConfig<Condition> {

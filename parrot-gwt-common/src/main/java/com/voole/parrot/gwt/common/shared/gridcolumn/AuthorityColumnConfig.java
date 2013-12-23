@@ -3,18 +3,19 @@ package com.voole.parrot.gwt.common.shared.gridcolumn;
 
 import java.util.List;
 import java.util.Set;
+
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
-import com.voole.parrot.shared.entity.account.Account;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
+import com.voole.parrot.shared.entity.organization.User;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
 
 public class AuthorityColumnConfig {
 
 
-    public static ColumnConfig<Authority, Set<Account>> accounts() {
-        ColumnConfig<Authority, Set<Account>> accounts = new ColumnConfig<Authority, Set<Account>>(PropertyUtils.AuthorityProperty.accounts(), 200, "accounts");
+    public static ColumnConfig<Authority, Set<User>> accounts() {
+        ColumnConfig<Authority, Set<User>> accounts = new ColumnConfig<Authority, Set<User>>(PropertyUtils.AuthorityProperty.accounts(), 200, "accounts");
         return accounts;
     }
 

@@ -25,9 +25,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.voole.parrot.service.dao.account.IAccountDao;
 import com.voole.parrot.service.dao.menu.IMenuGroupDao;
-import com.voole.parrot.shared.entity.account.Account;
+import com.voole.parrot.service.dao.organization.IUserDao;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.Role;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
@@ -35,6 +34,7 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
 import com.voole.parrot.shared.entity.organization.Organization;
 import com.voole.parrot.shared.entity.organization.TopOrganization;
 import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.organization.User;
 
 /**
  * 
@@ -49,7 +49,7 @@ public class AuthorizeServiceImpl implements AuthorizeService {
 	private static final String IS_ADMIN_NAME_IN_SESSION = "ADMIN";
 
 	@Autowired
-	private IAccountDao accountDao;
+	private IUserDao accountDao;
 	@Autowired
 	private IMenuGroupDao menuGroupDao;
 
@@ -83,51 +83,43 @@ public class AuthorizeServiceImpl implements AuthorizeService {
 			session.setAttribute(IS_ADMIN_NAME_IN_SESSION, true);
 			return true;
 		}
-		Account account = accountDao.findAccount(name, password);
-		if (account != null) {
+		User user = accountDao.findUser(name, password);
+		if (user != null) {
 			HttpSession session = getSession();
-			session.setAttribute(USER_ID_NAME_IN_SESSION, account.getId());
-			if (account.getMember() != null
-					&& account.getMember().getOrganization() != null) {
-				Organization organization = account.getMember()
-						.getOrganization();
-				if (organization instanceof TopOrganization
-						&& organization.getName().equals("admin")) {
-					session.setAttribute(IS_ADMIN_NAME_IN_SESSION, true);
-				} else {
-					session.setAttribute(IS_ADMIN_NAME_IN_SESSION, false);
-				}
-			} else {
-				session.setAttribute(IS_ADMIN_NAME_IN_SESSION, false);
+			session.setAttribute(USER_ID_NAME_IN_SESSION, user.getId());
+			Organization organization = user.getOrganization();
+			boolean isAdmin = false;
+			if (organization instanceof TopOrganization
+					&& organization.getName().equals("admin")) {
+				isAdmin = true;
 			}
+			session.setAttribute(IS_ADMIN_NAME_IN_SESSION, isAdmin);
 			session.setAttribute(AUTHORITIES_NAME_IN_SESSION,
-					getAuthorities(account));
+					getAuthorities(user));
 			return true;
 		}
 		return false;
 	}
 
-	public Set<String> getAuthorities(Account account) {
+	public Set<String> getAuthorities(User user) {
 		Set<String> authorities = new HashSet<String>();
 		// 额外的权限
-		for (Authority authority : account.getAuthorities()) {
+		for (Authority authority : user.getAuthorities()) {
 			fillToken(authorities, authority);
 		}
 		// 角色的权限
-		if (account.getMember() != null) {
-			Set<Role> roles = account.getMember().getRoles();
-			for (Role role : roles) {
-				for (TopOrganizationAuthority topOrganizationAuthority : role
-						.getAuthorities()) {
-					fillToken(authorities,
-							topOrganizationAuthority.getAuthority());
-				}
+
+		Set<Role> roles = user.getRoles();
+		for (Role role : roles) {
+			for (TopOrganizationAuthority topOrganizationAuthority : role
+					.getAuthorities()) {
+				fillToken(authorities, topOrganizationAuthority.getAuthority());
 			}
 		}
 		// LEADER的权限
-		if (account.getLeader() != null) {
-			for (TopOrganizationAuthority topOrganizationAuthority : account
-					.getLeader().getOrganization().getAuthorities()) {
+		if (user.isLeader()) {
+			for (TopOrganizationAuthority topOrganizationAuthority : user
+					.getOrganization().getAuthorities()) {
 				fillToken(authorities, topOrganizationAuthority.getAuthority());
 			}
 		}

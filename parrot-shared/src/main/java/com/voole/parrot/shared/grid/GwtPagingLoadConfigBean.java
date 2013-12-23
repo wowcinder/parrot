@@ -1,6 +1,7 @@
 package com.voole.parrot.shared.grid;
 
 import com.sencha.gxt.data.shared.loader.PagingLoadConfigBean;
+import com.voole.parrot.shared.condition.QueryCondition;
 
 public class GwtPagingLoadConfigBean<Condition extends QueryCondition> extends
 		PagingLoadConfigBean implements ConditionLoadConfig<Condition> {

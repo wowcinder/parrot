@@ -4,8 +4,8 @@ import com.sencha.gxt.data.shared.loader.DataProxy;
 import com.sencha.gxt.data.shared.loader.DataReader;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.ListLoader;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 public class GwtListLoader<T, PC extends QueryCondition, PR extends ListLoadResult<T>>
 		extends ListLoader<GwtListLoadConfigBean<PC>, PR> {

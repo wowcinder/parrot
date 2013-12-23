@@ -42,7 +42,7 @@ public class TestAuthorityDao {
 
 			authority.setEntrance(entrance);
 			authority.setName("name");
-			dao2.persist(entrance);
+			dao2.create(entrance);
 			System.out.println(entrance);
 			// dao.save(authority);
 		}

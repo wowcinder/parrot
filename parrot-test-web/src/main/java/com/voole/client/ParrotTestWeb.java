@@ -38,12 +38,12 @@ import com.voole.parrot.gwt.ui.shared.authority.tree.AuthorityTree;
 import com.voole.parrot.gwt.ui.shared.menu.LeftMenuView;
 import com.voole.parrot.gwt.ui.shared.menu.editor.AuthorityField;
 import com.voole.parrot.gwt.ui.shared.menu.editor.MenuEditor;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.

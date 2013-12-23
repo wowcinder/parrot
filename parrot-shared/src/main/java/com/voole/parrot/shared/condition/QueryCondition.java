@@ -1,4 +1,4 @@
-package com.voole.parrot.shared.grid;
+package com.voole.parrot.shared.condition;
 
 import java.io.Serializable;
 

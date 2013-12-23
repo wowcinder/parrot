@@ -23,9 +23,9 @@ import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 import com.sencha.gxt.widget.core.client.grid.Grid;
 import com.sencha.gxt.widget.core.client.toolbar.PagingToolBar;
 import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 public class GridBuilder<M> {
 	private boolean isMultiSelect;

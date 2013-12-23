@@ -11,9 +11,9 @@ import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.gwt.common.shared.rpcservice.EntityRpcService;
 import com.voole.parrot.service.service.SimpleService;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 public abstract class EntityRpcServiceImpl<E extends Serializable> implements
 		EntityRpcService<E> {
@@ -29,12 +29,12 @@ public abstract class EntityRpcServiceImpl<E extends Serializable> implements
 
 	@Override
 	public E persist(E e) {
-		return simpleService.persist(e);
+		return simpleService.create(e);
 	}
 
 	@Override
 	public Collection<E> persist(Collection<E> list) {
-		return simpleService.persist(list);
+		return simpleService.create(list);
 	}
 
 	@Override

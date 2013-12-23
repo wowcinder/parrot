@@ -8,23 +8,41 @@ import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.service.dao.IEntityDao;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
+import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
-import com.voole.parrot.shared.grid.QueryCondition;
 
 public abstract class EntityServiceImpl<E extends Serializable> implements
 		EntityService<E> {
 
-	public abstract IEntityDao<E> getEntityDao();
+	private IEntityDao<E> entityDao;
 
-	@Override
-	public E persist(E e) {
-		return getEntityDao().persist(e);
+	public void setEntityDao(IEntityDao<E> entityDao) {
+		this.entityDao = entityDao;
+	}
+
+	public IEntityDao<E> getEntityDao() {
+		return this.entityDao;
 	}
 
 	@Override
-	public <C extends Collection<E>> C persist(C list) {
-		return getEntityDao().persist(list);
+	public E create(E e) {
+		return getEntityDao().create(e);
+	}
+
+	@Override
+	public <C extends Collection<E>> C create(C list) {
+		return getEntityDao().create(list);
+	}
+
+	@Override
+	public E update(E e) {
+		return getEntityDao().update(e);
+	}
+
+	@Override
+	public <C extends Collection<E>> C update(C list) {
+		return getEntityDao().update(list);
 	}
 
 	@Override
@@ -38,8 +56,14 @@ public abstract class EntityServiceImpl<E extends Serializable> implements
 	}
 
 	@Override
-	public List<E> get() {
-		return getEntityDao().get();
+	public List<E> list() {
+		return getEntityDao().list();
+	}
+
+	@Override
+	public <Condition extends QueryCondition> List<E> list(Condition condition,
+			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
+		return getEntityDao().list(condition, conditionAnalyzer);
 	}
 
 	@Override
