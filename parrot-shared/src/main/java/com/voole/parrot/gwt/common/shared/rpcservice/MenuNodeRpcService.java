@@ -7,14 +7,10 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.sencha.gxt.data.shared.loader.ListLoadResult;
-import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
 import com.voole.parrot.shared.exception.SharedException;
-import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
-import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
 /**
  * @author XuehuiHe
@@ -22,24 +18,19 @@ import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
  */
 @RemoteServiceRelativePath("rpc/menu.rpc")
 public interface MenuNodeRpcService extends RemoteService {
-
-	Menu create(Menu menu) throws SharedException;
-
-	MenuGroup create(MenuGroup menu) throws SharedException;
+	Menu persist(Menu menu) throws SharedException;
 
 	Menu update(Menu menu) throws SharedException;
 
-	MenuGroup update(MenuGroup menu) throws SharedException;
+	MenuGroup persist(MenuGroup mg) throws SharedException;
 
-	List<Menu> get() throws SharedException;
+	MenuGroup update(MenuGroup mg)
+			throws SharedException;
+
+	void delete(MenuGroup mg) throws SharedException;
 
 	void delete(Menu menu) throws SharedException;
 
-	void delete(MenuGroup menu) throws SharedException;
-
-	public ListLoadResult<Menu> list(GwtListLoadConfigBean<?> condition);
-
-	public PagingLoadResult<Menu> paging(GwtPagingLoadConfigBean<?> condition);
-
 	public List<MenuNode> move(MenuNode p, List<MenuNode> items, int index);
+
 }

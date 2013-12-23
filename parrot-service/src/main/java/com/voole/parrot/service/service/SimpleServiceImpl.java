@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
+import com.voole.parrot.service.dao.EntityUpdater;
 import com.voole.parrot.service.dao.ISimpleDao;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
-import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
@@ -24,12 +24,12 @@ public class SimpleServiceImpl implements SimpleService {
 	private ISimpleDao simpleDao;
 
 	@Override
-	public <E extends Serializable> E create(E e) {
+	public <E extends Serializable> E persist(E e) {
 		return simpleDao.persist(e);
 	}
 
 	@Override
-	public <E extends Serializable, C extends Collection<E>> C create(C list) {
+	public <E extends Serializable, C extends Collection<E>> C persist(C list) {
 		return simpleDao.persist(list);
 	}
 

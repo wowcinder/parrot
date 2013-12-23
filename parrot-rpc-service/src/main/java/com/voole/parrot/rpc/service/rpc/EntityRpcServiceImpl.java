@@ -10,8 +10,10 @@ import com.google.common.reflect.TypeToken;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.gwt.common.shared.rpcservice.EntityRpcService;
+import com.voole.parrot.service.dao.EmptyQueryConditionAnalyzer;
 import com.voole.parrot.service.service.SimpleService;
 import com.voole.parrot.shared.condition.QueryCondition;
+import com.voole.parrot.shared.exception.SharedException;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
@@ -29,12 +31,12 @@ public abstract class EntityRpcServiceImpl<E extends Serializable> implements
 
 	@Override
 	public E persist(E e) {
-		return simpleService.create(e);
+		return simpleService.persist(e);
 	}
 
 	@Override
 	public Collection<E> persist(Collection<E> list) {
-		return simpleService.create(list);
+		return simpleService.persist(list);
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public abstract class EntityRpcServiceImpl<E extends Serializable> implements
 	}
 
 	@Override
-	public List<E> get() {
+	public List<E> list() {
 		return simpleService.list(getRawType());
 	}
 
@@ -72,5 +74,24 @@ public abstract class EntityRpcServiceImpl<E extends Serializable> implements
 	@SuppressWarnings("unchecked")
 	public Class<E> getRawType() {
 		return (Class<E>) typeToken.getRawType();
+	}
+
+	@Override
+	public <Condition extends QueryCondition> List<E> list(Condition condition)
+			throws SharedException {
+		return simpleService.list(getRawType(), condition,
+				new EmptyQueryConditionAnalyzer<Condition>());
+	}
+
+	@Override
+	public E update(E e) {
+		// return simpleService.update(e, updater);
+		return null;
+	}
+
+	@Override
+	public <C extends Collection<E>> C update(C list) {
+		// return simpleService.update(list, updater);
+		return null;
 	}
 }

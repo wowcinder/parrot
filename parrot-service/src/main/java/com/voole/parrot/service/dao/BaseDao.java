@@ -42,7 +42,7 @@ public abstract class BaseDao implements IBaseDao {
 			Serializable id = session.getSessionFactory()
 					.getClassMetadata(e.getClass())
 					.getIdentifier(e, (SessionImplementor) session);
-			e = (E) session.load(e.getClass(), id);
+			e = (E) session.get(e.getClass(), id);
 			return e;
 		}
 		return e;
@@ -76,7 +76,7 @@ public abstract class BaseDao implements IBaseDao {
 				Serializable id = session.getSessionFactory()
 						.getClassMetadata(e.getClass())
 						.getIdentifier(e, (SessionImplementor) session);
-				E e2 = (E) session.load(e.getClass(), id);
+				E e2 = (E) session.get(e.getClass(), id);
 				list2.add(e2);
 			} else {
 				list2.add(e);

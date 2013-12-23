@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.voole.parrot.service.dao.EntityUpdater;
 import com.voole.parrot.service.service.authority.AuthorityEntranceService;
 import com.voole.parrot.service.service.authority.AuthorityService;
-import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 
@@ -38,7 +38,7 @@ public class TestAuthorityDao {
 		authority.setEntrance(entrance);
 		authority.setName("name");
 		entrance.setAuthorities(authorities);
-		entrance = entranceService.create(entrance);
+		entrance = entranceService.persist(entrance);
 
 	}
 

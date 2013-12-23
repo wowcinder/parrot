@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
+import com.voole.parrot.service.dao.EntityUpdater;
 import com.voole.parrot.service.dao.IEntityDao;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
-import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
@@ -22,12 +22,12 @@ public abstract class EntityServiceImpl<E extends Serializable> implements
 	public abstract IEntityDao<E> getEntityDao();
 
 	@Override
-	public E create(E e) {
+	public E persist(E e) {
 		return getEntityDao().create(e);
 	}
 
 	@Override
-	public <C extends Collection<E>> C create(C list) {
+	public <C extends Collection<E>> C persist(C list) {
 		return getEntityDao().create(list);
 	}
 

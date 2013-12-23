@@ -6,6 +6,7 @@ package com.voole.parrot.service.dao.menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -93,6 +94,9 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		refresh(items);
 		for (MenuNode node : items) {
 			node.setParent(null);
+			if(node instanceof MenuGroup){
+				Hibernate.initialize(((MenuGroup) node).getNodes());
+			}
 		}
 		getCurrSession().flush();
 		MenuGroup mg = null;

@@ -13,7 +13,6 @@ import com.voole.parrot.service.service.organization.SubOrganizationService;
 import com.voole.parrot.service.service.organization.TopOrganizationAuthorityService;
 import com.voole.parrot.service.service.organization.TopOrganizationService;
 import com.voole.parrot.service.service.organization.UserService;
-import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 import com.voole.parrot.shared.entity.authority.Role;
@@ -46,17 +45,17 @@ public class TestEntityDaoService {
 	}
 
 	public User saveAccount(User account) {
-		accountDao.create(account);
+		accountDao.persist(account);
 		return account;
 	}
 
 	public Authority saveAuthority(Authority authority) {
-		authorityDao.create(authority);
+		authorityDao.persist(authority);
 		return authority;
 	}
 
 	public TopOrganization saveTopOrganization(TopOrganization top) {
-		topOrganizationService.create(top);
+		topOrganizationService.persist(top);
 		return top;
 	}
 
@@ -70,7 +69,7 @@ public class TestEntityDaoService {
 
 	public Set<TopOrganizationAuthority> saveTopOrganizationAuthority(
 			Set<TopOrganizationAuthority> authorities) {
-		topOrganizationAuthorityService.create(authorities);
+		topOrganizationAuthorityService.persist(authorities);
 		return authorities;
 	}
 
@@ -106,12 +105,12 @@ public class TestEntityDaoService {
 	public AuthorityEntrance createEntrance(Integer i) {
 		AuthorityEntrance entrance = new AuthorityEntrance();
 		entrance.setName("entrance" + (i == null ? r.nextInt() : i));
-		entranceService.create(entrance);
+		entranceService.persist(entrance);
 		return entrance;
 	}
 
 	public SubOrganization save(SubOrganization sub) {
-		subOrganizationService.create(sub);
+		subOrganizationService.persist(sub);
 		return sub;
 	}
 
@@ -125,7 +124,7 @@ public class TestEntityDaoService {
 	}
 
 	public Role save(Role role) {
-		roleService.create(role);
+		roleService.persist(role);
 		return role;
 	}
 

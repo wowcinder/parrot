@@ -6,77 +6,69 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sencha.gxt.data.shared.loader.ListLoadResult;
-import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.gwt.common.shared.rpcservice.MenuNodeRpcService;
-import com.voole.parrot.service.dao.ISimpleDao;
-import com.voole.parrot.service.dao.menu.IMenuDao;
-import com.voole.parrot.service.dao.menu.IMenuGroupDao;
+import com.voole.parrot.service.dao.EntityUpdater;
+import com.voole.parrot.service.service.menu.MenuGroupService;
+import com.voole.parrot.service.service.menu.MenuService;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
 import com.voole.parrot.shared.exception.SharedException;
-import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
-import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
 @Service
 @Transactional
 public class MenuRpcServiceImpl implements MenuNodeRpcService {
 	@Autowired
-	private IMenuGroupDao menuGroupDao;
+	private MenuService menuService;
 	@Autowired
-	private IMenuDao menuDao;
-	@Autowired
-	private ISimpleDao simpleDao;
+	private MenuGroupService menuGroupService;
 
 	@Override
-	public List<Menu> get() throws SharedException {
-		return menuDao.list();
-	}
-
-	@Override
-	public ListLoadResult<Menu> list(GwtListLoadConfigBean<?> condition) {
-		return menuDao.list(condition);
-	}
-
-	@Override
-	public PagingLoadResult<Menu> paging(GwtPagingLoadConfigBean<?> condition) {
-		return menuDao.paging(condition);
-	}
-
-	@Override
-	public Menu create(Menu menu) throws SharedException {
-		return menuDao.create(menu);
-	}
-
-	@Override
-	public MenuGroup create(MenuGroup menu) throws SharedException {
-		return menuGroupDao.create(menu);
+	public Menu persist(Menu menu) throws SharedException {
+		return menuService.persist(menu);
 	}
 
 	@Override
 	public Menu update(Menu menu) throws SharedException {
-		return menuDao.update(menu);
+		return menuService.update(menu, new EntityUpdater<Menu>() {
+			@Override
+			public void invoke(Menu old, Menu e) {
+				old.setName(e.getName());
+				old.setToken(e.getToken());
+				old.setRequireAuthority(e.getRequireAuthority());
+			}
+
+		});
 	}
 
 	@Override
-	public MenuGroup update(MenuGroup menu) throws SharedException {
-		return menuGroupDao.update(menu);
+	public MenuGroup persist(MenuGroup mg) throws SharedException {
+		return menuGroupService.persist(mg);
+	}
+
+	@Override
+	public MenuGroup update(MenuGroup mg) throws SharedException {
+		return menuGroupService.update(mg, new EntityUpdater<MenuGroup>() {
+			@Override
+			public void invoke(MenuGroup old, MenuGroup e) {
+				old.setName(e.getName());
+			}
+		});
+	}
+
+	@Override
+	public void delete(MenuGroup mg) throws SharedException {
+		menuGroupService.delete(mg);
 	}
 
 	@Override
 	public void delete(Menu menu) throws SharedException {
-		simpleDao.<Menu> delete(menu);
-	}
-
-	@Override
-	public void delete(MenuGroup menu) throws SharedException {
-		simpleDao.<MenuGroup> delete(menu);
+		menuService.delete(menu);
 	}
 
 	@Override
 	public List<MenuNode> move(MenuNode p, List<MenuNode> items, int index) {
-		return menuDao.move(p, items, index);
+		return menuService.move(p, items, index);
 	}
 
 }

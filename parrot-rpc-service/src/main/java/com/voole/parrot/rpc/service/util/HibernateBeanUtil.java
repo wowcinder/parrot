@@ -19,6 +19,8 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.Hibernate;
 import org.hibernate.collection.AbstractPersistentCollection;
+import org.hibernate.proxy.HibernateProxy;
+import org.hibernate.proxy.LazyInitializer;
 
 /**
  * @author XuehuiHe
@@ -72,23 +74,32 @@ public class HibernateBeanUtil {
 
 					} else if (!Hibernate.isInitialized(o)) {
 						field.set(t, null);
-					} else if (Hibernate.isInitialized(o)
-							&& o instanceof AbstractPersistentCollection) {
-						if (field.getType().isArray()) {
-							// TODO
-						} else if (List.class.isAssignableFrom(field.getType())) {
-							List list = new ArrayList();
-							list.addAll((Collection<?>) o);
-							field.set(t, list);
-						} else if (Set.class.isAssignableFrom(field.getType())) {
-							Set set = new HashSet();
-							set.addAll((Collection<?>) o);
-							field.set(t, set);
-						} else {
-							// TODO
+					} else if (Hibernate.isInitialized(o)) {
+						if (o instanceof AbstractPersistentCollection) {
+							if (field.getType().isArray()) {
+								// TODO
+							} else if (List.class.isAssignableFrom(field
+									.getType())) {
+								List list = new ArrayList();
+								list.addAll((Collection<?>) o);
+								field.set(t, list);
+							} else if (Set.class.isAssignableFrom(field
+									.getType())) {
+								Set set = new HashSet();
+								set.addAll((Collection<?>) o);
+								field.set(t, set);
+							} else {
+								// TODO
+							}
+						} else if (o instanceof HibernateProxy) {
+							HibernateProxy proxy = (HibernateProxy) o;
+							LazyInitializer li = proxy
+									.getHibernateLazyInitializer();
+							Object o2 = li.getImplementation();
+							field.set(t, o2);
+							dealBean(o2);
 						}
 						dealBean(field.get(t));
-
 					} else {
 						dealBean(o);
 					}

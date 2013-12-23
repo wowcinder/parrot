@@ -1,4 +1,4 @@
-package com.voole.parrot.shared.condition;
+package com.voole.parrot.service.dao;
 
 import java.io.Serializable;
 

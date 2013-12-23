@@ -38,7 +38,7 @@ public class MenuEditor extends SimpleWindowEditor<Menu> {
 
 	@Override
 	protected void add(Menu t) {
-		RpcServiceUtils.MenuNodeRpcService.create(t,
+		RpcServiceUtils.MenuNodeRpcService.persist(t,
 				getSaveOrUpdateAsyncCallback());
 	}
 

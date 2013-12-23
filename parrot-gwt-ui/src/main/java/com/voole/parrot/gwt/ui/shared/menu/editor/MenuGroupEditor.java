@@ -22,12 +22,14 @@ public class MenuGroupEditor extends SimpleWindowEditor<MenuGroup> {
 
 	@Override
 	protected void update(MenuGroup t) {
-		RpcServiceUtils.MenuNodeRpcService.update(t, getSaveOrUpdateAsyncCallback());
+		RpcServiceUtils.MenuNodeRpcService.update(t,
+				getSaveOrUpdateAsyncCallback());
 	}
 
 	@Override
 	protected void add(MenuGroup t) {
-		RpcServiceUtils.MenuNodeRpcService.create(t, getSaveOrUpdateAsyncCallback());
+		RpcServiceUtils.MenuNodeRpcService.persist(t,
+				getSaveOrUpdateAsyncCallback());
 	}
 
 	@Override

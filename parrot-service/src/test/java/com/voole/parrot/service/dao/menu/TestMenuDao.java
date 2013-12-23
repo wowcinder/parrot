@@ -51,7 +51,7 @@ public class TestMenuDao {
 
 		mg.setNodes(menus);
 
-		menuGroupDao.create(mg);
+		menuGroupDao.persist(mg);
 
 		Menu menu = new Menu();
 		menu.setPos(7);
@@ -61,7 +61,7 @@ public class TestMenuDao {
 
 		// mg.getNodes().add(1, menu);
 
-		menuDao.create(menu);
+		menuDao.persist(menu);
 
 	}
 
@@ -78,6 +78,6 @@ public class TestMenuDao {
 		menu.setParent(mg);
 		menu.setToken("kkkk");
 
-		menuDao.create(menu);
+		menuDao.persist(menu);
 	}
 }

@@ -6,16 +6,16 @@ import java.util.List;
 
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
 import com.sencha.gxt.data.shared.loader.PagingLoadResult;
+import com.voole.parrot.service.dao.EntityUpdater;
 import com.voole.parrot.service.dao.ISimpleDao.QueryConditionAnalyzer;
-import com.voole.parrot.shared.condition.EntityUpdater;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
 public interface SimpleService {
-	public <E extends Serializable> E create(E e);
+	public <E extends Serializable> E persist(E e);
 
-	public <E extends Serializable, C extends Collection<E>> C create(C list);
+	public <E extends Serializable, C extends Collection<E>> C persist(C list);
 
 	public <E extends Serializable> E update(E e, EntityUpdater<E> updater);
 

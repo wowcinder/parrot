@@ -24,8 +24,9 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
  * @date 2013年8月23日
  */
 public class MenuTree extends Tree<MenuNode, String> {
-	public MenuTree(TreeStore<MenuNode> store) {
-		super(store, PropertyUtils.MenuNodeProperty.name());
+	public MenuTree() {
+		super(new TreeStore<MenuNode>(PropertyUtils.MenuNodeProperty.key()),
+				PropertyUtils.MenuNodeProperty.name());
 		setIconProvider(new FixedIconProvider<MenuNode>(this) {
 			@Override
 			protected boolean isFolderModel(MenuNode model) {
