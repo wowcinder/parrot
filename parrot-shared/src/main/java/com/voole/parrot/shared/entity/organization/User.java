@@ -35,7 +35,7 @@ public class User extends EntityHasAutoId {
 
 	private String name;
 	private String password;
-	private boolean isLeader;
+	private Boolean isLeader;
 
 	public User() {
 		isLeader = true;
@@ -71,7 +71,7 @@ public class User extends EntityHasAutoId {
 	}
 
 	@Type(type = "boolean")
-	public boolean isLeader() {
+	public Boolean isLeader() {
 		return isLeader;
 	}
 
@@ -83,7 +83,7 @@ public class User extends EntityHasAutoId {
 		this.roles = roles;
 	}
 
-	public void setLeader(boolean isLeader) {
+	public void setLeader(Boolean isLeader) {
 		this.isLeader = isLeader;
 	}
 
