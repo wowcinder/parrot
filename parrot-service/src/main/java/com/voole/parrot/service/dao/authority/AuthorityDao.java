@@ -17,11 +17,21 @@ public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao 
 		} else {
 			entrance.getAuthorities().add(t);
 		}
-		getSimpleDao().<AuthorityEntrance> create(entrance);
+		getSimpleDao().update(entrance);
+		return t;
+	}
+
+	@Override
+	public Authority update(Authority t) {
+		AuthorityEntrance entrance = findParent(t);
+		getSimpleDao().update(entrance);
 		return t;
 	}
 
 	protected AuthorityEntrance findParent(Authority t) {
+		if (t.getEntrance() == null) {
+			throw new RuntimeException("entrance is empty");
+		}
 		AuthorityEntrance entrance = t.getEntrance();
 		entrance = refresh(entrance);
 		for (Authority authority : entrance.getAuthorities()) {
@@ -30,10 +40,4 @@ public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao 
 		return entrance;
 	}
 
-	@Override
-	public Authority update(Authority t) {
-		AuthorityEntrance entrance = findParent(t);
-		getSimpleDao().<AuthorityEntrance> create(entrance);
-		return t;
-	}
 }

@@ -26,6 +26,6 @@ public class UserDao extends EntityDao<User> implements IUserDao {
 
 	@Override
 	public User update(User t) {
-		return super.create(t);
+		return super.update(t);
 	}
 }

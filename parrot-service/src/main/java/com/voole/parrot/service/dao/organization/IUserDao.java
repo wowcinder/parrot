@@ -6,9 +6,4 @@ import com.voole.parrot.shared.entity.organization.User;
 public interface IUserDao extends IEntityDao<User> {
 
 	User findUser(String name, String password);
-
-	public User update(User t);
-
-	public User create(User t);
-
 }

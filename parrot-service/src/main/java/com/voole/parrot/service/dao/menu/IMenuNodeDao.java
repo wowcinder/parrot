@@ -14,11 +14,9 @@ import com.voole.parrot.shared.entity.menu.MenuNode;
  * @date 2013年12月19日
  */
 public interface IMenuNodeDao<N extends MenuNode> extends IEntityDao<N> {
-	public N save(N t);
-
 	public N update(N t);
 
 	List<MenuNode> move(MenuNode p, List<MenuNode> items, int index);
-	
+
 	MenuGroup findRootMenu();
 }

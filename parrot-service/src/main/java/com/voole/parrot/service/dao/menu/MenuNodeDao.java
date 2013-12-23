@@ -22,21 +22,21 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		IMenuNodeDao<N> {
 
 	@Override
-	public N save(N t) {
+	public N create(N t) {
 		MenuGroup mg = findParent(t);
 		if (t.getPos() != null && t.getPos() < mg.getNodes().size()) {
 			mg.getNodes().add(t.getPos(), t);
 		} else {
 			mg.getNodes().add(t);
 		}
-		getSimpleDao().<MenuGroup> create(mg);
+		getSimpleDao().update(mg);
 		return t;
 	}
 
 	@Override
 	public N update(N t) {
 		MenuGroup mg = findParent(t);
-		getSimpleDao().<MenuGroup> create(mg);
+		getSimpleDao().update(mg);
 		return t;
 	}
 
@@ -49,8 +49,8 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 			}
 		} else {
 			mg = findRoot();
-			t.setParent(mg);
 		}
+		t.setParent(mg);
 		return mg;
 	}
 
@@ -89,24 +89,22 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 
 	@Override
 	public List<MenuNode> move(MenuNode p, List<MenuNode> items, int index) {
-		List<MenuNode> items2 = new ArrayList<MenuNode>();
+		refresh(items);
 		for (MenuNode node : items) {
-			node = refresh(node);
 			node.setParent(null);
-			items2.add(node);
 		}
 		getCurrSession().flush();
 		MenuGroup mg = null;
 		if (p == null) {
-			mg = findRoot();
+			mg = findRootMenu();
 		} else {
 			mg = (MenuGroup) refresh(p);
 		}
-		mg.getNodes().addAll(index, items2);
-		for (MenuNode node : items2) {
+		mg.getNodes().addAll(index, items);
+		for (MenuNode node : items) {
 			node.setParent(mg);
 		}
-		getSimpleDao().<MenuGroup> create(mg);
+		getSimpleDao().update(mg);
 		return items;
 	}
 }
