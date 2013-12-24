@@ -53,18 +53,18 @@ public class OrganizationTreeGrid extends TreeGrid<Organization> {
 		// getView().setAutoExpandColumn(nameColumn);
 		setContextMenu(new OrganizationTreeGridMenu());
 
-		store.addStoreUpdateHandler(new StoreUpdateHandler<Organization>() {
-			@Override
-			public void onUpdate(final StoreUpdateEvent<Organization> event) {
-				Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-					@Override
-					public void execute() {
-						store.fireEvent(new StoreDataChangeEvent<Organization>(
-								event.getItems().get(0)));
-					}
-				});
-			}
-		});
+//		store.addStoreUpdateHandler(new StoreUpdateHandler<Organization>() {
+//			@Override
+//			public void onUpdate(final StoreUpdateEvent<Organization> event) {
+//				Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+//					@Override
+//					public void execute() {
+//						store.fireEvent(new StoreDataChangeEvent<Organization>(
+//								event.getItems().get(0)));
+//					}
+//				});
+//			}
+//		});
 
 	}
 

@@ -108,4 +108,21 @@ public abstract class Organization extends EntityHasAutoId {
 		this.name = name;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (obj instanceof Organization) {
+			Organization that = (Organization) obj;
+			if (this.getId() != null && this.getId() == that.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
