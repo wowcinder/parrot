@@ -19,10 +19,10 @@ import com.sencha.gxt.widget.core.client.form.DateField;
 import com.voole.parrot.gwt.common.shared.GwtCallBack;
 import com.voole.parrot.gwt.common.shared.core.event.EditEvent;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
-import com.voole.parrot.gwt.ui.shared.authority.tree.AuthorityTree;
 import com.voole.parrot.gwt.ui.shared.menu.LeftMenuView;
 import com.voole.parrot.gwt.ui.shared.menu.editor.AuthorityField;
 import com.voole.parrot.gwt.ui.shared.menu.editor.MenuEditor;
+import com.voole.parrot.gwt.ui.shared.organization.grid.OrganizationTreeGrid;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.menu.Menu;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
@@ -42,11 +42,11 @@ public class ParrotTestWeb implements EntryPoint {
 				// testField1();
 
 				// testField2();
-//				OrganizationTreeGrid view = new OrganizationTreeGrid();
-//				RootPanel.get().add(view);
+				OrganizationTreeGrid view = new OrganizationTreeGrid();
+				RootPanel.get().add(view);
 
-				AuthorityTree tree = new AuthorityTree();
-				RootPanel.get().add(tree);
+				// AuthorityTree tree = new AuthorityTree();
+				// RootPanel.get().add(tree);
 				// RootPanel.get().add(menuView);
 
 				// testDateField();

@@ -73,4 +73,16 @@ public class OrganizationRpcServiceImpl implements OrganizationRpcService {
 		return subOrganizationService.persist(sub);
 	}
 
+	@Override
+	public SubOrganization changeSubName(SubOrganization sub)
+			throws SharedException {
+		return subOrganizationService.update(sub,
+				new EntityUpdater<SubOrganization>() {
+					@Override
+					public void invoke(SubOrganization old, SubOrganization e) {
+						old.setName(e.getName());
+					}
+				});
+	}
+
 }

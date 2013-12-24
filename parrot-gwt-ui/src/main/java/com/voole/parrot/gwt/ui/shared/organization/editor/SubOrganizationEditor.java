@@ -17,13 +17,13 @@ public class SubOrganizationEditor extends SimpleWindowEditor<SubOrganization> {
 	TextField name;
 
 	public SubOrganizationEditor() {
-		super(GWT.<Driver> create(Driver.class), "top组织");
+		super(GWT.<Driver> create(Driver.class), "子组织");
 	}
 
 	@Override
 	protected void update(SubOrganization t) {
-		// RpcServiceUtils.OrganizationRpcService.changeTopName(t,
-		// getSaveOrUpdateAsyncCallback());
+		RpcServiceUtils.OrganizationRpcService.changeSubName(t,
+				getSaveOrUpdateAsyncCallback());
 	}
 
 	@Override

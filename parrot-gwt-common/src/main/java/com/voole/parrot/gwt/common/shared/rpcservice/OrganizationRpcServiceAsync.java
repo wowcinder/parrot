@@ -17,4 +17,6 @@ public interface OrganizationRpcServiceAsync {
 
     public void createSubOrganization(SubOrganization arg0, AsyncCallback<SubOrganization> callback);
 
+    public void changeSubName(SubOrganization arg0, AsyncCallback<SubOrganization> callback);
+
 }

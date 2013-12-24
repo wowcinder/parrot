@@ -16,6 +16,9 @@ public interface OrganizationRpcService extends RemoteService {
 			throws SharedException;
 
 	TopOrganization changeTopName(TopOrganization top) throws SharedException;
-	
-	SubOrganization createSubOrganization(SubOrganization sub) throws SharedException;
+
+	SubOrganization createSubOrganization(SubOrganization sub)
+			throws SharedException;
+
+	SubOrganization changeSubName(SubOrganization sub) throws SharedException;
 }
