@@ -10,15 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.organization.Organization;
-import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
-import com.voole.parrot.shared.entity.organization.User;
+import com.voole.parrot.shared.entity.user.User;
 
 /**
  * @author XuehuiHe
@@ -28,20 +25,10 @@ import com.voole.parrot.shared.entity.organization.User;
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 public class Role extends EntityHasAutoId {
 	private static final long serialVersionUID = -2172965273200082653L;
-	/**
-	 * 所属组织
-	 */
-	private Organization organization;
-	/**
-	 * 角色的权限
-	 */
-	private Set<TopOrganizationAuthority> authorities;
-	/**
-	 * 角色名称
-	 */
-	private String name;
 
-	private Set<User> members;
+	private String name;
+	private Set<User> users;
+	private Set<Authority> authorities;
 
 	@Column(nullable = false, length = 50)
 	@NotNull
@@ -51,36 +38,27 @@ public class Role extends EntityHasAutoId {
 	}
 
 	@ManyToMany
-	@JoinTable(name = "role_authorities", joinColumns = { @JoinColumn(name = "role") }, inverseJoinColumns = { @JoinColumn(name = "authority") })
-	public Set<TopOrganizationAuthority> getAuthorities() {
-		return authorities;
-	}
-
-	@ManyToOne(optional = false)
-	public Organization getOrganization() {
-		return organization;
+	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "role") }, inverseJoinColumns = { @JoinColumn(name = "user") })
+	public Set<User> getUsers() {
+		return users;
 	}
 
 	@ManyToMany
-	@JoinTable(name = "member_roles", joinColumns = { @JoinColumn(name = "role") }, inverseJoinColumns = { @JoinColumn(name = "member") })
-	public Set<User> getMembers() {
-		return members;
+	@JoinTable(name = "role_authority", joinColumns = { @JoinColumn(name = "role") }, inverseJoinColumns = { @JoinColumn(name = "authority") })
+	public Set<Authority> getAuthorities() {
+		return authorities;
 	}
 
-	public void setMembers(Set<User> members) {
-		this.members = members;
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void setOrganization(Organization organization) {
-		this.organization = organization;
-	}
-
-	public void setAuthorities(Set<TopOrganizationAuthority> authorities) {
-		this.authorities = authorities;
 	}
 
 }

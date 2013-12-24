@@ -26,15 +26,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.voole.parrot.service.dao.menu.IMenuGroupDao;
-import com.voole.parrot.service.dao.organization.IUserDao;
+import com.voole.parrot.service.dao.user.IUserDao;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.Role;
 import com.voole.parrot.shared.entity.menu.MenuGroup;
 import com.voole.parrot.shared.entity.menu.MenuNode;
-import com.voole.parrot.shared.entity.organization.Organization;
-import com.voole.parrot.shared.entity.organization.TopOrganization;
-import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
-import com.voole.parrot.shared.entity.organization.User;
+import com.voole.parrot.shared.entity.user.User;
 
 /**
  * 
@@ -49,7 +46,7 @@ public class AuthorizeServiceImpl implements AuthorizeService {
 	private static final String IS_ADMIN_NAME_IN_SESSION = "ADMIN";
 
 	@Autowired
-	private IUserDao accountDao;
+	private IUserDao userDao;
 	@Autowired
 	private IMenuGroupDao menuGroupDao;
 
@@ -83,15 +80,16 @@ public class AuthorizeServiceImpl implements AuthorizeService {
 			session.setAttribute(IS_ADMIN_NAME_IN_SESSION, true);
 			return true;
 		}
-		User user = accountDao.findUser(name, password);
+		User user = userDao.findUser(name, password);
 		if (user != null) {
 			HttpSession session = getSession();
 			session.setAttribute(USER_ID_NAME_IN_SESSION, user.getId());
-			Organization organization = user.getOrganization();
 			boolean isAdmin = false;
-			if (organization instanceof TopOrganization
-					&& organization.getName().equals("admin")) {
-				isAdmin = true;
+			for (Role role : user.getRoles()) {
+				if (role.getName().equals("admin")) {
+					isAdmin = true;
+					break;
+				}
 			}
 			session.setAttribute(IS_ADMIN_NAME_IN_SESSION, isAdmin);
 			session.setAttribute(AUTHORITIES_NAME_IN_SESSION,
@@ -108,19 +106,10 @@ public class AuthorizeServiceImpl implements AuthorizeService {
 			fillToken(authorities, authority);
 		}
 		// 角色的权限
-
 		Set<Role> roles = user.getRoles();
 		for (Role role : roles) {
-			for (TopOrganizationAuthority topOrganizationAuthority : role
-					.getAuthorities()) {
-				fillToken(authorities, topOrganizationAuthority.getAuthority());
-			}
-		}
-		// LEADER的权限
-		if (user.isLeader()) {
-			for (TopOrganizationAuthority topOrganizationAuthority : user
-					.getOrganization().getAuthorities()) {
-				fillToken(authorities, topOrganizationAuthority.getAuthority());
+			for (Authority authority : role.getAuthorities()) {
+				fillToken(authorities, authority);
 			}
 		}
 		return authorities;

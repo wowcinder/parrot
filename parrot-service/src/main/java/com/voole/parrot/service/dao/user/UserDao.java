@@ -1,19 +1,19 @@
-package com.voole.parrot.service.dao.organization;
-
-import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Repository;
+package com.voole.parrot.service.dao.user;
 
 import com.voole.parrot.service.dao.EntityDao;
 import com.voole.parrot.service.util.UserPasswordMd5;
-import com.voole.parrot.shared.entity.organization.User;
+import com.voole.parrot.shared.entity.user.User;
+
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDao extends EntityDao<User> implements IUserDao {
 
 	@Override
-	public User create(User t) {
-		t.setPassword(UserPasswordMd5.md5(t.getPassword()));
-		return super.create(t);
+	public User create(User e) {
+		e.setPassword(UserPasswordMd5.md5(e.getPassword()));
+		return super.create(e);
 	}
 
 	@Override

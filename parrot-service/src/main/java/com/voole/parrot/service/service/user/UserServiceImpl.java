@@ -1,9 +1,9 @@
 
-package com.voole.parrot.service.service.organization;
+package com.voole.parrot.service.service.user;
 
-import com.voole.parrot.service.dao.organization.IUserDao;
+import com.voole.parrot.service.dao.user.IUserDao;
 import com.voole.parrot.service.service.EntityServiceImpl;
-import com.voole.parrot.shared.entity.organization.User;
+import com.voole.parrot.shared.entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

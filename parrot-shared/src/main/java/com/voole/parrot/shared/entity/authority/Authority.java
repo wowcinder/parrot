@@ -3,17 +3,14 @@
  */
 package com.voole.parrot.shared.entity.authority;
 
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -22,8 +19,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.google.gwt.editor.client.Editor.Path;
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.organization.User;
-import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
+import com.voole.parrot.shared.entity.user.User;
 
 /**
  * @author XuehuiHe
@@ -40,16 +36,17 @@ public class Authority extends EntityHasAutoId {
 	@Path("entrance.name")
 	private AuthorityEntrance entrance;
 	private String name;
-	private List<TopOrganizationAuthority> organizationAuthorities;
 	private Integer pos;
 	private Set<Authority> dependencies;
 	private Set<Authority> reDependencies;
-	private Set<User> accounts;
+	private Set<User> users;
+	private Set<Role> roles;
 
 	public Authority() {
 	}
 
-	@Column(length = 32)
+	@Column(length = 32, nullable = false)
+	@NotNull
 	public String getToken() {
 		return token;
 	}
@@ -66,11 +63,6 @@ public class Authority extends EntityHasAutoId {
 		return name;
 	}
 
-	@OneToMany(mappedBy = "authority", cascade = { CascadeType.REMOVE })
-	public List<TopOrganizationAuthority> getOrganizationAuthorities() {
-		return organizationAuthorities;
-	}
-
 	@ManyToMany
 	@JoinTable(name = "authority_depend_authority", joinColumns = { @JoinColumn(name = "dependencies") }, inverseJoinColumns = { @JoinColumn(name = "reDependencies") })
 	public Set<Authority> getDependencies() {
@@ -84,13 +76,19 @@ public class Authority extends EntityHasAutoId {
 	}
 
 	@ManyToMany
-	@JoinTable(name = "account_authority", joinColumns = { @JoinColumn(name = "accounts") }, inverseJoinColumns = { @JoinColumn(name = "`authorities`") })
-	public Set<User> getAccounts() {
-		return accounts;
+	@JoinTable(name = "user_authority", joinColumns = { @JoinColumn(name = "user") }, inverseJoinColumns = { @JoinColumn(name = "authority") })
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setAccounts(Set<User> accounts) {
-		this.accounts = accounts;
+	@ManyToMany
+	@JoinTable(name = "role_authority", joinColumns = { @JoinColumn(name = "authority") }, inverseJoinColumns = { @JoinColumn(name = "role") })
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 	public void setDependencies(Set<Authority> dependencies) {
@@ -101,17 +99,16 @@ public class Authority extends EntityHasAutoId {
 		this.reDependencies = reDependencies;
 	}
 
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	public Integer getPos() {
 		return pos;
 	}
 
 	public void setPos(Integer pos) {
 		this.pos = pos;
-	}
-
-	public void setOrganizationAuthorities(
-			List<TopOrganizationAuthority> organizationAuthorities) {
-		this.organizationAuthorities = organizationAuthorities;
 	}
 
 	public void setEntrance(AuthorityEntrance entrance) {

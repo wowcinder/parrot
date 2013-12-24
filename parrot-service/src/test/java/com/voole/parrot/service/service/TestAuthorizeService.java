@@ -11,8 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.voole.parrot.service.dao.ISimpleDao;
-import com.voole.parrot.service.dao.organization.IUserDao;
-import com.voole.parrot.shared.entity.organization.User;
+import com.voole.parrot.service.dao.user.IUserDao;
+import com.voole.parrot.shared.entity.user.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/TestEntityDao.xml" })
@@ -60,18 +60,6 @@ public class TestAuthorizeService {
 			account.setName("admin3");
 			account.setPassword("admin3");
 			accountDao.create(account);
-			/*
-			 * AuthorityEntrance entrance = new AuthorityEntrance();
-			 * entrance.setName("test_name"); Authority authority = new
-			 * Authority(); authority.setEntrance(entrance);
-			 * authority.setName("test_name"); List<Authority> authorities = new
-			 * ArrayList<Authority>(); authorities.add(authority);
-			 * entrance.setAuthorities(authorities);
-			 * 
-			 * authorityEntranceDao.persist(entrance); Set<Authority> set = new
-			 * HashSet<Authority>(); set.addAll(authorities);
-			 * account.setAuthorities(set); accountDao.update(account);
-			 */
 		}
 	}
 }

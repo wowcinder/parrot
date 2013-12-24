@@ -1,15 +1,14 @@
 
 package com.voole.parrot.gwt.common.shared.property;
 
-import java.util.List;
 import java.util.Set;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
-import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
-import com.voole.parrot.shared.entity.organization.User;
+import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.user.User;
 
 public interface AuthorityProperty
     extends PropertyAccess<Authority>
@@ -21,15 +20,15 @@ public interface AuthorityProperty
 
     public ValueProvider<Authority, Long> id();
 
-    public ValueProvider<Authority, Set<User>> accounts();
+    public ValueProvider<Authority, Set<User>> users();
 
     public ValueProvider<Authority, Set<Authority>> dependencies();
 
     public ValueProvider<Authority, String> token();
 
-    public ValueProvider<Authority, String> name();
+    public ValueProvider<Authority, Set<Role>> roles();
 
-    public ValueProvider<Authority, List<TopOrganizationAuthority>> organizationAuthorities();
+    public ValueProvider<Authority, String> name();
 
     public ValueProvider<Authority, Set<Authority>> reDependencies();
 

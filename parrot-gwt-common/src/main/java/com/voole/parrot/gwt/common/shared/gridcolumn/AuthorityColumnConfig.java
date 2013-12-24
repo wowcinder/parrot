@@ -1,14 +1,13 @@
 
 package com.voole.parrot.gwt.common.shared.gridcolumn;
 
-import java.util.List;
 import java.util.Set;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
-import com.voole.parrot.shared.entity.organization.TopOrganizationAuthority;
-import com.voole.parrot.shared.entity.organization.User;
+import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.user.User;
 
 public class AuthorityColumnConfig {
 
@@ -18,9 +17,9 @@ public class AuthorityColumnConfig {
         return id;
     }
 
-    public static ColumnConfig<Authority, Set<User>> accounts() {
-        ColumnConfig<Authority, Set<User>> accounts = new ColumnConfig<Authority, Set<User>>(PropertyUtils.AuthorityProperty.accounts(), 200, "accounts");
-        return accounts;
+    public static ColumnConfig<Authority, Set<User>> users() {
+        ColumnConfig<Authority, Set<User>> users = new ColumnConfig<Authority, Set<User>>(PropertyUtils.AuthorityProperty.users(), 200, "users");
+        return users;
     }
 
     public static ColumnConfig<Authority, Set<Authority>> dependencies() {
@@ -33,14 +32,14 @@ public class AuthorityColumnConfig {
         return token;
     }
 
+    public static ColumnConfig<Authority, Set<Role>> roles() {
+        ColumnConfig<Authority, Set<Role>> roles = new ColumnConfig<Authority, Set<Role>>(PropertyUtils.AuthorityProperty.roles(), 200, "roles");
+        return roles;
+    }
+
     public static ColumnConfig<Authority, String> name() {
         ColumnConfig<Authority, String> name = new ColumnConfig<Authority, String>(PropertyUtils.AuthorityProperty.name(), 200, "name");
         return name;
-    }
-
-    public static ColumnConfig<Authority, List<TopOrganizationAuthority>> organizationAuthorities() {
-        ColumnConfig<Authority, List<TopOrganizationAuthority>> organizationAuthorities = new ColumnConfig<Authority, List<TopOrganizationAuthority>>(PropertyUtils.AuthorityProperty.organizationAuthorities(), 200, "organizationAuthorities");
-        return organizationAuthorities;
     }
 
     public static ColumnConfig<Authority, Set<Authority>> reDependencies() {

@@ -7,8 +7,7 @@ import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.Role;
-import com.voole.parrot.shared.entity.organization.Organization;
-import com.voole.parrot.shared.entity.organization.User;
+import com.voole.parrot.shared.entity.user.User;
 
 public interface UserProperty
     extends PropertyAccess<User>
@@ -20,15 +19,11 @@ public interface UserProperty
 
     public ValueProvider<User, Long> id();
 
-    public ValueProvider<User, Organization> organization();
-
     public ValueProvider<User, Set<Authority>> authorities();
 
     public ValueProvider<User, String> name();
 
     public ValueProvider<User, Set<Role>> roles();
-
-    public ValueProvider<User, Boolean> isLeader();
 
     public ValueProvider<User, String> password();
 
