@@ -17,6 +17,8 @@ import com.voole.parrot.service.service.authority.AuthorityService;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
+import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.user.User;
 import com.voole.parrot.shared.exception.SharedException;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
@@ -65,6 +67,34 @@ public class AuthorityRpcServiceImpl implements AuthorityRpcService {
 	public <Condition extends QueryCondition> PagingLoadResult<Authority> paging(
 			GwtPagingLoadConfigBean<Condition> condition) {
 		return authorityService.paging(condition);
+	}
+
+	@Override
+	public Set<Role> getAuthorityRoles(Authority authority)
+			throws SharedException {
+		authority = authorityService.getEntityDao().refresh(authority);
+		Hibernate.initialize(authority.getRoles());
+		return authority.getRoles();
+	}
+
+	@Override
+	public void modifyAuthorityRoles(Authority authority)
+			throws SharedException {
+		authorityService.modifyAuthorityRoles(authority);
+	}
+
+	@Override
+	public Set<User> getAuthorityUsers(Authority authority)
+			throws SharedException {
+		authority = authorityService.getEntityDao().refresh(authority);
+		Hibernate.initialize(authority.getUsers());
+		return authority.getUsers();
+	}
+
+	@Override
+	public void modifyAuthorityUsers(Authority authority)
+			throws SharedException {
+		authorityService.modifyAuthorityUsers(authority);
 	}
 
 }

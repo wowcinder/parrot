@@ -48,7 +48,7 @@ public class ConditionProcessor<Condition extends QueryCondition> {
 			Criteria criteria, T configBean,
 			QueryConditionAnalyzer<Condition> conditionAnalyzer) {
 		new GwtListLoadConfigBeanConditionProcessor<Condition, T>(criteria,
-				configBean, conditionAnalyzer);
+				configBean, conditionAnalyzer).process();
 	}
 
 	public void process() {

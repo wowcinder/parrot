@@ -26,7 +26,7 @@ public class AuthorityEntrance extends EntityHasAutoId implements
 	private List<Authority> authorities;
 
 	@NotNull
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 100, unique = true)
 	@Length(min = 1, max = 100)
 	public String getName() {
 		return name;

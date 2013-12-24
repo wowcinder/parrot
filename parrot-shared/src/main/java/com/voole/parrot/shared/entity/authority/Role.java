@@ -30,7 +30,7 @@ public class Role extends EntityHasAutoId {
 	private Set<User> users;
 	private Set<Authority> authorities;
 
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false, length = 50, unique = true)
 	@NotNull
 	@Length(min = 1, max = 50)
 	public String getName() {

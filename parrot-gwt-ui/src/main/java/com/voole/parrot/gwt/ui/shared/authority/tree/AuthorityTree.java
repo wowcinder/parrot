@@ -49,7 +49,6 @@ public class AuthorityTree extends Tree<EntityHasAutoId, String> {
 				return "name";
 			}
 		});
-		this.setContextMenu(new AuthorityTreeMenu(this));
 	}
 
 	@Override
@@ -80,6 +79,7 @@ public class AuthorityTree extends Tree<EntityHasAutoId, String> {
 		for (AuthorityEntrance entrance : entrances) {
 			initData(null, entrance);
 		}
+		expandAll();
 	}
 
 	protected void initData(AuthorityEntrance parent,

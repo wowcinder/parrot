@@ -162,6 +162,10 @@ public class GridBuilder<M> {
 		public abstract void load(GwtListLoadConfigBean<QC> loadConfig,
 				AsyncCallback<PR> callback);
 
+		protected void postSuccess() {
+
+		}
+
 		public DataProxy<GwtListLoadConfigBean<QC>, PR> getProxy() {
 			return new DataProxy<GwtListLoadConfigBean<QC>, PR>() {
 				public void load(GwtListLoadConfigBean<QC> loadConfig,
@@ -182,6 +186,7 @@ public class GridBuilder<M> {
 						@Override
 						protected void _onSuccess(PR result) {
 							callback.onSuccess(result);
+							postSuccess();
 						}
 					});
 				}

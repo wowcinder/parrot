@@ -1,4 +1,3 @@
-
 package com.voole.parrot.service.service.authority;
 
 import com.voole.parrot.service.dao.authority.IAuthorityDao;
@@ -10,16 +9,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class AuthorityServiceImpl
-    extends EntityServiceImpl<Authority>
-    implements AuthorityService
-{
+public class AuthorityServiceImpl extends EntityServiceImpl<Authority>
+		implements AuthorityService {
 
-    @Autowired
-    private IAuthorityDao AuthorityDao;
+	@Autowired
+	private IAuthorityDao AuthorityDao;
 
-    public IAuthorityDao getEntityDao() {
-        return AuthorityDao;
-    }
+	public IAuthorityDao getEntityDao() {
+		return AuthorityDao;
+	}
+
+	@Override
+	public void modifyAuthorityRoles(Authority authority) {
+		AuthorityDao.modifyAuthorityRoles(authority);
+	}
+
+	@Override
+	public void modifyAuthorityUsers(Authority authority) {
+		AuthorityDao.modifyAuthorityUsers(authority);
+	}
 
 }

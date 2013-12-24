@@ -12,6 +12,8 @@ import com.sencha.gxt.data.shared.loader.PagingLoadResult;
 import com.voole.parrot.shared.condition.QueryCondition;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
+import com.voole.parrot.shared.entity.authority.Role;
+import com.voole.parrot.shared.entity.user.User;
 import com.voole.parrot.shared.exception.SharedException;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
@@ -31,4 +33,12 @@ public interface AuthorityRpcService extends RemoteService {
 	public <Condition extends QueryCondition> PagingLoadResult<Authority> paging(
 			GwtPagingLoadConfigBean<Condition> configBean)
 			throws SharedException;
+	
+	public Set<Role> getAuthorityRoles(Authority authority) throws SharedException;
+
+	public void modifyAuthorityRoles(Authority authority) throws SharedException;
+	
+	public Set<User> getAuthorityUsers(Authority authority) throws SharedException;
+
+	public void modifyAuthorityUsers(Authority authority) throws SharedException;
 }

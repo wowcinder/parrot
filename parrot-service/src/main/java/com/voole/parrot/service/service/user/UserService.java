@@ -8,5 +8,11 @@ public interface UserService
     extends EntityService<User>
 {
 
+	void changePassword(User user);
+
+	void modifyUserRoles(User user);
+
+	void modifyUserAuthorities(User user);
+
 
 }

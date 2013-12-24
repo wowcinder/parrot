@@ -8,5 +8,9 @@ public interface AuthorityService
     extends EntityService<Authority>
 {
 
+	void modifyAuthorityRoles(Authority authority);
+
+	void modifyAuthorityUsers(Authority authority);
+
 
 }

@@ -10,5 +10,11 @@ public interface IUserDao
 
 	User findUser(String name, String password);
 
+	void changePassword(User user);
+
+	void modifyUserRoles(User user);
+
+	void modifyUserAuthorities(User user);
+
 
 }

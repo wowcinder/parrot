@@ -42,12 +42,6 @@ public class AuthorityWindow extends FixedWindow {
 		});
 	}
 
-	@Override
-	public void show() {
-		super.show();
-		// checkTree.init();
-	}
-
 	protected void save(List<EntityHasAutoId> checkNodes) {
 		List<Authority> authorities = new ArrayList<Authority>();
 		for (EntityHasAutoId entityHasAutoId : checkNodes) {

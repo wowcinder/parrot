@@ -3,6 +3,7 @@ package com.voole.parrot.service.dao.authority;
 import org.springframework.stereotype.Repository;
 
 import com.voole.parrot.service.dao.EntityDao;
+import com.voole.parrot.service.dao.EntityUpdater;
 import com.voole.parrot.shared.entity.authority.Authority;
 import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 
@@ -31,6 +32,29 @@ public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao 
 			authority.setEntrance(entrance);
 		}
 		return entrance;
+	}
+
+	@Override
+	public void modifyAuthorityRoles(Authority authority) {
+		update(authority, new EntityUpdater<Authority>() {
+
+			@Override
+			public void invoke(Authority old, Authority e) {
+				old.setRoles(e.getRoles());
+			}
+		});
+	}
+
+	@Override
+	public void modifyAuthorityUsers(Authority authority) {
+		update(authority, new EntityUpdater<Authority>() {
+
+			@Override
+			public void invoke(Authority old, Authority e) {
+				old.setUsers(e.getUsers());
+			}
+		});
+
 	}
 
 }
