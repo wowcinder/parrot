@@ -1,6 +1,7 @@
 package com.voole.parrot.rpc.service.aspect;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
@@ -18,8 +19,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.sencha.gxt.data.shared.loader.ListLoadResult;
+import com.sencha.gxt.data.shared.loader.ListLoadResultBean;
 import com.voole.parrot.rpc.service.rpc.open.OpenRpcService;
-import com.voole.parrot.rpc.service.util.HibernateBeanUtil;
+import com.voole.parrot.rpc.service.util.HibernateBeanUnwrapper;
 import com.voole.parrot.service.service.AuthorizeService;
 import com.voole.parrot.shared.exception.NoLoginException;
 import com.voole.parrot.shared.exception.PermissionException;
@@ -28,10 +30,13 @@ import com.voole.parrot.shared.exception.SharedException;
 @Component
 @Aspect
 public class RpcAspect implements Ordered {
+	@Autowired
+	private HibernateBeanUnwrapper unwrapper;
 
 	@Autowired
 	private AuthorizeService authorizeService;
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Around(value = "execution(* com.voole.parrot.rpc.service.rpc..*(..))")
 	public Object dealResult(ProceedingJoinPoint pjp) throws Throwable {
 		// doAccessCheck(pjp);
@@ -40,10 +45,14 @@ public class RpcAspect implements Ordered {
 				&& RequestContextHolder.getRequestAttributes() != null
 				&& pjp.getTarget() instanceof RemoteService) {
 			if (retVal instanceof ListLoadResult) {
-				new HibernateBeanUtil().dealBean(((ListLoadResult<?>) retVal)
-						.getData());
+				ListLoadResultBean<?> listLoadResult = (ListLoadResultBean<?>) retVal;
+				listLoadResult.setData((List) unwrapper.unwrap(listLoadResult
+						.getData()));
+				// new HibernateBeanUtil().dealBean(((ListLoadResult<?>) retVal)
+				// .getData());
 			} else {
-				new HibernateBeanUtil().dealBean(retVal);
+				retVal = unwrapper.unwrap(retVal);
+				// new HibernateBeanUtil().dealBean(retVal);
 			}
 		}
 		return retVal;

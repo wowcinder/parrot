@@ -42,9 +42,9 @@ public class AuthorityRpcServiceImpl implements AuthorityRpcService {
 			throws SharedException {
 		authority = authorityService.get(authority);
 		Hibernate.initialize(authority.getDependencies());
-		Set<Authority> authorities = new HashSet<Authority>();
-		authorities.addAll(authority.getDependencies());
-		return authorities;
+//		Set<Authority> authorities = new HashSet<Authority>();
+//		authorities.addAll(authority.getDependencies());
+		return authority.getDependencies();
 	}
 
 	@Override
