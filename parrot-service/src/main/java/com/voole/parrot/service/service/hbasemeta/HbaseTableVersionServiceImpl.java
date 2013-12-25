@@ -32,4 +32,10 @@ public class HbaseTableVersionServiceImpl extends
 		return HbaseTableVersionDao.modifyHbaseTableVersion(version);
 	}
 
+	@Override
+	public HbaseTableVersion duplicateHbaseTableVerion(
+			HbaseTableVersion duplicate, HbaseTableVersion from) {
+		return HbaseTableVersionDao.duplicateHbaseTableVerion(duplicate, from);
+	}
+
 }

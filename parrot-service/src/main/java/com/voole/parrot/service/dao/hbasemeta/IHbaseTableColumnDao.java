@@ -8,5 +8,7 @@ public interface IHbaseTableColumnDao
     extends IEntityDao<HbaseTableColumn>
 {
 
+	HbaseTableColumn modifyHbaseTableColumn(HbaseTableColumn column);
+
 
 }

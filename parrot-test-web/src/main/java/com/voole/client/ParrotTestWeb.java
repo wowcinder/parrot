@@ -17,7 +17,7 @@ public class ParrotTestWeb implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
-//		testAuthority();
+		// testAuthority();
 
 		HbaseTableTreeGrid grid = new HbaseTableTreeGrid();
 		grid.setHeight(400);
@@ -25,7 +25,7 @@ public class ParrotTestWeb implements EntryPoint {
 		// testUserRolesWindow();
 	}
 
-	private void testAuthority() {
+	public void testAuthority() {
 		AuthorityView view = new AuthorityView();
 		view.setHeight(400);
 

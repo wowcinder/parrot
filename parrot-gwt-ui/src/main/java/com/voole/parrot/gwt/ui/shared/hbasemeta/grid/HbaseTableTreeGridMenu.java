@@ -18,7 +18,9 @@ import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
 import com.voole.parrot.gwt.common.shared.core.event.EditEvent;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.gwt.ui.shared.hbasemeta.editor.HbaseTableEditor;
+import com.voole.parrot.gwt.ui.shared.hbasemeta.editor.HbaseTableVersionDuplicateEditor;
 import com.voole.parrot.gwt.ui.shared.hbasemeta.editor.HbaseTableVersionEditor;
+import com.voole.parrot.gwt.ui.shared.hbasemeta.window.HbaseTableColumnsWindow;
 import com.voole.parrot.shared.entity.EntityHasAutoId;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTable;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableVersion;
@@ -36,6 +38,7 @@ public class HbaseTableTreeGridMenu extends Menu {
 	private MenuItem modifyVersion;
 	private MenuItem deleteVersion;
 	private MenuItem editColumns;
+	private MenuItem duplicateVersion;
 
 	public HbaseTableTreeGridMenu(HbaseTableTreeGrid tree2) {
 		tree = tree2;
@@ -44,11 +47,39 @@ public class HbaseTableTreeGridMenu extends Menu {
 		createDeleteTable();
 		createAddVersion();
 		add(new SeparatorMenuItem());
+		createDuplicateVersion();
 		createModifyVersion();
 		createDeleteVersion();
 		createEditColumns();
 		addMenuBeforeShowHandler();
 		addMenuHideHandler();
+	}
+
+	protected void createDuplicateVersion() {
+		duplicateVersion = new MenuItem("创建副本");
+		add(duplicateVersion);
+
+		duplicateVersion.addSelectionHandler(new SelectionHandler<Item>() {
+			@Override
+			public void onSelection(SelectionEvent<Item> event) {
+				HbaseTableVersion version = getSelectedVersion();
+				HbaseTableVersion duplicate = new HbaseTableVersion();
+				duplicate.setTable(version.getTable());
+				HbaseTableVersionDuplicateEditor editor = new HbaseTableVersionDuplicateEditor(
+						version);
+				editor.fireEditEvent(new EditEvent<HbaseTableVersion>(
+						duplicate, new GwtCallBack<HbaseTableVersion>() {
+							@Override
+							protected void _succeed() {
+								HbaseTableVersion duplicate = getResult();
+								HbaseTable table = (HbaseTable) tree
+										.getTreeStore().findModel(
+												duplicate.getTable());
+								tree.getTreeStore().add(table, duplicate);
+							}
+						}));
+			}
+		});
 	}
 
 	protected void addMenuHideHandler() {
@@ -62,6 +93,7 @@ public class HbaseTableTreeGridMenu extends Menu {
 				modifyVersion.enable();
 				deleteVersion.enable();
 				editColumns.enable();
+				duplicateVersion.enable();
 			}
 		});
 	}
@@ -73,6 +105,7 @@ public class HbaseTableTreeGridMenu extends Menu {
 				EntityHasAutoId entity = tree.getSelectionModel()
 						.getSelectedItem();
 				if (entity == null) {
+					duplicateVersion.disable();
 					modifyTable.disable();
 					deleteTable.disable();
 					addVersion.disable();
@@ -80,6 +113,7 @@ public class HbaseTableTreeGridMenu extends Menu {
 					deleteVersion.disable();
 					editColumns.disable();
 				} else if (entity instanceof HbaseTable) {
+					duplicateVersion.disable();
 					modifyVersion.disable();
 					deleteVersion.disable();
 					editColumns.disable();
@@ -96,6 +130,15 @@ public class HbaseTableTreeGridMenu extends Menu {
 	protected void createEditColumns() {
 		editColumns = new MenuItem("编辑columns");
 		add(editColumns);
+		editColumns.addSelectionHandler(new SelectionHandler<Item>() {
+
+			@Override
+			public void onSelection(SelectionEvent<Item> event) {
+				HbaseTableVersion version = getSelectedVersion();
+				HbaseTableColumnsWindow w = new HbaseTableColumnsWindow(version);
+				w.show();
+			}
+		});
 	}
 
 	protected void createModifyVersion() {
@@ -112,7 +155,7 @@ public class HbaseTableTreeGridMenu extends Menu {
 
 									@Override
 									protected void _succeed() {
-										tree.getStore().update(getResult());
+										tree.getTreeStore().update(getResult());
 									}
 								}, true));
 			}

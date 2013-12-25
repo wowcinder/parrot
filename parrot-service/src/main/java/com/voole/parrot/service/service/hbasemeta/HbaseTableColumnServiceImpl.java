@@ -22,4 +22,9 @@ public class HbaseTableColumnServiceImpl
         return HbaseTableColumnDao;
     }
 
+	@Override
+	public HbaseTableColumn modifyHbaseTableColumn(HbaseTableColumn column) {
+		return HbaseTableColumnDao.modifyHbaseTableColumn(column);
+	}
+
 }

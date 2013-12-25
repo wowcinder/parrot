@@ -22,8 +22,6 @@ public interface HbaseTableMetaRpcServiceAsync {
 
     public void modifyHbaseTableColumn(HbaseTableColumn arg0, AsyncCallback<HbaseTableColumn> callback);
 
-    public void deleteHbaseTableColumn(HbaseTableColumn arg0, AsyncCallback<Void> callback);
-
     public void listHbaseTables(AsyncCallback<List<HbaseTable>> callback);
 
     public void listHbaseTableColumns(HbaseTableVersion arg0, AsyncCallback<List<HbaseTableColumn>> callback);
@@ -31,5 +29,9 @@ public interface HbaseTableMetaRpcServiceAsync {
     public void modifyTable(HbaseTable arg0, AsyncCallback<HbaseTable> callback);
 
     public void modifyHbaseTableVersion(HbaseTableVersion arg0, AsyncCallback<HbaseTableVersion> callback);
+
+    public void deleteHbaseTableColumns(List<HbaseTableColumn> arg0, AsyncCallback<Void> callback);
+
+    public void duplicateHbaseTableVerion(HbaseTableVersion arg0, HbaseTableVersion arg1, AsyncCallback<HbaseTableVersion> callback);
 
 }

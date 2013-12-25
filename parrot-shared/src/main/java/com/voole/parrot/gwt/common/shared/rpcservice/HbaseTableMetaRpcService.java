@@ -39,10 +39,14 @@ public interface HbaseTableMetaRpcService extends RemoteService {
 	HbaseTableColumn modifyHbaseTableColumn(HbaseTableColumn column)
 			throws SharedException;
 
-	void deleteHbaseTableColumn(HbaseTableColumn column) throws SharedException;
+	void deleteHbaseTableColumns(List<HbaseTableColumn> columns)
+			throws SharedException;
 
 	List<HbaseTable> listHbaseTables() throws SharedException;
 
 	List<HbaseTableColumn> listHbaseTableColumns(HbaseTableVersion version)
 			throws SharedException;
+
+	HbaseTableVersion duplicateHbaseTableVerion(HbaseTableVersion duplicate,
+			HbaseTableVersion from) throws SharedException;
 }

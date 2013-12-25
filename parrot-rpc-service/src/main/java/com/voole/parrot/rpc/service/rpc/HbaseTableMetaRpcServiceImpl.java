@@ -63,14 +63,13 @@ public class HbaseTableMetaRpcServiceImpl implements HbaseTableMetaRpcService {
 	@Override
 	public HbaseTableColumn modifyHbaseTableColumn(HbaseTableColumn column)
 			throws SharedException {
-		// TODO Auto-generated method stub
-		return null;
+		return columnService.modifyHbaseTableColumn(column);
 	}
 
 	@Override
-	public void deleteHbaseTableColumn(HbaseTableColumn column)
+	public void deleteHbaseTableColumns(List<HbaseTableColumn> columns)
 			throws SharedException {
-		columnService.delete(column);
+		columnService.delete(columns);
 	}
 
 	@Override
@@ -101,6 +100,13 @@ public class HbaseTableMetaRpcServiceImpl implements HbaseTableMetaRpcService {
 	public HbaseTableVersion modifyHbaseTableVersion(HbaseTableVersion version)
 			throws SharedException {
 		return versionService.modifyHbaseTableVersion(version);
+	}
+
+	@Override
+	public HbaseTableVersion duplicateHbaseTableVerion(
+			HbaseTableVersion duplicate, HbaseTableVersion from)
+			throws SharedException {
+		return versionService.duplicateHbaseTableVerion(duplicate, from);
 	}
 
 }

@@ -21,5 +21,8 @@ public interface IHbaseTableVersionDao
 	 */
 	HbaseTableVersion modifyHbaseTableVersion(HbaseTableVersion version);
 
+	HbaseTableVersion duplicateHbaseTableVerion(HbaseTableVersion duplicate,
+			HbaseTableVersion from);
+
 
 }

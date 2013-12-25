@@ -8,5 +8,7 @@ public interface HbaseTableColumnService
     extends EntityService<HbaseTableColumn>
 {
 
+	HbaseTableColumn modifyHbaseTableColumn(HbaseTableColumn column);
+
 
 }

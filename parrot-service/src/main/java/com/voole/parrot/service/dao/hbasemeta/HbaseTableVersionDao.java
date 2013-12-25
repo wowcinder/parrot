@@ -1,5 +1,6 @@
 package com.voole.parrot.service.dao.hbasemeta;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import com.voole.parrot.service.dao.EntityDao;
@@ -35,6 +36,26 @@ public class HbaseTableVersionDao extends EntityDao<HbaseTableVersion>
 				old.setDesc(e.getDesc());
 			}
 		});
+	}
+
+	@Override
+	public HbaseTableVersion duplicateHbaseTableVerion(
+			HbaseTableVersion duplicate, HbaseTableVersion from) {
+		from = refresh(from);
+		Hibernate.initialize(from.getColumns());
+		getCurrSession().evict(from);
+		from.setId(null);
+		from.setCtypeLogModelGroupColumns(null);
+		from.setDesc(duplicate.getDesc());
+		from.setVersion(duplicate.getVersion());
+		for (HbaseTableColumn column : from.getColumns()) {
+			column.setId(null);
+			column.setVersion(from);
+			column.setCtypeLogModelLeafColumns(null);
+		}
+		persist(from);
+		getSimpleDao().persist(from.getTable());
+		return from;
 	}
 
 }

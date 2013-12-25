@@ -21,5 +21,8 @@ public interface HbaseTableVersionService
 	 */
 	HbaseTableVersion modifyHbaseTableVersion(HbaseTableVersion version);
 
+	HbaseTableVersion duplicateHbaseTableVerion(HbaseTableVersion duplicate,
+			HbaseTableVersion from);
+
 
 }
