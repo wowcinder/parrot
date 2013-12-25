@@ -1,6 +1,8 @@
 
 package com.voole.parrot.service.service.hbasemeta;
 
+import java.util.List;
+
 import com.voole.parrot.service.service.EntityService;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableVersion;
@@ -23,6 +25,8 @@ public interface HbaseTableVersionService
 
 	HbaseTableVersion duplicateHbaseTableVerion(HbaseTableVersion duplicate,
 			HbaseTableVersion from);
+
+	void changeHbaseTableColumnsPos(List<HbaseTableColumn> column, Integer pos);
 
 
 }

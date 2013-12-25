@@ -109,4 +109,10 @@ public class HbaseTableMetaRpcServiceImpl implements HbaseTableMetaRpcService {
 		return versionService.duplicateHbaseTableVerion(duplicate, from);
 	}
 
+	@Override
+	public void changeHbaseTableColumnsPos(List<HbaseTableColumn> column,
+			Integer pos) throws SharedException {
+		versionService.changeHbaseTableColumnsPos(column, pos);
+	}
+
 }

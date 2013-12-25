@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.sencha.gxt.dnd.core.client.DND.Feedback;
+import com.sencha.gxt.dnd.core.client.GridDragSource;
+import com.sencha.gxt.dnd.core.client.GridDropTarget;
 import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.CellDoubleClickEvent;
@@ -15,6 +18,7 @@ import com.sencha.gxt.widget.core.client.toolbar.ToolBar;
 import com.voole.parrot.gwt.common.shared.GwtCallBack;
 import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
 import com.voole.parrot.gwt.common.shared.VerticalLayoutDataUtil;
+import com.voole.parrot.gwt.common.shared.core.dnd.AsyncGridDropTarget;
 import com.voole.parrot.gwt.common.shared.core.event.EditEvent;
 import com.voole.parrot.gwt.common.shared.core.grid.GridBuilder;
 import com.voole.parrot.gwt.common.shared.core.window.FixedWindow;
@@ -124,6 +128,20 @@ public class HbaseTableColumnsWindow extends FixedWindow {
 								}, true));
 			}
 		});
+		new GridDragSource<HbaseTableColumn>(grid);
+		GridDropTarget<HbaseTableColumn> target = new AsyncGridDropTarget<HbaseTableColumn>(
+				grid) {
+			@Override
+			protected void async(List<HbaseTableColumn> models, Integer pos) {
+				getGrid().mask("同步中...");
+				RpcServiceUtils.HbaseTableMetaRpcService
+						.changeHbaseTableColumnsPos(models, pos,
+								RpcAsyncCallback.dealWith(getChangePosCallBack(
+										models, pos)));
+			}
+		};
+		target.setAllowSelfAsSource(true);
+		target.setFeedback(Feedback.BOTH);
 	}
 
 	@Override

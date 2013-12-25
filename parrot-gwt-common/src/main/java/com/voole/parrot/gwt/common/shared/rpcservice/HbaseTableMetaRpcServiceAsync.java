@@ -34,4 +34,6 @@ public interface HbaseTableMetaRpcServiceAsync {
 
     public void duplicateHbaseTableVerion(HbaseTableVersion arg0, HbaseTableVersion arg1, AsyncCallback<HbaseTableVersion> callback);
 
+    public void changeHbaseTableColumnsPos(List<HbaseTableColumn> arg0, Integer arg1, AsyncCallback<Void> callback);
+
 }

@@ -49,4 +49,7 @@ public interface HbaseTableMetaRpcService extends RemoteService {
 
 	HbaseTableVersion duplicateHbaseTableVerion(HbaseTableVersion duplicate,
 			HbaseTableVersion from) throws SharedException;
+
+	void changeHbaseTableColumnsPos(List<HbaseTableColumn> column, Integer pos)
+			throws SharedException;
 }

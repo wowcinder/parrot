@@ -1,5 +1,10 @@
 package com.voole.parrot.service.dao.hbasemeta;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
@@ -58,4 +63,30 @@ public class HbaseTableVersionDao extends EntityDao<HbaseTableVersion>
 		return from;
 	}
 
+	@Override
+	public void changeHbaseTableColumnsPos(List<HbaseTableColumn> columns,
+			Integer pos) {
+		if (columns == null || columns.size() == 0) {
+			return;
+		}
+		HbaseTableVersion version = refresh(columns.get(0).getVersion());
+		Hibernate.initialize(version.getColumns());
+		List<HbaseTableColumn> versionColumns = version.getColumns();
+		Map<Long, HbaseTableColumn> columnsMap = new HashMap<Long, HbaseTableColumn>();
+		for (HbaseTableColumn column : versionColumns) {
+			columnsMap.put(column.getId(), column);
+		}
+
+		List<HbaseTableColumn> columns2 = new ArrayList<HbaseTableColumn>();
+		for (HbaseTableColumn column : columns) {
+			Long id = column.getId();
+			if (columnsMap.containsKey(id)) {
+				HbaseTableColumn column2 = columnsMap.get(id);
+				versionColumns.remove(column2);
+				columns2.add(column2);
+			}
+		}
+		versionColumns.addAll(pos, columns2);
+		persist(version);
+	}
 }

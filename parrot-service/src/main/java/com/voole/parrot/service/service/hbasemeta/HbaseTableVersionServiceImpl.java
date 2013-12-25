@@ -1,5 +1,7 @@
 package com.voole.parrot.service.service.hbasemeta;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +38,13 @@ public class HbaseTableVersionServiceImpl extends
 	public HbaseTableVersion duplicateHbaseTableVerion(
 			HbaseTableVersion duplicate, HbaseTableVersion from) {
 		return HbaseTableVersionDao.duplicateHbaseTableVerion(duplicate, from);
+	}
+
+	@Override
+	public void changeHbaseTableColumnsPos(List<HbaseTableColumn> column,
+			Integer pos) {
+		HbaseTableVersionDao.changeHbaseTableColumnsPos(column, pos);
+
 	}
 
 }
