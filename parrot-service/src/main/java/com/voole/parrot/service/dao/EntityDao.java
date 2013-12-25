@@ -26,14 +26,14 @@ public abstract class EntityDao<E extends Serializable> extends BaseDao
 	private ISimpleDao simpleDao;
 
 	@Override
-	public E create(E e) {
+	public E persist(E e) {
 		return simpleDao.persist(e);
 	}
 
 	@Override
-	public <C extends Collection<E>> C create(C list) {
+	public <C extends Collection<E>> C persist(C list) {
 		for (E e : list) {
-			create(e);
+			persist(e);
 		}
 		return list;
 	}

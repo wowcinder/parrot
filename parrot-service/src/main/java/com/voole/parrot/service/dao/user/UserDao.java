@@ -12,9 +12,9 @@ import com.voole.parrot.shared.entity.user.User;
 public class UserDao extends EntityDao<User> implements IUserDao {
 
 	@Override
-	public User create(User e) {
+	public User persist(User e) {
 		e.setPassword(UserPasswordMd5.md5(e.getPassword()));
-		return super.create(e);
+		return super.persist(e);
 	}
 
 	@Override

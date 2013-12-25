@@ -60,7 +60,7 @@ public class AuthorityRpcServiceImpl implements AuthorityRpcService {
 			dependencies2.add(authority2);
 		}
 		authority.getDependencies().addAll(dependencies2);
-		authorityService.getEntityDao().create(authority);
+		authorityService.getEntityDao().persist(authority);
 	}
 
 	@Override

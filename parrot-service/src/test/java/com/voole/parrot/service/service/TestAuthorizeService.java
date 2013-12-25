@@ -59,7 +59,7 @@ public class TestAuthorizeService {
 			User account = new User();
 			account.setName("admin3");
 			account.setPassword("admin3");
-			accountDao.create(account);
+			accountDao.persist(account);
 		}
 	}
 }

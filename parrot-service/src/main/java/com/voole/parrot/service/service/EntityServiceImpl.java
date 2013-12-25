@@ -23,12 +23,12 @@ public abstract class EntityServiceImpl<E extends Serializable> implements
 
 	@Override
 	public E persist(E e) {
-		return getEntityDao().create(e);
+		return getEntityDao().persist(e);
 	}
 
 	@Override
 	public <C extends Collection<E>> C persist(C list) {
-		return getEntityDao().create(list);
+		return getEntityDao().persist(list);
 	}
 
 	@Override

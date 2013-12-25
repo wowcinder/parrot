@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 public class MethodFinder {
 	public static Method getGetMethod(Class<?> clazz, String field) {
 		Method method = null;
-		String pName = field.substring(0, 1).toUpperCase() + field.substring(1);
+		String pName = getPname(field);
 		method = getMethod(clazz, field);
 		if (method != null) {
 			return method;
@@ -23,6 +23,15 @@ public class MethodFinder {
 			return method;
 		}
 		return method;
+	}
+
+	public static String getPname(String name) {
+		if (name.length() == 1) {
+			return name.toUpperCase();
+		} else if (name.substring(1, 2).matches("[A-Z]")) {
+			return name;
+		}
+		return name.substring(0, 1).toUpperCase() + name.substring(1);
 	}
 
 	public static Method getMethod(Class<?> clazz, String name) {

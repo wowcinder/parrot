@@ -10,7 +10,7 @@ import com.voole.parrot.shared.entity.authority.AuthorityEntrance;
 @Repository
 public class AuthorityDao extends EntityDao<Authority> implements IAuthorityDao {
 	@Override
-	public Authority create(Authority t) {
+	public Authority persist(Authority t) {
 		AuthorityEntrance entrance = findParent(t);
 		t.setEntrance(entrance);
 		if (t.getPos() != null && entrance.getAuthorities().size() > t.getPos()) {

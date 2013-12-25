@@ -23,7 +23,7 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		IMenuNodeDao<N> {
 
 	@Override
-	public N create(N t) {
+	public N persist(N t) {
 		MenuGroup mg = findParent(t);
 		if (t.getPos() != null && t.getPos() < mg.getNodes().size()) {
 			mg.getNodes().add(t.getPos(), t);

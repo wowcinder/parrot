@@ -34,7 +34,7 @@ public class TestAccountDao {
 		public void save() {
 			account = new User();
 			account.setName("test_name");
-			dao.create(account);
+			dao.persist(account);
 		}
 
 		@Transactional
@@ -52,7 +52,7 @@ public class TestAccountDao {
 			account.setName("test_name2");
 			list.add(account);
 
-			dao.create(list);
+			dao.persist(list);
 		}
 
 		@Transactional

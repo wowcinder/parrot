@@ -12,9 +12,9 @@ import com.voole.parrot.shared.grid.GwtListLoadConfigBean;
 import com.voole.parrot.shared.grid.GwtPagingLoadConfigBean;
 
 public interface IEntityDao<E extends Serializable> extends IBaseDao {
-	public E create(E e);
+	public E persist(E e);
 
-	public <C extends Collection<E>> C create(C list);
+	public <C extends Collection<E>> C persist(C list);
 
 	public E update(E e, EntityUpdater<E> updater);
 
