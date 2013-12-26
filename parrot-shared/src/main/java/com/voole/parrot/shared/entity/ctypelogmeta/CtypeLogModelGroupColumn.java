@@ -24,7 +24,8 @@ public class CtypeLogModelGroupColumn extends CtypeLogModelColumn implements
 	private List<CtypeLogModelColumn> columns;
 	private HbaseTableVersion hbaseTableVersion;
 
-	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "parent", cascade = { CascadeType.PERSIST,
+			CascadeType.DETACH })
 	public List<CtypeLogModelColumn> getColumns() {
 		return columns;
 	}

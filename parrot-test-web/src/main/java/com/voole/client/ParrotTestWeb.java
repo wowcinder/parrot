@@ -7,10 +7,11 @@ import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.voole.parrot.gwt.ui.shared.authority.AuthorityView;
-import com.voole.parrot.gwt.ui.shared.menu.tree.MenuTree;
+import com.voole.parrot.gwt.ui.shared.ctypelogmodel.grid.CtypeLogModelRootColumnTreeGrid;
 import com.voole.parrot.gwt.ui.shared.role.RoleView;
 import com.voole.parrot.gwt.ui.shared.user.UserView;
 import com.voole.parrot.gwt.ui.shared.user.window.UserRolesWindow;
+import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
 import com.voole.parrot.shared.entity.user.User;
 
 public class ParrotTestWeb implements EntryPoint {
@@ -22,17 +23,16 @@ public class ParrotTestWeb implements EntryPoint {
 		// HbaseTableTreeGrid grid = new HbaseTableTreeGrid();
 		// grid.setHeight(400);
 		// RootPanel.get().add(grid);
-		// CtypeLogModelVersion version = new CtypeLogModelVersion();
-		// version.setId(1L);
-		// CtypeLogModelRootColumnTreeGrid grid = new
-		// CtypeLogModelRootColumnTreeGrid(
-		// version);
-		// grid.setHeight(400);
-		// RootPanel.get().add(grid);
-		
-		MenuTree grid = new MenuTree();
+		CtypeLogModelVersion version = new CtypeLogModelVersion();
+		version.setId(1L);
+		CtypeLogModelRootColumnTreeGrid grid = new CtypeLogModelRootColumnTreeGrid(
+				version);
 		grid.setHeight(400);
 		RootPanel.get().add(grid);
+
+		//		MenuTree grid = new MenuTree();
+//		grid.setHeight(400);
+//		RootPanel.get().add(grid);
 		// testUserRolesWindow();
 	}
 

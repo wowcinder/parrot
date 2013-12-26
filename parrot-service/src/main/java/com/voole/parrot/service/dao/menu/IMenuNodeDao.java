@@ -19,4 +19,6 @@ public interface IMenuNodeDao<N extends MenuNode> extends IEntityDao<N> {
 	List<MenuNode> move(MenuNode p, List<MenuNode> items, int index);
 
 	MenuGroup findRootMenu();
+	
+	void deleteFlush(MenuNode node);
 }

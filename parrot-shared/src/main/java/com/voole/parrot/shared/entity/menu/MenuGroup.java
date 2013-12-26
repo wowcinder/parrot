@@ -23,7 +23,8 @@ public class MenuGroup extends MenuNode implements EntityWithOrderChildren {
 
 	private List<MenuNode> nodes;
 
-	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "parent", cascade = { CascadeType.PERSIST,
+			CascadeType.DETACH })
 	@OrderBy("pos")
 	public List<MenuNode> getNodes() {
 		return nodes;

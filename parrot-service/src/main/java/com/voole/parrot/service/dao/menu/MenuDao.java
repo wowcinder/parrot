@@ -13,5 +13,8 @@ import com.voole.parrot.shared.entity.menu.Menu;
  */
 @Repository
 public class MenuDao extends MenuNodeDao<Menu> implements IMenuDao {
-
+	@Override
+	public void delete(Menu e) {
+		super.deleteFlush(e);
+	}
 }

@@ -14,5 +14,8 @@ import com.voole.parrot.shared.entity.menu.MenuGroup;
 @Repository
 public class MenuGroupDao extends MenuNodeDao<MenuGroup> implements
 		IMenuGroupDao {
-
+	@Override
+	public void delete(MenuGroup e) {
+		super.deleteFlush(e);
+	}
 }

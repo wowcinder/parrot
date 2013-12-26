@@ -94,7 +94,7 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		refresh(items);
 		for (MenuNode node : items) {
 			node.setParent(null);
-			if(node instanceof MenuGroup){
+			if (node instanceof MenuGroup) {
 				Hibernate.initialize(((MenuGroup) node).getNodes());
 			}
 		}
@@ -111,5 +111,20 @@ public class MenuNodeDao<N extends MenuNode> extends EntityDao<N> implements
 		}
 		getSimpleDao().persist(mg);
 		return items;
+	}
+
+	@Override
+	public void deleteFlush(MenuNode e) {
+		e = refresh(e);
+		if (e instanceof MenuGroup) {
+			MenuGroup mg = (MenuGroup) e;
+			if (mg.getNodes() != null && mg.getNodes().size() > 0) {
+				for (MenuNode node : mg.getNodes()) {
+					deleteFlush(node);
+				}
+			}
+		}
+		getCurrSession().delete(e);
+		getCurrSession().flush();
 	}
 }
