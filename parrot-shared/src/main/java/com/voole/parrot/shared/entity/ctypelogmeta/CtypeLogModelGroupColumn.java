@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import com.voole.parrot.shared.entity.EntityWithOrderChildren;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableVersion;
@@ -26,6 +27,7 @@ public class CtypeLogModelGroupColumn extends CtypeLogModelColumn implements
 
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.PERSIST,
 			CascadeType.DETACH })
+	@OrderBy("pos")
 	public List<CtypeLogModelColumn> getColumns() {
 		return columns;
 	}

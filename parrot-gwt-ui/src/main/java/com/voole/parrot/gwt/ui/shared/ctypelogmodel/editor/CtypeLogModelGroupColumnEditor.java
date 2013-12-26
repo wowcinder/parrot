@@ -11,6 +11,7 @@ import com.sencha.gxt.widget.core.client.form.TextArea;
 import com.sencha.gxt.widget.core.client.form.TextField;
 import com.voole.parrot.gwt.common.shared.core.editor.SimpleWindowEditor;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
+import com.voole.parrot.gwt.ui.shared.ctypelogmodel.field.HbaseTableVersionField;
 import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
 
 /**
@@ -52,14 +53,17 @@ public class CtypeLogModelGroupColumnEditor extends
 
 	TextField name;
 	TextArea desc;
+	HbaseTableVersionField hbaseTableVersion;
 
 	@Override
 	protected void _initView() {
 		name = new TextField();
 		desc = new TextArea();
-		// TODO hbase version
+		hbaseTableVersion = new HbaseTableVersionField();
 
 		layoutContainer.add(new FieldLabel(name, "name"), vd);
 		layoutContainer.add(new FieldLabel(desc, "desc"), vd);
+		layoutContainer.add(new FieldLabel(hbaseTableVersion, "table_version"),
+				vd);
 	}
 }

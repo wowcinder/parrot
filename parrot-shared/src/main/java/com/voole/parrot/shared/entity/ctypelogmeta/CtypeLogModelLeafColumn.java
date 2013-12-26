@@ -49,8 +49,8 @@ public class CtypeLogModelLeafColumn extends CtypeLogModelColumn implements
 				|| hbaseTableColumn.getVersion() == null
 				|| getParent() == null
 				|| getParent().getHbaseTableVersion() == null
-				|| getParent().getHbaseTableVersion().getId() != hbaseTableColumn
-						.getVersion().getId()
+				|| !getParent().getHbaseTableVersion().getId()
+						.equals(hbaseTableColumn.getVersion().getId())
 				|| hbaseTableColumn.getType() != this.getType()) {
 			hbaseTableColumn = null;
 		}

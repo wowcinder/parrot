@@ -40,8 +40,8 @@ public interface CtypeLogModelRpcService extends RemoteService {
 	CtypeLogModelVersion duplicateVerion(CtypeLogModelVersion duplicate,
 			CtypeLogModelVersion from) throws SharedException;
 
-	CtypeLogModelRootColumn getVersionRootColumnWithChildren(CtypeLogModelVersion version)
-			throws SharedException;
+	CtypeLogModelRootColumn getVersionRootColumnWithChildren(
+			CtypeLogModelVersion version) throws SharedException;
 
 	// column
 	CtypeLogModelColumn createColumn(CtypeLogModelColumn column)
@@ -52,6 +52,5 @@ public interface CtypeLogModelRpcService extends RemoteService {
 
 	void deleteColumn(CtypeLogModelColumn column) throws SharedException;
 
-	void changeColumnsPos(List<CtypeLogModelColumn> column, Integer pos)
-			throws SharedException;
+	CtypeLogModelColumn changeColumnsPos(CtypeLogModelColumn column) throws SharedException;
 }

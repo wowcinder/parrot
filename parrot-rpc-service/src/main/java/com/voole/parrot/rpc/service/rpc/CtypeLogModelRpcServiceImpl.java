@@ -123,10 +123,9 @@ public class CtypeLogModelRpcServiceImpl implements CtypeLogModelRpcService {
 	}
 
 	@Override
-	public void changeColumnsPos(List<CtypeLogModelColumn> column, Integer pos)
+	public CtypeLogModelColumn changeColumnsPos(CtypeLogModelColumn column)
 			throws SharedException {
-		// TODO Auto-generated method stub
-
+		return groupColumnService.changeColumnsPos(column);
 	}
 
 }

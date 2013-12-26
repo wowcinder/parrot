@@ -32,4 +32,9 @@ public class CtypeLogModelGroupColumnServiceImpl extends
 		return CtypeLogModelGroupColumnDao.modifyColumn(column);
 	}
 
+	@Override
+	public CtypeLogModelColumn changeColumnsPos(CtypeLogModelColumn column) {
+		return CtypeLogModelGroupColumnDao.changeColumnsPos(column);
+	}
+
 }

@@ -21,5 +21,7 @@ public interface ICtypeLogModelGroupColumnDao
 	 */
 	CtypeLogModelColumn modifyColumn(CtypeLogModelGroupColumn column);
 
+	CtypeLogModelColumn changeColumnsPos(CtypeLogModelColumn column);
+
 
 }

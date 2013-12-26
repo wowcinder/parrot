@@ -35,6 +35,6 @@ public interface CtypeLogModelRpcServiceAsync {
 
     public void deleteColumn(CtypeLogModelColumn arg0, AsyncCallback<Void> callback);
 
-    public void changeColumnsPos(List<CtypeLogModelColumn> arg0, Integer arg1, AsyncCallback<Void> callback);
+    public void changeColumnsPos(CtypeLogModelColumn arg0, AsyncCallback<CtypeLogModelColumn> callback);
 
 }

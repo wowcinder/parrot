@@ -19,4 +19,6 @@ public interface CtypeLogModelGroupColumnService extends
 	 */
 	CtypeLogModelColumn modifyColumn(CtypeLogModelGroupColumn column);
 
+	CtypeLogModelColumn changeColumnsPos(CtypeLogModelColumn column);
+
 }

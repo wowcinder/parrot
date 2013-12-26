@@ -8,11 +8,15 @@ import java.util.List;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.sencha.gxt.core.client.Style.SelectionMode;
 import com.sencha.gxt.data.shared.TreeStore;
+import com.sencha.gxt.dnd.core.client.DND.Feedback;
+import com.sencha.gxt.dnd.core.client.TreeGridDragSource;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.sencha.gxt.widget.core.client.grid.ColumnModel;
 import com.voole.parrot.gwt.common.shared.RpcAsyncCallback;
 import com.voole.parrot.gwt.common.shared.core.cell.TreeValueProvider;
+import com.voole.parrot.gwt.common.shared.core.dnd.FixedTreeGridTargetLeafDrop;
 import com.voole.parrot.gwt.common.shared.core.grid.FixedTreeGrid;
 import com.voole.parrot.gwt.common.shared.core.tree.FixedTreeGridIconProvider;
 import com.voole.parrot.gwt.common.shared.gridcolumn.CtypeLogModelColumnColumnConfig;
@@ -145,6 +149,65 @@ public class CtypeLogModelRootColumnTreeGrid extends
 				return false;
 			}
 		});
+		getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+		new TreeGridDragSource<CtypeLogModelColumn>(this);
+		FixedTreeGridTargetLeafDrop<CtypeLogModelColumn> target = new FixedTreeGridTargetLeafDrop<CtypeLogModelColumn>(
+				this) {
+
+			@Override
+			protected void appendModel(final CtypeLogModelColumn p,
+					List<?> items, int index) {
+				if (items.size() == 0)
+					return;
+				final Integer pos = index;
+				@SuppressWarnings("unchecked")
+				List<TreeStore.TreeNode<CtypeLogModelColumn>> nodes = (List<TreeStore.TreeNode<CtypeLogModelColumn>>) items;
+				CtypeLogModelColumn column = nodes.get(0).getData();
+				column.setParent((CtypeLogModelGroupColumn) p);
+				column.setPos(pos);
+				RpcServiceUtils.CtypeLogModelRpcService.changeColumnsPos(
+						column, new RpcAsyncCallback<CtypeLogModelColumn>() {
+							@Override
+							protected void _onSuccess(CtypeLogModelColumn result) {
+								if (result instanceof CtypeLogModelLeafColumn) {
+									getWidget().getTreeStore().insert(p, pos,
+											result);
+								} else {
+									CtypeLogModelGroupColumn group = (CtypeLogModelGroupColumn) result;
+									TreeStore<CtypeLogModelColumn> treeStore = getWidget()
+											.getTreeStore();
+									treeStore.insert(p, pos, group);
+									for (CtypeLogModelColumn item : group
+											.getColumns()) {
+										initData(group, item);
+									}
+
+								}
+							}
+						});
+
+			}
+
+			@SuppressWarnings("unused")
+			protected void update(CtypeLogModelColumn p,
+					List<TreeStore.TreeNode<CtypeLogModelColumn>> nodes,
+					int index) {
+				getWidget().getTreeStore().addSubTree(p, index, nodes);
+			}
+
+			@Override
+			protected boolean isDropOnLeafEnabled(CtypeLogModelColumn m) {
+				if (m instanceof CtypeLogModelGroupColumn) {
+					return true;
+				}
+				return false;
+			}
+		};
+		target.setAllowDropOnLeaf(true);
+		target.setAllowDropOnRoot(false);
+		target.setAllowSelfAsSource(true);
+		target.setFeedback(Feedback.BOTH);
 	}
 
 	@Override

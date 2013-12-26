@@ -100,7 +100,7 @@ public class HbaseTableTreeGrid extends FixedTreeGrid<EntityHasAutoId> {
 				return false;
 			}
 		});
-		setContextMenu(new HbaseTableTreeGridMenu(this));
+		// setContextMenu(new HbaseTableTreeGridMenu(this));
 	}
 
 	@Override

@@ -20,19 +20,21 @@ public class ParrotTestWeb implements EntryPoint {
 	public void onModuleLoad() {
 		// testAuthority();
 
-		// HbaseTableTreeGrid grid = new HbaseTableTreeGrid();
-		// grid.setHeight(400);
-		// RootPanel.get().add(grid);
+		// HbaseTableTreeGrid grid2 = new HbaseTableTreeGrid();
+		// grid2.setContextMenu(new HbaseTableTreeGridMenu(grid2));
+		// grid2.setHeight(400);
+		// RootPanel.get().add(grid2);
 		CtypeLogModelVersion version = new CtypeLogModelVersion();
-		version.setId(1L);
+		version.setId(2L);
+
 		CtypeLogModelRootColumnTreeGrid grid = new CtypeLogModelRootColumnTreeGrid(
 				version);
 		grid.setHeight(400);
 		RootPanel.get().add(grid);
 
-		//		MenuTree grid = new MenuTree();
-//		grid.setHeight(400);
-//		RootPanel.get().add(grid);
+		// MenuTree grid = new MenuTree();
+		// grid.setHeight(400);
+		// RootPanel.get().add(grid);
 		// testUserRolesWindow();
 	}
 

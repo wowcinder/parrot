@@ -20,6 +20,7 @@ import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.editor.CtypeLogModelEditor;
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.editor.CtypeLogModelVersionDuplicateEditor;
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.editor.CtypeLogModelVersionEditor;
+import com.voole.parrot.gwt.ui.shared.ctypelogmodel.window.CtypeLogModelRootColumnTreeGridWindow;
 import com.voole.parrot.shared.entity.EntityHasAutoId;
 import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModel;
 import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
@@ -256,7 +257,10 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 	protected void initEditColumns() {
 		editColumns.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
-			public void onSelection(SelectionEvent<Item> event) { // TODO
+			public void onSelection(SelectionEvent<Item> event) {
+				CtypeLogModelRootColumnTreeGridWindow w = new CtypeLogModelRootColumnTreeGridWindow(
+						getSeletedVersion());
+				w.show();
 			}
 		});
 	}

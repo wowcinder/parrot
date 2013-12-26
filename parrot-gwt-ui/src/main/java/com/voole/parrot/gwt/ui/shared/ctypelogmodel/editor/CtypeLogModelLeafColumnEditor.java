@@ -12,6 +12,7 @@ import com.sencha.gxt.widget.core.client.form.TextField;
 import com.voole.parrot.gwt.common.shared.core.combox.EnumComboBox;
 import com.voole.parrot.gwt.common.shared.core.editor.SimpleWindowEditor;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
+import com.voole.parrot.gwt.ui.shared.ctypelogmodel.field.HbaseTableColumnField;
 import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
 import com.voole.parrot.shared.entity.hbasemeta.ColumnType;
 
@@ -55,17 +56,19 @@ public class CtypeLogModelLeafColumnEditor extends
 	TextField name;
 	TextArea desc;
 	EnumComboBox<ColumnType> type;
+	HbaseTableColumnField hbaseTableColumn;
 
 	@Override
 	protected void _initView() {
 		name = new TextField();
 		desc = new TextArea();
 		type = new EnumComboBox<ColumnType>(ColumnType.values());
-
-		// TODO hbase column
+		hbaseTableColumn = new HbaseTableColumnField(this);
 
 		layoutContainer.add(new FieldLabel(name, "name"), vd);
 		layoutContainer.add(new FieldLabel(type, "type"), vd);
+		layoutContainer.add(new FieldLabel(hbaseTableColumn, "table_column"),
+				vd);
 		layoutContainer.add(new FieldLabel(desc, "desc"), vd);
 	}
 }
