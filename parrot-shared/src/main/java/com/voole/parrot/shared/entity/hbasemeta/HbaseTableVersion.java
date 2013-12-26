@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.entity.EntityHasAutoId;
 import com.voole.parrot.shared.entity.EntityWithOrderChildren;
-import com.voole.parrot.shared.entity.ctypelogmeta.CTypeLogModelGroupColumn;
+import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
 
 /**
  * @author XuehuiHe
@@ -33,7 +33,7 @@ public class HbaseTableVersion extends EntityHasAutoId implements
 	private HbaseTable table;
 	private List<HbaseTableColumn> columns;
 	private Integer pos;
-	private List<CTypeLogModelGroupColumn> ctypeLogModelGroupColumns;
+	private List<CtypeLogModelGroupColumn> ctypeLogModelGroupColumns;
 
 	public HbaseTableVersion() {
 		version = "";
@@ -65,12 +65,12 @@ public class HbaseTableVersion extends EntityHasAutoId implements
 	}
 
 	@OneToMany(mappedBy = "hbaseTableVersion")
-	public List<CTypeLogModelGroupColumn> getCtypeLogModelGroupColumns() {
+	public List<CtypeLogModelGroupColumn> getCtypeLogModelGroupColumns() {
 		return ctypeLogModelGroupColumns;
 	}
 
 	public void setCtypeLogModelGroupColumns(
-			List<CTypeLogModelGroupColumn> ctypeLogModelGroupColumns) {
+			List<CtypeLogModelGroupColumn> ctypeLogModelGroupColumns) {
 		this.ctypeLogModelGroupColumns = ctypeLogModelGroupColumns;
 	}
 

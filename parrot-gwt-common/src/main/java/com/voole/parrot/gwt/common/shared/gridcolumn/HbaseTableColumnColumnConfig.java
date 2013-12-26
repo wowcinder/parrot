@@ -4,7 +4,7 @@ package com.voole.parrot.gwt.common.shared.gridcolumn;
 import java.util.List;
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
-import com.voole.parrot.shared.entity.ctypelogmeta.CTypeLogModelLeafColumn;
+import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
 import com.voole.parrot.shared.entity.hbasemeta.ColumnType;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableVersion;
@@ -22,8 +22,8 @@ public class HbaseTableColumnColumnConfig {
         return desc;
     }
 
-    public static ColumnConfig<HbaseTableColumn, List<CTypeLogModelLeafColumn>> ctypeLogModelLeafColumns() {
-        ColumnConfig<HbaseTableColumn, List<CTypeLogModelLeafColumn>> ctypeLogModelLeafColumns = new ColumnConfig<HbaseTableColumn, List<CTypeLogModelLeafColumn>>(PropertyUtils.HbaseTableColumnProperty.ctypeLogModelLeafColumns(), 200, "ctypeLogModelLeafColumns");
+    public static ColumnConfig<HbaseTableColumn, List<CtypeLogModelLeafColumn>> ctypeLogModelLeafColumns() {
+        ColumnConfig<HbaseTableColumn, List<CtypeLogModelLeafColumn>> ctypeLogModelLeafColumns = new ColumnConfig<HbaseTableColumn, List<CtypeLogModelLeafColumn>>(PropertyUtils.HbaseTableColumnProperty.ctypeLogModelLeafColumns(), 200, "ctypeLogModelLeafColumns");
         return ctypeLogModelLeafColumns;
     }
 

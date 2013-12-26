@@ -5,7 +5,7 @@ import java.util.List;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
-import com.voole.parrot.shared.entity.ctypelogmeta.CTypeLogModelGroupColumn;
+import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTable;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableVersion;
@@ -22,7 +22,7 @@ public interface HbaseTableVersionProperty
 
     public ValueProvider<HbaseTableVersion, String> desc();
 
-    public ValueProvider<HbaseTableVersion, List<CTypeLogModelGroupColumn>> ctypeLogModelGroupColumns();
+    public ValueProvider<HbaseTableVersion, List<CtypeLogModelGroupColumn>> ctypeLogModelGroupColumns();
 
     public ValueProvider<HbaseTableVersion, List<HbaseTableColumn>> columns();
 
