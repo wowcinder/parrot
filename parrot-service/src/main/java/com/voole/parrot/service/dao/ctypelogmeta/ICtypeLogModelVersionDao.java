@@ -14,5 +14,13 @@ public interface ICtypeLogModelVersionDao
 	 */
 	CtypeLogModelVersion modifyVersion(CtypeLogModelVersion version);
 
+	/**
+	 * @param duplicate
+	 * @param from
+	 * @return
+	 */
+	CtypeLogModelVersion duplicateVerion(CtypeLogModelVersion duplicate,
+			CtypeLogModelVersion from);
+
 
 }

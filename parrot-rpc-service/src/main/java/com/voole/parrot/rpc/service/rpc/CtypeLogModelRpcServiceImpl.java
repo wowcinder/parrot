@@ -89,8 +89,7 @@ public class CtypeLogModelRpcServiceImpl implements CtypeLogModelRpcService {
 	@Override
 	public CtypeLogModelVersion duplicateVerion(CtypeLogModelVersion duplicate,
 			CtypeLogModelVersion from) throws SharedException {
-		// TODO Auto-generated method stub
-		return null;
+		return versionService.duplicateVerion(duplicate, from);
 	}
 
 	@Override

@@ -51,4 +51,10 @@ public class CtypeLogModelVersionServiceImpl extends
 		}
 	}
 
+	@Override
+	public CtypeLogModelVersion duplicateVerion(CtypeLogModelVersion duplicate,
+			CtypeLogModelVersion from) {
+		return CtypeLogModelVersionDao.duplicateVerion(duplicate, from);
+	}
+
 }

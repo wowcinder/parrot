@@ -7,7 +7,7 @@ import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.voole.parrot.gwt.ui.shared.authority.AuthorityView;
-import com.voole.parrot.gwt.ui.shared.hbasemeta.grid.HbaseTableTreeGrid;
+import com.voole.parrot.gwt.ui.shared.menu.tree.MenuTree;
 import com.voole.parrot.gwt.ui.shared.role.RoleView;
 import com.voole.parrot.gwt.ui.shared.user.UserView;
 import com.voole.parrot.gwt.ui.shared.user.window.UserRolesWindow;
@@ -19,7 +19,18 @@ public class ParrotTestWeb implements EntryPoint {
 	public void onModuleLoad() {
 		// testAuthority();
 
-		HbaseTableTreeGrid grid = new HbaseTableTreeGrid();
+		// HbaseTableTreeGrid grid = new HbaseTableTreeGrid();
+		// grid.setHeight(400);
+		// RootPanel.get().add(grid);
+		// CtypeLogModelVersion version = new CtypeLogModelVersion();
+		// version.setId(1L);
+		// CtypeLogModelRootColumnTreeGrid grid = new
+		// CtypeLogModelRootColumnTreeGrid(
+		// version);
+		// grid.setHeight(400);
+		// RootPanel.get().add(grid);
+		
+		MenuTree grid = new MenuTree();
 		grid.setHeight(400);
 		RootPanel.get().add(grid);
 		// testUserRolesWindow();

@@ -22,5 +22,13 @@ public interface CtypeLogModelVersionService
 	CtypeLogModelRootColumn getVersionRootColumnWithChildren(
 			CtypeLogModelVersion version);
 
+	/**
+	 * @param duplicate
+	 * @param from
+	 * @return
+	 */
+	CtypeLogModelVersion duplicateVerion(CtypeLogModelVersion duplicate,
+			CtypeLogModelVersion from);
+
 
 }
