@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -21,9 +23,11 @@ import com.voole.parrot.shared.entity.EntityHasAutoId;
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "parent", "name" }) })
 public class CtypeLogModelColumn extends EntityHasAutoId {
 	private Integer pos;
 	private String name;
+	private String desc;
 	private CtypeLogModelGroupColumn parent;
 
 	public Integer getPos() {
@@ -40,6 +44,15 @@ public class CtypeLogModelColumn extends EntityHasAutoId {
 	@ManyToOne
 	public CtypeLogModelGroupColumn getParent() {
 		return parent;
+	}
+
+	@Column(name = "description", columnDefinition = "text")
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 	public void setPos(Integer pos) {

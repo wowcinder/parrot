@@ -17,6 +17,8 @@ public interface CtypeLogModelColumnProperty
 
     public ValueProvider<CtypeLogModelColumn, Long> id();
 
+    public ValueProvider<CtypeLogModelColumn, String> desc();
+
     public ValueProvider<CtypeLogModelColumn, String> name();
 
     public ValueProvider<CtypeLogModelColumn, CtypeLogModelGroupColumn> parent();

@@ -19,6 +19,8 @@ public interface CtypeLogModelGroupColumnProperty
 
     public ValueProvider<CtypeLogModelGroupColumn, Long> id();
 
+    public ValueProvider<CtypeLogModelGroupColumn, String> desc();
+
     public ValueProvider<CtypeLogModelGroupColumn, HbaseTableVersion> hbaseTableVersion();
 
     public ValueProvider<CtypeLogModelGroupColumn, String> name();

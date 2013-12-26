@@ -16,6 +16,11 @@ public class CtypeLogModelLeafColumnColumnConfig {
         return id;
     }
 
+    public static ColumnConfig<CtypeLogModelLeafColumn, String> desc() {
+        ColumnConfig<CtypeLogModelLeafColumn, String> desc = new ColumnConfig<CtypeLogModelLeafColumn, String>(PropertyUtils.CtypeLogModelLeafColumnProperty.desc(), 200, "desc");
+        return desc;
+    }
+
     public static ColumnConfig<CtypeLogModelLeafColumn, String> name() {
         ColumnConfig<CtypeLogModelLeafColumn, String> name = new ColumnConfig<CtypeLogModelLeafColumn, String>(PropertyUtils.CtypeLogModelLeafColumnProperty.name(), 200, "name");
         return name;

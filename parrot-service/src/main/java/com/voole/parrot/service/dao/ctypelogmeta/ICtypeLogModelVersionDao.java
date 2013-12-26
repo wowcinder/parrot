@@ -8,5 +8,11 @@ public interface ICtypeLogModelVersionDao
     extends IEntityDao<CtypeLogModelVersion>
 {
 
+	/**
+	 * @param version
+	 * @return
+	 */
+	CtypeLogModelVersion modifyVersion(CtypeLogModelVersion version);
+
 
 }

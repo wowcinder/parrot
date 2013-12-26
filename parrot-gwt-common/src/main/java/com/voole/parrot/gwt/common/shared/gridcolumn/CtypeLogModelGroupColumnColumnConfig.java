@@ -16,6 +16,11 @@ public class CtypeLogModelGroupColumnColumnConfig {
         return id;
     }
 
+    public static ColumnConfig<CtypeLogModelGroupColumn, String> desc() {
+        ColumnConfig<CtypeLogModelGroupColumn, String> desc = new ColumnConfig<CtypeLogModelGroupColumn, String>(PropertyUtils.CtypeLogModelGroupColumnProperty.desc(), 200, "desc");
+        return desc;
+    }
+
     public static ColumnConfig<CtypeLogModelGroupColumn, HbaseTableVersion> hbaseTableVersion() {
         ColumnConfig<CtypeLogModelGroupColumn, HbaseTableVersion> hbaseTableVersion = new ColumnConfig<CtypeLogModelGroupColumn, HbaseTableVersion>(PropertyUtils.CtypeLogModelGroupColumnProperty.hbaseTableVersion(), 200, "hbaseTableVersion");
         return hbaseTableVersion;

@@ -12,6 +12,7 @@ public class PropertyUtils {
     public final static com.voole.parrot.gwt.common.shared.property.CtypeLogModelColumnProperty CtypeLogModelColumnProperty = GWT.create(com.voole.parrot.gwt.common.shared.property.CtypeLogModelColumnProperty.class);
     public final static com.voole.parrot.gwt.common.shared.property.CtypeLogModelGroupColumnProperty CtypeLogModelGroupColumnProperty = GWT.create(com.voole.parrot.gwt.common.shared.property.CtypeLogModelGroupColumnProperty.class);
     public final static com.voole.parrot.gwt.common.shared.property.CtypeLogModelLeafColumnProperty CtypeLogModelLeafColumnProperty = GWT.create(com.voole.parrot.gwt.common.shared.property.CtypeLogModelLeafColumnProperty.class);
+    public final static com.voole.parrot.gwt.common.shared.property.CtypeLogModelRootColumnProperty CtypeLogModelRootColumnProperty = GWT.create(com.voole.parrot.gwt.common.shared.property.CtypeLogModelRootColumnProperty.class);
     public final static com.voole.parrot.gwt.common.shared.property.CtypeLogModelVersionProperty CtypeLogModelVersionProperty = GWT.create(com.voole.parrot.gwt.common.shared.property.CtypeLogModelVersionProperty.class);
     public final static com.voole.parrot.gwt.common.shared.property.HbaseTableProperty HbaseTableProperty = GWT.create(com.voole.parrot.gwt.common.shared.property.HbaseTableProperty.class);
     public final static com.voole.parrot.gwt.common.shared.property.HbaseTableColumnProperty HbaseTableColumnProperty = GWT.create(com.voole.parrot.gwt.common.shared.property.HbaseTableColumnProperty.class);

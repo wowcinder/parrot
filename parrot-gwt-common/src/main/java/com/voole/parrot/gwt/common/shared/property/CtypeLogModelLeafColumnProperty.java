@@ -19,6 +19,8 @@ public interface CtypeLogModelLeafColumnProperty
 
     public ValueProvider<CtypeLogModelLeafColumn, Long> id();
 
+    public ValueProvider<CtypeLogModelLeafColumn, String> desc();
+
     public ValueProvider<CtypeLogModelLeafColumn, String> name();
 
     public ValueProvider<CtypeLogModelLeafColumn, HbaseTableColumn> hbaseTableColumn();
