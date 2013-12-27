@@ -32,8 +32,7 @@ import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
  * @author XuehuiHe
  * @date 2013年12月26日
  */
-public class LogModelRootColumnTreeGrid extends
-		FixedTreeGrid<LogModelColumn> {
+public class LogModelRootColumnTreeGrid extends FixedTreeGrid<LogModelColumn> {
 
 	private static ColumnModel<LogModelColumn> cm;
 	private static ColumnConfig<LogModelColumn, String> name;
@@ -130,6 +129,11 @@ public class LogModelRootColumnTreeGrid extends
 		l.add(version);
 		l.add(column);
 
+		for (ColumnConfig<LogModelColumn, ?> columnConfig : l) {
+			columnConfig.setSortable(false);
+			columnConfig.setMenuDisabled(true);
+		}
+
 		cm = new ColumnModel<LogModelColumn>(l);
 	}
 
@@ -156,8 +160,8 @@ public class LogModelRootColumnTreeGrid extends
 				this) {
 
 			@Override
-			protected void appendModel(final LogModelColumn p,
-					List<?> items, int index) {
+			protected void appendModel(final LogModelColumn p, List<?> items,
+					int index) {
 				if (items.size() == 0)
 					return;
 				final Integer pos = index;
@@ -166,8 +170,8 @@ public class LogModelRootColumnTreeGrid extends
 				LogModelColumn column = nodes.get(0).getData();
 				column.setParent((LogModelGroupColumn) p);
 				column.setPos(pos);
-				RpcServiceUtils.LogModelRpcService.changeColumnsPos(
-						column, new RpcAsyncCallback<LogModelColumn>() {
+				RpcServiceUtils.LogModelRpcService.changeColumnsPos(column,
+						new RpcAsyncCallback<LogModelColumn>() {
 							@Override
 							protected void _onSuccess(LogModelColumn result) {
 								if (result instanceof LogModelLeafColumn) {
@@ -191,8 +195,7 @@ public class LogModelRootColumnTreeGrid extends
 
 			@SuppressWarnings("unused")
 			protected void update(LogModelColumn p,
-					List<TreeStore.TreeNode<LogModelColumn>> nodes,
-					int index) {
+					List<TreeStore.TreeNode<LogModelColumn>> nodes, int index) {
 				getWidget().getTreeStore().addSubTree(p, index, nodes);
 			}
 
@@ -219,8 +222,7 @@ public class LogModelRootColumnTreeGrid extends
 			public void execute() {
 				mask("加载中...");
 				RpcServiceUtils.LogModelRpcService
-						.getVersionRootColumnWithChildren(
-								version,
+						.getVersionRootColumnWithChildren(version,
 								new RpcAsyncCallback<LogModelRootColumn>() {
 									@Override
 									protected void _onSuccess(
@@ -244,8 +246,7 @@ public class LogModelRootColumnTreeGrid extends
 		expandAll();
 	}
 
-	private void initData(LogModelGroupColumn group,
-			LogModelColumn column) {
+	private void initData(LogModelGroupColumn group, LogModelColumn column) {
 		if (group == null) {
 			treeStore.add(column);
 		} else {

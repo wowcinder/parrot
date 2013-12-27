@@ -35,8 +35,8 @@ public class LogModelColumn extends EntityHasAutoId {
 	}
 
 	@NotNull
-	@Column(nullable = false, length = 40)
-	@Length(min = 1, max = 40)
+	@Column(nullable = false, length = 200)
+	@Length(min = 1, max = 200)
 	public String getName() {
 		return name;
 	}

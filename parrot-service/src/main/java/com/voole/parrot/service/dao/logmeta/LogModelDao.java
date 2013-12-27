@@ -18,6 +18,7 @@ public class LogModelDao extends EntityDao<LogModel> implements
 			public void invoke(LogModel old, LogModel e) {
 				old.setName(e.getName());
 				old.setDesc(e.getDesc());
+				old.setType(e.getType());
 			}
 		});
 	}

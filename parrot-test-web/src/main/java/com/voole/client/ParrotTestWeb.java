@@ -7,7 +7,9 @@ import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.voole.parrot.gwt.ui.shared.authority.AuthorityView;
-import com.voole.parrot.gwt.ui.shared.logmodel.grid.LogModelRootColumnTreeGrid;
+import com.voole.parrot.gwt.ui.shared.hbasemeta.grid.HbaseTableTreeGrid;
+import com.voole.parrot.gwt.ui.shared.hbasemeta.grid.HbaseTableTreeGridMenu;
+import com.voole.parrot.gwt.ui.shared.logmodel.grid.LogModelTreeGrid;
 import com.voole.parrot.gwt.ui.shared.role.RoleView;
 import com.voole.parrot.gwt.ui.shared.user.UserView;
 import com.voole.parrot.gwt.ui.shared.user.window.UserRolesWindow;
@@ -20,15 +22,17 @@ public class ParrotTestWeb implements EntryPoint {
 	public void onModuleLoad() {
 		// testAuthority();
 
-		// HbaseTableTreeGrid grid2 = new HbaseTableTreeGrid();
-		// grid2.setContextMenu(new HbaseTableTreeGridMenu(grid2));
-		// grid2.setHeight(400);
-		// RootPanel.get().add(grid2);
+		HbaseTableTreeGrid grid2 = new HbaseTableTreeGrid();
+		grid2.setContextMenu(new HbaseTableTreeGridMenu(grid2));
+		grid2.setHeight(400);
+		RootPanel.get().add(grid2);
 		LogModelVersion version = new LogModelVersion();
 		version.setId(2L);
 
-		LogModelRootColumnTreeGrid grid = new LogModelRootColumnTreeGrid(
-				version);
+		LogModelTreeGrid grid = new LogModelTreeGrid();
+		
+		// LogModelRootColumnTreeGrid grid = new LogModelRootColumnTreeGrid(
+		// version);
 		grid.setHeight(400);
 		RootPanel.get().add(grid);
 

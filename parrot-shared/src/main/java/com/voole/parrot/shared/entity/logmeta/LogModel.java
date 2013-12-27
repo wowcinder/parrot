@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
@@ -28,6 +30,7 @@ public class LogModel extends EntityHasAutoId implements
 	private String name;
 	private String desc;
 	private List<LogModelVersion> versions;
+	private LogModelType type;
 
 	@NotNull
 	@Length(min = 1, max = 100)
@@ -45,6 +48,16 @@ public class LogModel extends EntityHasAutoId implements
 	@OrderBy("pos")
 	public List<LogModelVersion> getVersions() {
 		return versions;
+	}
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "model_type", nullable = false, length = 20)
+	public LogModelType getType() {
+		return type;
+	}
+
+	public void setType(LogModelType type) {
+		this.type = type;
 	}
 
 	public void setName(String name) {
@@ -68,6 +81,10 @@ public class LogModel extends EntityHasAutoId implements
 		for (int i = 0; i < size; i++) {
 			versions.get(i).setPos(i);
 		}
+	}
+
+	public static enum LogModelType {
+		JSON, CTYPE;
 	}
 
 }
