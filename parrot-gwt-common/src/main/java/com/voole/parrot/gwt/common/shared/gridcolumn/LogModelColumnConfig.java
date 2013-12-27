@@ -2,7 +2,6 @@
 package com.voole.parrot.gwt.common.shared.gridcolumn;
 
 import java.util.List;
-
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.shared.entity.logmeta.LogModel;

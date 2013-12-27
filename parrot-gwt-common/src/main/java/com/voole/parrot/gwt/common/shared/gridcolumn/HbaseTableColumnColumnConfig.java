@@ -2,7 +2,6 @@
 package com.voole.parrot.gwt.common.shared.gridcolumn;
 
 import java.util.List;
-
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.shared.entity.hbasemeta.ColumnType;
@@ -23,11 +22,6 @@ public class HbaseTableColumnColumnConfig {
         return desc;
     }
 
-    public static ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>> logModelLeafColumns() {
-        ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>> ctypeLogModelLeafColumns = new ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>>(PropertyUtils.HbaseTableColumnProperty.logModelLeafColumns(), 200, "ctypeLogModelLeafColumns");
-        return ctypeLogModelLeafColumns;
-    }
-
     public static ColumnConfig<HbaseTableColumn, String> name() {
         ColumnConfig<HbaseTableColumn, String> name = new ColumnConfig<HbaseTableColumn, String>(PropertyUtils.HbaseTableColumnProperty.name(), 200, "name");
         return name;
@@ -41,6 +35,11 @@ public class HbaseTableColumnColumnConfig {
     public static ColumnConfig<HbaseTableColumn, ColumnType> type() {
         ColumnConfig<HbaseTableColumn, ColumnType> type = new ColumnConfig<HbaseTableColumn, ColumnType>(PropertyUtils.HbaseTableColumnProperty.type(), 200, "type");
         return type;
+    }
+
+    public static ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>> logModelLeafColumns() {
+        ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>> logModelLeafColumns = new ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>>(PropertyUtils.HbaseTableColumnProperty.logModelLeafColumns(), 200, "logModelLeafColumns");
+        return logModelLeafColumns;
     }
 
     public static ColumnConfig<HbaseTableColumn, Integer> pos() {

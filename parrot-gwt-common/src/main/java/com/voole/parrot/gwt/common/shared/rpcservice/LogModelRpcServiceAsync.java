@@ -2,7 +2,6 @@
 package com.voole.parrot.gwt.common.shared.rpcservice;
 
 import java.util.List;
-
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.voole.parrot.shared.entity.logmeta.LogModel;
 import com.voole.parrot.shared.entity.logmeta.LogModelColumn;

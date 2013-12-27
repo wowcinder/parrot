@@ -2,7 +2,6 @@
 package com.voole.parrot.gwt.common.shared.property;
 
 import java.util.List;
-
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;

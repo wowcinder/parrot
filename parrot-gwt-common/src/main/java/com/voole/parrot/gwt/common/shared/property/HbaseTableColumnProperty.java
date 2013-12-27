@@ -2,7 +2,6 @@
 package com.voole.parrot.gwt.common.shared.property;
 
 import java.util.List;
-
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
@@ -23,13 +22,13 @@ public interface HbaseTableColumnProperty
 
     public ValueProvider<HbaseTableColumn, String> desc();
 
-    public ValueProvider<HbaseTableColumn, List<LogModelLeafColumn>> logModelLeafColumns();
-
     public ValueProvider<HbaseTableColumn, String> name();
 
     public ValueProvider<HbaseTableColumn, String> shortname();
 
     public ValueProvider<HbaseTableColumn, ColumnType> type();
+
+    public ValueProvider<HbaseTableColumn, List<LogModelLeafColumn>> logModelLeafColumns();
 
     public ValueProvider<HbaseTableColumn, Integer> pos();
 
