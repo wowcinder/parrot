@@ -3,54 +3,30 @@
  */
 package com.voole.importfrom.ctype;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.voole.parrot.importfrom.ctype.CtypeColumnTypeAdapter;
-import com.voole.parrot.importfrom.ctype.TopCtype;
+import com.voole.parrot.importfrom.ctype.CtypeLogModelMetaAnalyzer;
+import com.voole.parrot.shared.entity.kafka.KafkaTopic.KafkaTopicCharset;
 
 /**
  * @author XuehuiHe
  * @date 2013年12月27日
  */
-// @RunWith(SpringJUnit4ClassRunner.class)
-// @ContextConfiguration(locations = "classpath:/spring-test.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:/spring-test.xml")
 public class CTypeTest {
+	@Autowired
+	private CtypeLogModelMetaAnalyzer analyzer;
 
-	@SuppressWarnings("unchecked")
-	public static void main(String[] args) throws IOException {
-		GsonBuilder gb = new GsonBuilder();
-		gb.registerTypeAdapterFactory(CtypeColumnTypeAdapter.FACTORY);
-		Gson gson = gb.create();
-		List<TopCtype> list = (List<TopCtype>) gson.fromJson(read(),
-				new TypeToken<List<TopCtype>>() {
-				}.getType());
-
-		GsonBuilder gb2 = new GsonBuilder();
-		gb2.setPrettyPrinting();
-		System.out.println(gb2.create().toJson(list));
-
-	}
-
-	public static String read() throws IOException {
-		InputStream in = CTypeTest.class.getClassLoader().getResourceAsStream(
-				"c.json");
-
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		String line = null;
-		StringBuilder sb = new StringBuilder();
-		while ((line = reader.readLine()) != null) {
-			sb.append(line);
-		}
-		reader.close();
-		return sb.toString();
-
+	@Test
+	public void test() {
+		analyzer.setCharset(KafkaTopicCharset.ISO88591);
+		analyzer.setJsonFile("c.json");
+		analyzer.analyze();
 	}
 
 }

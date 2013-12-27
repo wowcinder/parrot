@@ -4,6 +4,7 @@
 package com.voole.parrot.importfrom.ctype;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,6 @@ import com.google.gson.GsonBuilder;
 import com.voole.parrot.importfrom.LogModelMetaAnalyzer;
 import com.voole.parrot.service.dao.SimpleDao;
 import com.voole.parrot.service.service.logmeta.LogModelGroupColumnService;
-import com.voole.parrot.service.service.logmeta.LogModelLeafColumnService;
 import com.voole.parrot.service.service.logmeta.LogModelService;
 import com.voole.parrot.service.service.logmeta.LogModelVersionService;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
@@ -35,13 +35,15 @@ import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
  * @author XuehuiHe
  * @date 2013年12月27日
  */
+@org.springframework.stereotype.Service
 public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 	@Autowired
 	private SimpleDao simpleDao;
 	@Autowired
 	private LogModelService modelService;
+	@Autowired
 	private LogModelVersionService versionService;
-	private LogModelLeafColumnService leafColumnService;
+	@Autowired
 	private LogModelGroupColumnService groupColumnService;
 
 	public CtypeLogModelMetaAnalyzer() {
@@ -58,21 +60,39 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 	public HbaseTableVersion getHbaseTableVersion(String table) {
 		return (HbaseTableVersion) simpleDao.getCurrSession()
 				.createCriteria(HbaseTableVersion.class)
+				.createAlias("table", "table")
 				.add(Restrictions.eq("version", "0.0"))
-				.createAlias("model", "model")
-				.add(Restrictions.eq("model.name", table)).uniqueResult();
+				.add(Restrictions.eq("table.name", table)).uniqueResult();
 	}
 
 	public void analyze(TopCtype topCtype) {
 		LogModelRootColumn rootColumn = createTableAndVersion(topCtype
 				.getTable());
 		HbaseTableVersion hbaseTableVersion = rootColumn.getHbaseTableVersion();
+		Map<String, HbaseTableColumn> hbaseColumnMap = getColumnsMap(hbaseTableVersion);
+
+		create(topCtype.getData(), rootColumn, hbaseColumnMap);
+
+	}
+
+	/**
+	 * @param hbaseTableVersion
+	 * @return
+	 */
+	private Map<String, HbaseTableColumn> getColumnsMap(
+			HbaseTableVersion hbaseTableVersion) {
 		Map<String, HbaseTableColumn> hbaseColumnMap = new HashMap<String, HbaseTableColumn>();
 		for (HbaseTableColumn hbaseColumn : hbaseTableVersion.getColumns()) {
 			hbaseColumnMap.put(hbaseColumn.getName(), hbaseColumn);
 		}
+		return hbaseColumnMap;
+	}
 
-		for (Entry<String, CtypeColumn> entry : topCtype.getData().entrySet()) {
+	// TODO orders
+	private void create(Map<String, ? extends CtypeColumn> data,
+			LogModelGroupColumn rootColumn,
+			Map<String, HbaseTableColumn> hbaseColumnMap) {
+		for (Entry<String, ? extends CtypeColumn> entry : data.entrySet()) {
 			String logColumn = entry.getKey();
 			CtypeColumn ctypeColumn = entry.getValue();
 			if (ctypeColumn instanceof SimpleCtypeColumn) {
@@ -90,21 +110,34 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 				groupColumnService.createColumn(leafColumn);
 			} else {
 				AttachmentsCtypeColumn attachmentsCtypeColumn = (AttachmentsCtypeColumn) ctypeColumn;
+				String name = attachmentsCtypeColumn.getTable();
+				HbaseTableVersion hbaseTableVersion = getHbaseTableVersion(name);
 				LogModelGroupColumn groupColumn = new LogModelGroupColumn();
-				groupColumn.setDesc(attachmentsCtypeColumn.getTable());
+				groupColumn.setDesc(logColumn);
+				groupColumn.setName(logColumn);
+				groupColumn.setHbaseTableVersion(hbaseTableVersion);
+				groupColumn.setParent(rootColumn);
+
+				groupColumn = (LogModelGroupColumn) groupColumnService
+						.createColumn(groupColumn);
+
+				create(attachmentsCtypeColumn.getData(), groupColumn,
+						getColumnsMap(hbaseTableVersion));
+
 			}
 
 		}
-
 	}
 
 	public LogModelRootColumn createTableAndVersion(String name) {
+		System.out.println(name);
 		LogModel model = new LogModel();
 		model.setName(name);
 		model.setDesc(name);
 		model.setType(LogModelType.CTYPE);
+		model.setVersions(new ArrayList<LogModelVersion>());
 
-		modelService.persist(model);
+		model = modelService.persist(model);
 
 		LogModelVersion version = new LogModelVersion();
 		version.setModel(model);
