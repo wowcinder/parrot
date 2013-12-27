@@ -3,10 +3,13 @@
  */
 package com.voole.parrot.shared.entity.logmeta;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -16,6 +19,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.entity.EntityHasAutoId;
 import com.voole.parrot.shared.entity.EntityWithOrderChildren;
+import com.voole.parrot.shared.entity.kafka.KafkaTopicFixedModelVersion;
 
 /**
  * @author XuehuiHe
@@ -32,6 +36,7 @@ public class LogModelVersion extends EntityHasAutoId implements
 	private LogModel model;
 	private Integer pos;
 	private LogModelRootColumn rootColumn;
+	private Set<KafkaTopicFixedModelVersion> fixedTopics;
 
 	public LogModelVersion() {
 		version = "0.0";
@@ -62,6 +67,15 @@ public class LogModelVersion extends EntityHasAutoId implements
 	@OneToOne(cascade = { CascadeType.ALL })
 	public LogModelRootColumn getRootColumn() {
 		return rootColumn;
+	}
+
+	@OneToMany(mappedBy = "version", cascade = { CascadeType.REMOVE })
+	public Set<KafkaTopicFixedModelVersion> getFixedTopics() {
+		return fixedTopics;
+	}
+
+	public void setFixedTopics(Set<KafkaTopicFixedModelVersion> fixedTopics) {
+		this.fixedTopics = fixedTopics;
 	}
 
 	public void setRootColumn(LogModelRootColumn rootColumn) {
