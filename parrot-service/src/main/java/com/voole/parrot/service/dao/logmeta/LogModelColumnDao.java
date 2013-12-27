@@ -8,7 +8,7 @@ import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
 
 @Repository
 public class LogModelColumnDao extends EntityDao<LogModelColumn>
-		implements ICtypeLogModelColumnDao {
+		implements ILogModelColumnDao {
 
 	@Override
 	public void delete(LogModelColumn e) {

@@ -7,7 +7,7 @@ import com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
 import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 import com.voole.parrot.gwt.ui.shared.authority.AuthorityView;
-import com.voole.parrot.gwt.ui.shared.ctypelogmodel.grid.CtypeLogModelRootColumnTreeGrid;
+import com.voole.parrot.gwt.ui.shared.logmodel.grid.LogModelRootColumnTreeGrid;
 import com.voole.parrot.gwt.ui.shared.role.RoleView;
 import com.voole.parrot.gwt.ui.shared.user.UserView;
 import com.voole.parrot.gwt.ui.shared.user.window.UserRolesWindow;
@@ -27,7 +27,7 @@ public class ParrotTestWeb implements EntryPoint {
 		LogModelVersion version = new LogModelVersion();
 		version.setId(2L);
 
-		CtypeLogModelRootColumnTreeGrid grid = new CtypeLogModelRootColumnTreeGrid(
+		LogModelRootColumnTreeGrid grid = new LogModelRootColumnTreeGrid(
 				version);
 		grid.setHeight(400);
 		RootPanel.get().add(grid);
