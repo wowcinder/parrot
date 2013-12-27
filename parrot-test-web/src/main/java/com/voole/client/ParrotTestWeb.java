@@ -11,7 +11,7 @@ import com.voole.parrot.gwt.ui.shared.ctypelogmodel.grid.CtypeLogModelRootColumn
 import com.voole.parrot.gwt.ui.shared.role.RoleView;
 import com.voole.parrot.gwt.ui.shared.user.UserView;
 import com.voole.parrot.gwt.ui.shared.user.window.UserRolesWindow;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 import com.voole.parrot.shared.entity.user.User;
 
 public class ParrotTestWeb implements EntryPoint {
@@ -24,7 +24,7 @@ public class ParrotTestWeb implements EntryPoint {
 		// grid2.setContextMenu(new HbaseTableTreeGridMenu(grid2));
 		// grid2.setHeight(400);
 		// RootPanel.get().add(grid2);
-		CtypeLogModelVersion version = new CtypeLogModelVersion();
+		LogModelVersion version = new LogModelVersion();
 		version.setId(2L);
 
 		CtypeLogModelRootColumnTreeGrid grid = new CtypeLogModelRootColumnTreeGrid(

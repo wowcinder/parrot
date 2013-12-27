@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.entity.ctypelogmeta;
+package com.voole.parrot.shared.entity.logmeta;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,15 +25,15 @@ import com.voole.parrot.shared.entity.EntityWithOrderChildren;
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "version",
 		"model" }) })
-public class CtypeLogModelVersion extends EntityHasAutoId implements
+public class LogModelVersion extends EntityHasAutoId implements
 		EntityWithOrderChildren {
 	private String version;
 	private String desc;
-	private CtypeLogModel model;
+	private LogModel model;
 	private Integer pos;
-	private CtypeLogModelRootColumn rootColumn;
+	private LogModelRootColumn rootColumn;
 
-	public CtypeLogModelVersion() {
+	public LogModelVersion() {
 		version = "0.0";
 	}
 
@@ -44,7 +44,7 @@ public class CtypeLogModelVersion extends EntityHasAutoId implements
 
 	@ManyToOne(optional = false)
 	@NotNull
-	public CtypeLogModel getModel() {
+	public LogModel getModel() {
 		return model;
 	}
 
@@ -60,11 +60,11 @@ public class CtypeLogModelVersion extends EntityHasAutoId implements
 	}
 
 	@OneToOne(cascade = { CascadeType.ALL })
-	public CtypeLogModelRootColumn getRootColumn() {
+	public LogModelRootColumn getRootColumn() {
 		return rootColumn;
 	}
 
-	public void setRootColumn(CtypeLogModelRootColumn rootColumn) {
+	public void setRootColumn(LogModelRootColumn rootColumn) {
 		this.rootColumn = rootColumn;
 	}
 
@@ -80,14 +80,14 @@ public class CtypeLogModelVersion extends EntityHasAutoId implements
 		this.desc = desc;
 	}
 
-	public void setModel(CtypeLogModel model) {
+	public void setModel(LogModel model) {
 		this.model = model;
 	}
 
 	@Override
 	public void sortChildren() {
 		if (rootColumn == null) {
-			rootColumn = new CtypeLogModelRootColumn();
+			rootColumn = new LogModelRootColumn();
 			rootColumn.setVersion(this);
 		}
 	}

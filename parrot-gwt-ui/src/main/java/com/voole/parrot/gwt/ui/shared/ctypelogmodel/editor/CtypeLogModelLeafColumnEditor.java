@@ -13,19 +13,19 @@ import com.voole.parrot.gwt.common.shared.core.combox.EnumComboBox;
 import com.voole.parrot.gwt.common.shared.core.editor.SimpleWindowEditor;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.field.HbaseTableColumnField;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
 import com.voole.parrot.shared.entity.hbasemeta.ColumnType;
+import com.voole.parrot.shared.entity.logmeta.LogModelLeafColumn;
 
 /**
  * @author XuehuiHe
  * @date 2013年12月26日
  */
 public class CtypeLogModelLeafColumnEditor extends
-		SimpleWindowEditor<CtypeLogModelLeafColumn> {
+		SimpleWindowEditor<LogModelLeafColumn> {
 
 	protected interface Driver
 			extends
-			SimpleBeanEditorDriver<CtypeLogModelLeafColumn, CtypeLogModelLeafColumnEditor> {
+			SimpleBeanEditorDriver<LogModelLeafColumn, CtypeLogModelLeafColumnEditor> {
 
 	}
 
@@ -35,7 +35,7 @@ public class CtypeLogModelLeafColumnEditor extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void update(CtypeLogModelLeafColumn t) {
+	protected void update(LogModelLeafColumn t) {
 		RpcServiceUtils.CtypeLogModelRpcService.modifyColumn(t,
 				getSaveOrUpdateAsyncCallback());
 	}
@@ -48,7 +48,7 @@ public class CtypeLogModelLeafColumnEditor extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void add(CtypeLogModelLeafColumn t) {
+	protected void add(LogModelLeafColumn t) {
 		RpcServiceUtils.CtypeLogModelRpcService.createColumn(t,
 				getSaveOrUpdateAsyncCallback());
 	}

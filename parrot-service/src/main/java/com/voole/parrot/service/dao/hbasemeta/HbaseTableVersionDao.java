@@ -50,13 +50,13 @@ public class HbaseTableVersionDao extends EntityDao<HbaseTableVersion>
 		Hibernate.initialize(from.getColumns());
 		getCurrSession().evict(from);
 		from.setId(null);
-		from.setCtypeLogModelGroupColumns(null);
+		from.setLogModelGroupColumns(null);
 		from.setDesc(duplicate.getDesc());
 		from.setVersion(duplicate.getVersion());
 		for (HbaseTableColumn column : from.getColumns()) {
 			column.setId(null);
 			column.setVersion(from);
-			column.setCtypeLogModelLeafColumns(null);
+			column.setLogModelLeafColumns(null);
 		}
 		persist(from);
 		getSimpleDao().persist(from.getTable());

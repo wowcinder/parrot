@@ -1,21 +1,21 @@
-package com.voole.parrot.service.dao.ctypelogmeta;
+package com.voole.parrot.service.dao.logmeta;
 
 import org.springframework.stereotype.Repository;
 
 import com.voole.parrot.service.dao.EntityDao;
 import com.voole.parrot.service.dao.EntityUpdater;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModel;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModel;
+import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 
 @Repository
-public class CtypeLogModelDao extends EntityDao<CtypeLogModel> implements
+public class CtypeLogModelDao extends EntityDao<LogModel> implements
 		ICtypeLogModelDao {
 
 	@Override
-	public CtypeLogModel modifyModel(CtypeLogModel model) {
-		return update(model, new EntityUpdater<CtypeLogModel>() {
+	public LogModel modifyModel(LogModel model) {
+		return update(model, new EntityUpdater<LogModel>() {
 			@Override
-			public void invoke(CtypeLogModel old, CtypeLogModel e) {
+			public void invoke(LogModel old, LogModel e) {
 				old.setName(e.getName());
 				old.setDesc(e.getDesc());
 			}
@@ -23,8 +23,8 @@ public class CtypeLogModelDao extends EntityDao<CtypeLogModel> implements
 	}
 
 	@Override
-	public CtypeLogModelVersion createVersion(CtypeLogModelVersion version) {
-		CtypeLogModel model = version.getModel();
+	public LogModelVersion createVersion(LogModelVersion version) {
+		LogModel model = version.getModel();
 		if (model == null) {
 			return null;
 		}

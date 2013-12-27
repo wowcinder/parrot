@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.entity.ctypelogmeta;
+package com.voole.parrot.shared.entity.logmeta;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,11 +24,11 @@ import com.voole.parrot.shared.entity.EntityHasAutoId;
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "parent", "name" }) })
-public class CtypeLogModelColumn extends EntityHasAutoId {
+public class LogModelColumn extends EntityHasAutoId {
 	private Integer pos;
 	private String name;
 	private String desc;
-	private CtypeLogModelGroupColumn parent;
+	private LogModelGroupColumn parent;
 
 	public Integer getPos() {
 		return pos;
@@ -42,7 +42,7 @@ public class CtypeLogModelColumn extends EntityHasAutoId {
 	}
 
 	@ManyToOne
-	public CtypeLogModelGroupColumn getParent() {
+	public LogModelGroupColumn getParent() {
 		return parent;
 	}
 
@@ -63,7 +63,7 @@ public class CtypeLogModelColumn extends EntityHasAutoId {
 		this.name = name;
 	}
 
-	public void setParent(CtypeLogModelGroupColumn parent) {
+	public void setParent(LogModelGroupColumn parent) {
 		this.parent = parent;
 	}
 

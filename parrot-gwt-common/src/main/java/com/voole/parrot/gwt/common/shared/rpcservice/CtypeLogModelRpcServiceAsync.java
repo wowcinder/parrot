@@ -2,39 +2,40 @@
 package com.voole.parrot.gwt.common.shared.rpcservice;
 
 import java.util.List;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModel;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelRootColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModel;
+import com.voole.parrot.shared.entity.logmeta.LogModelColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelRootColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 
 public interface CtypeLogModelRpcServiceAsync {
 
 
-    public void createModel(CtypeLogModel arg0, AsyncCallback<CtypeLogModel> callback);
+    public void createModel(LogModel arg0, AsyncCallback<LogModel> callback);
 
-    public void modifyModel(CtypeLogModel arg0, AsyncCallback<CtypeLogModel> callback);
+    public void modifyModel(LogModel arg0, AsyncCallback<LogModel> callback);
 
-    public void deleteModel(CtypeLogModel arg0, AsyncCallback<Void> callback);
+    public void deleteModel(LogModel arg0, AsyncCallback<Void> callback);
 
-    public void listModelWithVersions(AsyncCallback<List<CtypeLogModel>> callback);
+    public void listModelWithVersions(AsyncCallback<List<LogModel>> callback);
 
-    public void createVersion(CtypeLogModelVersion arg0, AsyncCallback<CtypeLogModelVersion> callback);
+    public void createVersion(LogModelVersion arg0, AsyncCallback<LogModelVersion> callback);
 
-    public void modifyVersion(CtypeLogModelVersion arg0, AsyncCallback<CtypeLogModelVersion> callback);
+    public void modifyVersion(LogModelVersion arg0, AsyncCallback<LogModelVersion> callback);
 
-    public void deleteVersion(CtypeLogModelVersion arg0, AsyncCallback<Void> callback);
+    public void deleteVersion(LogModelVersion arg0, AsyncCallback<Void> callback);
 
-    public void duplicateVerion(CtypeLogModelVersion arg0, CtypeLogModelVersion arg1, AsyncCallback<CtypeLogModelVersion> callback);
+    public void duplicateVerion(LogModelVersion arg0, LogModelVersion arg1, AsyncCallback<LogModelVersion> callback);
 
-    public void getVersionRootColumnWithChildren(CtypeLogModelVersion arg0, AsyncCallback<CtypeLogModelRootColumn> callback);
+    public void getVersionRootColumnWithChildren(LogModelVersion arg0, AsyncCallback<LogModelRootColumn> callback);
 
-    public void createColumn(CtypeLogModelColumn arg0, AsyncCallback<CtypeLogModelColumn> callback);
+    public void createColumn(LogModelColumn arg0, AsyncCallback<LogModelColumn> callback);
 
-    public void modifyColumn(CtypeLogModelColumn arg0, AsyncCallback<CtypeLogModelColumn> callback);
+    public void modifyColumn(LogModelColumn arg0, AsyncCallback<LogModelColumn> callback);
 
-    public void deleteColumn(CtypeLogModelColumn arg0, AsyncCallback<Void> callback);
+    public void deleteColumn(LogModelColumn arg0, AsyncCallback<Void> callback);
 
-    public void changeColumnsPos(CtypeLogModelColumn arg0, AsyncCallback<CtypeLogModelColumn> callback);
+    public void changeColumnsPos(LogModelColumn arg0, AsyncCallback<LogModelColumn> callback);
 
 }

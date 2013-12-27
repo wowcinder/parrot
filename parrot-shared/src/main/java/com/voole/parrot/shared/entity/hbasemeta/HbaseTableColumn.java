@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelLeafColumn;
 
 /**
  * @author XuehuiHe
@@ -31,7 +31,7 @@ public class HbaseTableColumn extends EntityHasAutoId {
 	private ColumnType type;
 	private HbaseTableVersion version;
 	private Integer pos;
-	private List<CtypeLogModelLeafColumn> ctypeLogModelLeafColumns;
+	private List<LogModelLeafColumn> logModelLeafColumns;
 
 	@Column(length = 40, nullable = false)
 	@Length(min = 1, max = 40)
@@ -64,13 +64,13 @@ public class HbaseTableColumn extends EntityHasAutoId {
 	}
 
 	@OneToMany(mappedBy = "hbaseTableColumn")
-	public List<CtypeLogModelLeafColumn> getCtypeLogModelLeafColumns() {
-		return ctypeLogModelLeafColumns;
+	public List<LogModelLeafColumn> getLogModelLeafColumns() {
+		return logModelLeafColumns;
 	}
 
-	public void setCtypeLogModelLeafColumns(
-			List<CtypeLogModelLeafColumn> ctypeLogModelLeafColumns) {
-		this.ctypeLogModelLeafColumns = ctypeLogModelLeafColumns;
+	public void setLogModelLeafColumns(
+			List<LogModelLeafColumn> logModelLeafColumns) {
+		this.logModelLeafColumns = logModelLeafColumns;
 	}
 
 	public Integer getPos() {

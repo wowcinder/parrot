@@ -1,11 +1,13 @@
-package com.voole.parrot.service.service.ctypelogmeta;
 
-import com.voole.parrot.service.service.EntityService;
+package com.voole.parrot.service.dao.logmeta;
+
+import com.voole.parrot.service.dao.IEntityDao;
 import com.voole.parrot.shared.entity.logmeta.LogModelColumn;
 import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
 
-public interface CtypeLogModelGroupColumnService extends
-		EntityService<LogModelGroupColumn> {
+public interface ICtypeLogModelGroupColumnDao
+    extends IEntityDao<LogModelGroupColumn>
+{
 
 	/**
 	 * @param column
@@ -20,5 +22,6 @@ public interface CtypeLogModelGroupColumnService extends
 	LogModelColumn modifyColumn(LogModelGroupColumn column);
 
 	LogModelColumn changeColumnsPos(LogModelColumn column);
+
 
 }

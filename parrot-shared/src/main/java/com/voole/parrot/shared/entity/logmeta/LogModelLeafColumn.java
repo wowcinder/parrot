@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.entity.ctypelogmeta;
+package com.voole.parrot.shared.entity.logmeta;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
  */
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
-public class CtypeLogModelLeafColumn extends CtypeLogModelColumn implements
+public class LogModelLeafColumn extends LogModelColumn implements
 		EntityWithOrderChildren {
 	private HbaseTableColumn hbaseTableColumn;
 	private ColumnType type;

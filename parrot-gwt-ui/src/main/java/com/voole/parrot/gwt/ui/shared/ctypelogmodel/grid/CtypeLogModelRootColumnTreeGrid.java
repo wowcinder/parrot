@@ -22,34 +22,34 @@ import com.voole.parrot.gwt.common.shared.core.tree.FixedTreeGridIconProvider;
 import com.voole.parrot.gwt.common.shared.gridcolumn.CtypeLogModelColumnColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelRootColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModelColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelLeafColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelRootColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 
 /**
  * @author XuehuiHe
  * @date 2013年12月26日
  */
 public class CtypeLogModelRootColumnTreeGrid extends
-		FixedTreeGrid<CtypeLogModelColumn> {
+		FixedTreeGrid<LogModelColumn> {
 
-	private static ColumnModel<CtypeLogModelColumn> cm;
-	private static ColumnConfig<CtypeLogModelColumn, String> name;
+	private static ColumnModel<LogModelColumn> cm;
+	private static ColumnConfig<LogModelColumn, String> name;
 
 	static {
-		List<ColumnConfig<CtypeLogModelColumn, ?>> l = new ArrayList<ColumnConfig<CtypeLogModelColumn, ?>>();
+		List<ColumnConfig<LogModelColumn, ?>> l = new ArrayList<ColumnConfig<LogModelColumn, ?>>();
 		name = CtypeLogModelColumnColumnConfig.name();
-		ColumnConfig<CtypeLogModelColumn, String> type = new ColumnConfig<CtypeLogModelColumn, String>(
-				new TreeValueProvider<CtypeLogModelColumn, String>() {
+		ColumnConfig<LogModelColumn, String> type = new ColumnConfig<LogModelColumn, String>(
+				new TreeValueProvider<LogModelColumn, String>() {
 
 					@Override
-					protected String _getValue(CtypeLogModelColumn object) {
-						if (object instanceof CtypeLogModelGroupColumn) {
+					protected String _getValue(LogModelColumn object) {
+						if (object instanceof LogModelGroupColumn) {
 							return null;
 						}
-						CtypeLogModelLeafColumn leaf = (CtypeLogModelLeafColumn) object;
+						LogModelLeafColumn leaf = (LogModelLeafColumn) object;
 						if (leaf.getType() != null) {
 							return leaf.getType().name();
 						}
@@ -57,13 +57,13 @@ public class CtypeLogModelRootColumnTreeGrid extends
 
 					}
 				}, 200, "type");
-		ColumnConfig<CtypeLogModelColumn, String> table = new ColumnConfig<CtypeLogModelColumn, String>(
-				new TreeValueProvider<CtypeLogModelColumn, String>() {
+		ColumnConfig<LogModelColumn, String> table = new ColumnConfig<LogModelColumn, String>(
+				new TreeValueProvider<LogModelColumn, String>() {
 
 					@Override
-					protected String _getValue(CtypeLogModelColumn object) {
-						if (object instanceof CtypeLogModelGroupColumn) {
-							CtypeLogModelGroupColumn group = (CtypeLogModelGroupColumn) object;
+					protected String _getValue(LogModelColumn object) {
+						if (object instanceof LogModelGroupColumn) {
+							LogModelGroupColumn group = (LogModelGroupColumn) object;
 							if (group.getHbaseTableVersion() != null
 									&& group.getHbaseTableVersion().getTable() != null) {
 								return group.getHbaseTableVersion().getTable()
@@ -71,7 +71,7 @@ public class CtypeLogModelRootColumnTreeGrid extends
 							}
 							return null;
 						} else {
-							CtypeLogModelLeafColumn leaf = (CtypeLogModelLeafColumn) object;
+							LogModelLeafColumn leaf = (LogModelLeafColumn) object;
 							if (leaf.getHbaseTableColumn() != null
 									&& leaf.getHbaseTableColumn().getVersion() != null
 									&& leaf.getHbaseTableColumn().getVersion()
@@ -84,20 +84,20 @@ public class CtypeLogModelRootColumnTreeGrid extends
 						return null;
 					}
 				}, 200, "table");
-		ColumnConfig<CtypeLogModelColumn, String> version = new ColumnConfig<CtypeLogModelColumn, String>(
-				new TreeValueProvider<CtypeLogModelColumn, String>() {
+		ColumnConfig<LogModelColumn, String> version = new ColumnConfig<LogModelColumn, String>(
+				new TreeValueProvider<LogModelColumn, String>() {
 
 					@Override
-					protected String _getValue(CtypeLogModelColumn object) {
-						if (object instanceof CtypeLogModelGroupColumn) {
-							CtypeLogModelGroupColumn group = (CtypeLogModelGroupColumn) object;
+					protected String _getValue(LogModelColumn object) {
+						if (object instanceof LogModelGroupColumn) {
+							LogModelGroupColumn group = (LogModelGroupColumn) object;
 							if (group.getHbaseTableVersion() != null) {
 								return group.getHbaseTableVersion()
 										.getVersion();
 							}
 							return null;
 						} else {
-							CtypeLogModelLeafColumn leaf = (CtypeLogModelLeafColumn) object;
+							LogModelLeafColumn leaf = (LogModelLeafColumn) object;
 							if (leaf.getHbaseTableColumn() != null
 									&& leaf.getHbaseTableColumn().getVersion() != null) {
 								return leaf.getHbaseTableColumn().getVersion()
@@ -108,15 +108,15 @@ public class CtypeLogModelRootColumnTreeGrid extends
 						return null;
 					}
 				}, 200, "version");
-		ColumnConfig<CtypeLogModelColumn, String> column = new ColumnConfig<CtypeLogModelColumn, String>(
-				new TreeValueProvider<CtypeLogModelColumn, String>() {
+		ColumnConfig<LogModelColumn, String> column = new ColumnConfig<LogModelColumn, String>(
+				new TreeValueProvider<LogModelColumn, String>() {
 
 					@Override
-					protected String _getValue(CtypeLogModelColumn object) {
-						if (object instanceof CtypeLogModelGroupColumn) {
+					protected String _getValue(LogModelColumn object) {
+						if (object instanceof LogModelGroupColumn) {
 							return null;
 						}
-						CtypeLogModelLeafColumn leaf = (CtypeLogModelLeafColumn) object;
+						LogModelLeafColumn leaf = (LogModelLeafColumn) object;
 						if (leaf.getHbaseTableColumn() != null) {
 							return leaf.getHbaseTableColumn().getName();
 						}
@@ -130,20 +130,20 @@ public class CtypeLogModelRootColumnTreeGrid extends
 		l.add(version);
 		l.add(column);
 
-		cm = new ColumnModel<CtypeLogModelColumn>(l);
+		cm = new ColumnModel<LogModelColumn>(l);
 	}
 
-	private final CtypeLogModelVersion version;
+	private final LogModelVersion version;
 
-	public CtypeLogModelRootColumnTreeGrid(CtypeLogModelVersion version) {
-		super(new TreeStore<CtypeLogModelColumn>(
+	public CtypeLogModelRootColumnTreeGrid(LogModelVersion version) {
+		super(new TreeStore<LogModelColumn>(
 				PropertyUtils.CtypeLogModelColumnProperty.key()), cm, name);
 		this.version = version;
 		setContextMenu(new CtypeLogModelRootColumnTreeGridMenu(this));
-		setIconProvider(new FixedTreeGridIconProvider<CtypeLogModelColumn>(this) {
+		setIconProvider(new FixedTreeGridIconProvider<LogModelColumn>(this) {
 			@Override
-			protected boolean isFolderModel(CtypeLogModelColumn model) {
-				if (model instanceof CtypeLogModelGroupColumn) {
+			protected boolean isFolderModel(LogModelColumn model) {
+				if (model instanceof LogModelGroupColumn) {
 					return true;
 				}
 				return false;
@@ -151,34 +151,34 @@ public class CtypeLogModelRootColumnTreeGrid extends
 		});
 		getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-		new TreeGridDragSource<CtypeLogModelColumn>(this);
-		FixedTreeGridTargetLeafDrop<CtypeLogModelColumn> target = new FixedTreeGridTargetLeafDrop<CtypeLogModelColumn>(
+		new TreeGridDragSource<LogModelColumn>(this);
+		FixedTreeGridTargetLeafDrop<LogModelColumn> target = new FixedTreeGridTargetLeafDrop<LogModelColumn>(
 				this) {
 
 			@Override
-			protected void appendModel(final CtypeLogModelColumn p,
+			protected void appendModel(final LogModelColumn p,
 					List<?> items, int index) {
 				if (items.size() == 0)
 					return;
 				final Integer pos = index;
 				@SuppressWarnings("unchecked")
-				List<TreeStore.TreeNode<CtypeLogModelColumn>> nodes = (List<TreeStore.TreeNode<CtypeLogModelColumn>>) items;
-				CtypeLogModelColumn column = nodes.get(0).getData();
-				column.setParent((CtypeLogModelGroupColumn) p);
+				List<TreeStore.TreeNode<LogModelColumn>> nodes = (List<TreeStore.TreeNode<LogModelColumn>>) items;
+				LogModelColumn column = nodes.get(0).getData();
+				column.setParent((LogModelGroupColumn) p);
 				column.setPos(pos);
 				RpcServiceUtils.CtypeLogModelRpcService.changeColumnsPos(
-						column, new RpcAsyncCallback<CtypeLogModelColumn>() {
+						column, new RpcAsyncCallback<LogModelColumn>() {
 							@Override
-							protected void _onSuccess(CtypeLogModelColumn result) {
-								if (result instanceof CtypeLogModelLeafColumn) {
+							protected void _onSuccess(LogModelColumn result) {
+								if (result instanceof LogModelLeafColumn) {
 									getWidget().getTreeStore().insert(p, pos,
 											result);
 								} else {
-									CtypeLogModelGroupColumn group = (CtypeLogModelGroupColumn) result;
-									TreeStore<CtypeLogModelColumn> treeStore = getWidget()
+									LogModelGroupColumn group = (LogModelGroupColumn) result;
+									TreeStore<LogModelColumn> treeStore = getWidget()
 											.getTreeStore();
 									treeStore.insert(p, pos, group);
-									for (CtypeLogModelColumn item : group
+									for (LogModelColumn item : group
 											.getColumns()) {
 										initData(group, item);
 									}
@@ -190,15 +190,15 @@ public class CtypeLogModelRootColumnTreeGrid extends
 			}
 
 			@SuppressWarnings("unused")
-			protected void update(CtypeLogModelColumn p,
-					List<TreeStore.TreeNode<CtypeLogModelColumn>> nodes,
+			protected void update(LogModelColumn p,
+					List<TreeStore.TreeNode<LogModelColumn>> nodes,
 					int index) {
 				getWidget().getTreeStore().addSubTree(p, index, nodes);
 			}
 
 			@Override
-			protected boolean isDropOnLeafEnabled(CtypeLogModelColumn m) {
-				if (m instanceof CtypeLogModelGroupColumn) {
+			protected boolean isDropOnLeafEnabled(LogModelColumn m) {
+				if (m instanceof LogModelGroupColumn) {
 					return true;
 				}
 				return false;
@@ -221,10 +221,10 @@ public class CtypeLogModelRootColumnTreeGrid extends
 				RpcServiceUtils.CtypeLogModelRpcService
 						.getVersionRootColumnWithChildren(
 								version,
-								new RpcAsyncCallback<CtypeLogModelRootColumn>() {
+								new RpcAsyncCallback<LogModelRootColumn>() {
 									@Override
 									protected void _onSuccess(
-											CtypeLogModelRootColumn result) {
+											LogModelRootColumn result) {
 										initData(result);
 									}
 
@@ -239,21 +239,21 @@ public class CtypeLogModelRootColumnTreeGrid extends
 		});
 	}
 
-	private void initData(CtypeLogModelRootColumn root) {
+	private void initData(LogModelRootColumn root) {
 		initData(null, root);
 		expandAll();
 	}
 
-	private void initData(CtypeLogModelGroupColumn group,
-			CtypeLogModelColumn column) {
+	private void initData(LogModelGroupColumn group,
+			LogModelColumn column) {
 		if (group == null) {
 			treeStore.add(column);
 		} else {
 			treeStore.add(group, column);
 		}
-		if (column instanceof CtypeLogModelGroupColumn) {
-			CtypeLogModelGroupColumn itemGroup = (CtypeLogModelGroupColumn) column;
-			for (CtypeLogModelColumn itemColumn : itemGroup.getColumns()) {
+		if (column instanceof LogModelGroupColumn) {
+			LogModelGroupColumn itemGroup = (LogModelGroupColumn) column;
+			for (LogModelColumn itemColumn : itemGroup.getColumns()) {
 				initData(itemGroup, itemColumn);
 			}
 		}

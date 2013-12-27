@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.entity.ctypelogmeta;
+package com.voole.parrot.shared.entity.logmeta;
 
 import java.util.List;
 
@@ -23,11 +23,11 @@ import com.voole.parrot.shared.entity.EntityWithOrderChildren;
  */
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
-public class CtypeLogModel extends EntityHasAutoId implements
+public class LogModel extends EntityHasAutoId implements
 		EntityWithOrderChildren {
 	private String name;
 	private String desc;
-	private List<CtypeLogModelVersion> versions;
+	private List<LogModelVersion> versions;
 
 	@NotNull
 	@Length(min = 1, max = 100)
@@ -43,7 +43,7 @@ public class CtypeLogModel extends EntityHasAutoId implements
 
 	@OneToMany(mappedBy = "model", cascade = { CascadeType.ALL })
 	@OrderBy("pos")
-	public List<CtypeLogModelVersion> getVersions() {
+	public List<LogModelVersion> getVersions() {
 		return versions;
 	}
 
@@ -55,7 +55,7 @@ public class CtypeLogModel extends EntityHasAutoId implements
 		this.desc = desc;
 	}
 
-	public void setVersions(List<CtypeLogModelVersion> versions) {
+	public void setVersions(List<LogModelVersion> versions) {
 		this.versions = versions;
 	}
 

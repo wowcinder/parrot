@@ -2,13 +2,14 @@
 package com.voole.parrot.gwt.common.shared.property;
 
 import java.util.List;
+
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
 import com.voole.parrot.shared.entity.hbasemeta.ColumnType;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModelLeafColumn;
 
 public interface HbaseTableColumnProperty
     extends PropertyAccess<HbaseTableColumn>
@@ -22,7 +23,7 @@ public interface HbaseTableColumnProperty
 
     public ValueProvider<HbaseTableColumn, String> desc();
 
-    public ValueProvider<HbaseTableColumn, List<CtypeLogModelLeafColumn>> ctypeLogModelLeafColumns();
+    public ValueProvider<HbaseTableColumn, List<LogModelLeafColumn>> ctypeLogModelLeafColumns();
 
     public ValueProvider<HbaseTableColumn, String> name();
 

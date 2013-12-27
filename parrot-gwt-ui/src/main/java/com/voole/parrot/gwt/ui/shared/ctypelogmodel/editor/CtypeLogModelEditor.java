@@ -10,16 +10,16 @@ import com.sencha.gxt.widget.core.client.form.TextArea;
 import com.sencha.gxt.widget.core.client.form.TextField;
 import com.voole.parrot.gwt.common.shared.core.editor.SimpleWindowEditor;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModel;
+import com.voole.parrot.shared.entity.logmeta.LogModel;
 
 /**
  * @author XuehuiHe
  * @date 2013年12月26日
  */
-public class CtypeLogModelEditor extends SimpleWindowEditor<CtypeLogModel> {
+public class CtypeLogModelEditor extends SimpleWindowEditor<LogModel> {
 
 	protected interface Driver extends
-			SimpleBeanEditorDriver<CtypeLogModel, CtypeLogModelEditor> {
+			SimpleBeanEditorDriver<LogModel, CtypeLogModelEditor> {
 
 	}
 
@@ -28,13 +28,13 @@ public class CtypeLogModelEditor extends SimpleWindowEditor<CtypeLogModel> {
 	}
 
 	@Override
-	protected void update(CtypeLogModel t) {
+	protected void update(LogModel t) {
 		RpcServiceUtils.CtypeLogModelRpcService.modifyModel(t,
 				getSaveOrUpdateAsyncCallback());
 	}
 
 	@Override
-	protected void add(CtypeLogModel t) {
+	protected void add(LogModel t) {
 		RpcServiceUtils.CtypeLogModelRpcService.createModel(t,
 				getSaveOrUpdateAsyncCallback());
 	}

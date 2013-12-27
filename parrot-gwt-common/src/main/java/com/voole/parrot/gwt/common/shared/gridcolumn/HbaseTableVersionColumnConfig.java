@@ -2,12 +2,13 @@
 package com.voole.parrot.gwt.common.shared.gridcolumn;
 
 import java.util.List;
+
 import com.sencha.gxt.widget.core.client.grid.ColumnConfig;
 import com.voole.parrot.gwt.common.shared.property.PropertyUtils;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTable;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
 
 public class HbaseTableVersionColumnConfig {
 
@@ -22,8 +23,8 @@ public class HbaseTableVersionColumnConfig {
         return desc;
     }
 
-    public static ColumnConfig<HbaseTableVersion, List<CtypeLogModelGroupColumn>> ctypeLogModelGroupColumns() {
-        ColumnConfig<HbaseTableVersion, List<CtypeLogModelGroupColumn>> ctypeLogModelGroupColumns = new ColumnConfig<HbaseTableVersion, List<CtypeLogModelGroupColumn>>(PropertyUtils.HbaseTableVersionProperty.ctypeLogModelGroupColumns(), 200, "ctypeLogModelGroupColumns");
+    public static ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>> ctypeLogModelGroupColumns() {
+        ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>> ctypeLogModelGroupColumns = new ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>>(PropertyUtils.HbaseTableVersionProperty.ctypeLogModelGroupColumns(), 200, "ctypeLogModelGroupColumns");
         return ctypeLogModelGroupColumns;
     }
 

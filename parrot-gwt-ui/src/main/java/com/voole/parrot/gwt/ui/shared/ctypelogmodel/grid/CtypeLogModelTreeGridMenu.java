@@ -22,8 +22,8 @@ import com.voole.parrot.gwt.ui.shared.ctypelogmodel.editor.CtypeLogModelVersionD
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.editor.CtypeLogModelVersionEditor;
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.window.CtypeLogModelRootColumnTreeGridWindow;
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModel;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModel;
+import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 
 /**
  * @author XuehuiHe
@@ -84,7 +84,7 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 					delVersion.disable();
 					duplicateVersion.disable();
 					editColumns.disable();
-				} else if (entity instanceof CtypeLogModel) {
+				} else if (entity instanceof LogModel) {
 					modifyVersion.disable();
 					delVersion.disable();
 					duplicateVersion.disable();
@@ -118,10 +118,10 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 		addModel.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				CtypeLogModel model = new CtypeLogModel();
+				LogModel model = new LogModel();
 				getModelEditor().fireEditEvent(
-						new EditEvent<CtypeLogModel>(model,
-								new GwtCallBack<CtypeLogModel>() {
+						new EditEvent<LogModel>(model,
+								new GwtCallBack<LogModel>() {
 									@Override
 									protected void _succeed() {
 										getGrid().getTreeStore().add(
@@ -136,10 +136,10 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 		modifyModel.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				CtypeLogModel model = getSeletedModel();
+				LogModel model = getSeletedModel();
 				getModelEditor().fireEditEvent(
-						new EditEvent<CtypeLogModel>(model,
-								new GwtCallBack<CtypeLogModel>() {
+						new EditEvent<LogModel>(model,
+								new GwtCallBack<LogModel>() {
 									@Override
 									protected void _succeed() {
 										getGrid().getTreeStore().update(
@@ -154,7 +154,7 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 		delModel.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				final CtypeLogModel model = getSeletedModel();
+				final LogModel model = getSeletedModel();
 				getGrid().mask("删除中...");
 				RpcServiceUtils.CtypeLogModelRpcService.deleteModel(model,
 						new RpcAsyncCallback<Void>() {
@@ -177,12 +177,12 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 		addVersion.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				final CtypeLogModel model = getSeletedModel();
-				CtypeLogModelVersion version = new CtypeLogModelVersion();
+				final LogModel model = getSeletedModel();
+				LogModelVersion version = new LogModelVersion();
 				version.setModel(model);
 				getVersionEditor().fireEditEvent(
-						new EditEvent<CtypeLogModelVersion>(version,
-								new GwtCallBack<CtypeLogModelVersion>() {
+						new EditEvent<LogModelVersion>(version,
+								new GwtCallBack<LogModelVersion>() {
 									@Override
 									protected void _succeed() {
 										getGrid().getTreeStore().add(model,
@@ -197,10 +197,10 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 		modifyVersion.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				CtypeLogModelVersion version = getSeletedVersion();
+				LogModelVersion version = getSeletedVersion();
 				getVersionEditor().fireEditEvent(
-						new EditEvent<CtypeLogModelVersion>(version,
-								new GwtCallBack<CtypeLogModelVersion>() {
+						new EditEvent<LogModelVersion>(version,
+								new GwtCallBack<LogModelVersion>() {
 									@Override
 									protected void _succeed() {
 										getGrid().getTreeStore().update(
@@ -215,7 +215,7 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 		delVersion.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				final CtypeLogModelVersion verion = getSeletedVersion();
+				final LogModelVersion verion = getSeletedVersion();
 				getGrid().mask("删除中...");
 				RpcServiceUtils.CtypeLogModelRpcService.deleteVersion(verion,
 						new RpcAsyncCallback<Void>() {
@@ -238,12 +238,12 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 		duplicateVersion.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				final CtypeLogModelVersion version = getSeletedVersion();
+				final LogModelVersion version = getSeletedVersion();
 				CtypeLogModelVersionDuplicateEditor e = new CtypeLogModelVersionDuplicateEditor(
 						version);
-				CtypeLogModelVersion d = new CtypeLogModelVersion();
-				e.fireEditEvent(new EditEvent<CtypeLogModelVersion>(d,
-						new GwtCallBack<CtypeLogModelVersion>() {
+				LogModelVersion d = new LogModelVersion();
+				e.fireEditEvent(new EditEvent<LogModelVersion>(d,
+						new GwtCallBack<LogModelVersion>() {
 							@Override
 							protected void _succeed() {
 								getGrid().getTreeStore().add(
@@ -269,12 +269,12 @@ public class CtypeLogModelTreeGridMenu extends Menu {
 		return grid;
 	}
 
-	protected CtypeLogModel getSeletedModel() {
-		return (CtypeLogModel) getGrid().getSelectionModel().getSelectedItem();
+	protected LogModel getSeletedModel() {
+		return (LogModel) getGrid().getSelectionModel().getSelectedItem();
 	}
 
-	protected CtypeLogModelVersion getSeletedVersion() {
-		return (CtypeLogModelVersion) getGrid().getSelectionModel()
+	protected LogModelVersion getSeletedVersion() {
+		return (LogModelVersion) getGrid().getSelectionModel()
 				.getSelectedItem();
 	}
 

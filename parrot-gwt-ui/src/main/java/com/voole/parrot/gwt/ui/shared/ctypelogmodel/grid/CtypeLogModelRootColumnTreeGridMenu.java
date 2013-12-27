@@ -21,10 +21,10 @@ import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.editor.CtypeLogModelGroupColumnEditor;
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.editor.CtypeLogModelLeafColumnEditor;
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelRootColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelLeafColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelRootColumn;
 
 /**
  * @author XuehuiHe
@@ -66,9 +66,9 @@ public class CtypeLogModelRootColumnTreeGridMenu extends Menu {
 						.getSelectedItem();
 				if (entity == null) {
 					CtypeLogModelRootColumnTreeGridMenu.this.disable();
-				} else if (entity instanceof CtypeLogModelGroupColumn) {
+				} else if (entity instanceof LogModelGroupColumn) {
 					modifyLeaf.disable();
-					if (entity instanceof CtypeLogModelRootColumn) {
+					if (entity instanceof LogModelRootColumn) {
 						del.disable();
 					}
 				} else {
@@ -96,12 +96,12 @@ public class CtypeLogModelRootColumnTreeGridMenu extends Menu {
 		addGroup.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				final CtypeLogModelGroupColumn parent = getSeletedGroup();
-				CtypeLogModelGroupColumn group = new CtypeLogModelGroupColumn();
+				final LogModelGroupColumn parent = getSeletedGroup();
+				LogModelGroupColumn group = new LogModelGroupColumn();
 				group.setParent(parent);
 				getGroupEditor().fireEditEvent(
-						new EditEvent<CtypeLogModelGroupColumn>(group,
-								new GwtCallBack<CtypeLogModelGroupColumn>() {
+						new EditEvent<LogModelGroupColumn>(group,
+								new GwtCallBack<LogModelGroupColumn>() {
 									@Override
 									protected void _succeed() {
 										getGrid().getTreeStore().add(parent,
@@ -116,21 +116,21 @@ public class CtypeLogModelRootColumnTreeGridMenu extends Menu {
 		modifyGroup.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				CtypeLogModelGroupColumn group = getSeletedGroup();
+				LogModelGroupColumn group = getSeletedGroup();
 				getGroupEditor().fireEditEvent(
-						new EditEvent<CtypeLogModelGroupColumn>(group,
-								new GwtCallBack<CtypeLogModelGroupColumn>() {
+						new EditEvent<LogModelGroupColumn>(group,
+								new GwtCallBack<LogModelGroupColumn>() {
 									@Override
 									protected void _succeed() {
-										CtypeLogModelGroupColumn group = getResult();
-										TreeStore<CtypeLogModelColumn> treeStroe = getGrid()
+										LogModelGroupColumn group = getResult();
+										TreeStore<LogModelColumn> treeStroe = getGrid()
 												.getTreeStore();
 										treeStroe.update(group);
 										if (group.getColumns() != null
 												&& group.getColumns().size() > 0) {
-											for (CtypeLogModelColumn column : group
+											for (LogModelColumn column : group
 													.getColumns()) {
-												if (column instanceof CtypeLogModelLeafColumn) {
+												if (column instanceof LogModelLeafColumn) {
 													treeStroe.update(column);
 												}
 											}
@@ -146,7 +146,7 @@ public class CtypeLogModelRootColumnTreeGridMenu extends Menu {
 		del.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				final CtypeLogModelColumn group = getGrid().getSelectionModel()
+				final LogModelColumn group = getGrid().getSelectionModel()
 						.getSelectedItem();
 				getGrid().mask("删除中...");
 				RpcServiceUtils.CtypeLogModelRpcService.deleteColumn(group,
@@ -170,12 +170,12 @@ public class CtypeLogModelRootColumnTreeGridMenu extends Menu {
 		addLeaf.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				final CtypeLogModelGroupColumn group = getSeletedGroup();
-				CtypeLogModelLeafColumn leaf = new CtypeLogModelLeafColumn();
+				final LogModelGroupColumn group = getSeletedGroup();
+				LogModelLeafColumn leaf = new LogModelLeafColumn();
 				leaf.setParent(group);
 				getLeafEditor().fireEditEvent(
-						new EditEvent<CtypeLogModelLeafColumn>(leaf,
-								new GwtCallBack<CtypeLogModelLeafColumn>() {
+						new EditEvent<LogModelLeafColumn>(leaf,
+								new GwtCallBack<LogModelLeafColumn>() {
 									@Override
 									protected void _succeed() {
 										getGrid().getTreeStore().add(group,
@@ -190,10 +190,10 @@ public class CtypeLogModelRootColumnTreeGridMenu extends Menu {
 		modifyLeaf.addSelectionHandler(new SelectionHandler<Item>() {
 			@Override
 			public void onSelection(SelectionEvent<Item> event) {
-				CtypeLogModelLeafColumn leaf = getSeletedLeaf();
+				LogModelLeafColumn leaf = getSeletedLeaf();
 				getLeafEditor().fireEditEvent(
-						new EditEvent<CtypeLogModelLeafColumn>(leaf,
-								new GwtCallBack<CtypeLogModelLeafColumn>() {
+						new EditEvent<LogModelLeafColumn>(leaf,
+								new GwtCallBack<LogModelLeafColumn>() {
 									@Override
 									protected void _succeed() {
 										getGrid().getTreeStore().update(
@@ -208,13 +208,13 @@ public class CtypeLogModelRootColumnTreeGridMenu extends Menu {
 		return grid;
 	}
 
-	protected CtypeLogModelGroupColumn getSeletedGroup() {
-		return (CtypeLogModelGroupColumn) getGrid().getSelectionModel()
+	protected LogModelGroupColumn getSeletedGroup() {
+		return (LogModelGroupColumn) getGrid().getSelectionModel()
 				.getSelectedItem();
 	}
 
-	protected CtypeLogModelLeafColumn getSeletedLeaf() {
-		return (CtypeLogModelLeafColumn) getGrid().getSelectionModel()
+	protected LogModelLeafColumn getSeletedLeaf() {
+		return (LogModelLeafColumn) getGrid().getSelectionModel()
 				.getSelectedItem();
 	}
 

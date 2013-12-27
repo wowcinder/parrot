@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.entity.ctypelogmeta;
+package com.voole.parrot.shared.entity.logmeta;
 
 import java.util.List;
 
@@ -20,15 +20,15 @@ import com.voole.parrot.shared.entity.hbasemeta.HbaseTableVersion;
  */
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
-public class CtypeLogModelGroupColumn extends CtypeLogModelColumn implements
+public class LogModelGroupColumn extends LogModelColumn implements
 		EntityWithOrderChildren {
-	private List<CtypeLogModelColumn> columns;
+	private List<LogModelColumn> columns;
 	private HbaseTableVersion hbaseTableVersion;
 
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.PERSIST,
 			CascadeType.DETACH })
 	@OrderBy("pos")
-	public List<CtypeLogModelColumn> getColumns() {
+	public List<LogModelColumn> getColumns() {
 		return columns;
 	}
 
@@ -37,7 +37,7 @@ public class CtypeLogModelGroupColumn extends CtypeLogModelColumn implements
 		return hbaseTableVersion;
 	}
 
-	public void setColumns(List<CtypeLogModelColumn> columns) {
+	public void setColumns(List<LogModelColumn> columns) {
 		this.columns = columns;
 	}
 

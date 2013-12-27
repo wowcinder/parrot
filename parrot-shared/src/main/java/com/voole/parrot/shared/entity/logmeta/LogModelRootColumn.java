@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.shared.entity.ctypelogmeta;
+package com.voole.parrot.shared.entity.logmeta;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -12,19 +12,19 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @org.hibernate.annotations.Entity(dynamicUpdate = true, dynamicInsert = true)
-public class CtypeLogModelRootColumn extends CtypeLogModelGroupColumn {
-	private CtypeLogModelVersion version;
+public class LogModelRootColumn extends LogModelGroupColumn {
+	private LogModelVersion version;
 
-	public CtypeLogModelRootColumn() {
+	public LogModelRootColumn() {
 		setName("root");
 	}
 
 	@OneToOne(mappedBy = "rootColumn")
-	public CtypeLogModelVersion getVersion() {
+	public LogModelVersion getVersion() {
 		return version;
 	}
 
-	public void setVersion(CtypeLogModelVersion version) {
+	public void setVersion(LogModelVersion version) {
 		this.version = version;
 	}
 

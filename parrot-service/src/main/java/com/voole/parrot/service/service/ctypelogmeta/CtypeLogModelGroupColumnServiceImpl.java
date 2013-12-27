@@ -4,15 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.voole.parrot.service.dao.ctypelogmeta.ICtypeLogModelGroupColumnDao;
+import com.voole.parrot.service.dao.logmeta.ICtypeLogModelGroupColumnDao;
 import com.voole.parrot.service.service.EntityServiceImpl;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
 
 @Service
 @Transactional
 public class CtypeLogModelGroupColumnServiceImpl extends
-		EntityServiceImpl<CtypeLogModelGroupColumn> implements
+		EntityServiceImpl<LogModelGroupColumn> implements
 		CtypeLogModelGroupColumnService {
 
 	@Autowired
@@ -23,17 +23,17 @@ public class CtypeLogModelGroupColumnServiceImpl extends
 	}
 
 	@Override
-	public CtypeLogModelColumn createColumn(CtypeLogModelColumn column) {
+	public LogModelColumn createColumn(LogModelColumn column) {
 		return CtypeLogModelGroupColumnDao.createColumn(column);
 	}
 
 	@Override
-	public CtypeLogModelColumn modifyColumn(CtypeLogModelGroupColumn column) {
+	public LogModelColumn modifyColumn(LogModelGroupColumn column) {
 		return CtypeLogModelGroupColumnDao.modifyColumn(column);
 	}
 
 	@Override
-	public CtypeLogModelColumn changeColumnsPos(CtypeLogModelColumn column) {
+	public LogModelColumn changeColumnsPos(LogModelColumn column) {
 		return CtypeLogModelGroupColumnDao.changeColumnsPos(column);
 	}
 

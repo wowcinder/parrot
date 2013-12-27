@@ -18,8 +18,8 @@ import com.voole.parrot.gwt.common.shared.core.grid.FixedTreeGrid;
 import com.voole.parrot.gwt.common.shared.core.tree.FixedTreeGridIconProvider;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.shared.entity.EntityHasAutoId;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModel;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModel;
+import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 
 /**
  * @author XuehuiHe
@@ -36,10 +36,10 @@ public class CtypeLogModelTreeGrid extends FixedTreeGrid<EntityHasAutoId> {
 				new TreeValueProvider<EntityHasAutoId, String>() {
 					@Override
 					protected String _getValue(EntityHasAutoId object) {
-						if (object instanceof CtypeLogModel) {
-							return ((CtypeLogModel) object).getName();
-						} else if (object instanceof CtypeLogModelVersion) {
-							return ((CtypeLogModelVersion) object).getVersion();
+						if (object instanceof LogModel) {
+							return ((LogModel) object).getName();
+						} else if (object instanceof LogModelVersion) {
+							return ((LogModelVersion) object).getVersion();
 						}
 						return null;
 					}
@@ -49,10 +49,10 @@ public class CtypeLogModelTreeGrid extends FixedTreeGrid<EntityHasAutoId> {
 				new TreeValueProvider<EntityHasAutoId, String>() {
 					@Override
 					protected String _getValue(EntityHasAutoId object) {
-						if (object instanceof CtypeLogModel) {
-							return ((CtypeLogModel) object).getDesc();
-						} else if (object instanceof CtypeLogModelVersion) {
-							return ((CtypeLogModelVersion) object).getDesc();
+						if (object instanceof LogModel) {
+							return ((LogModel) object).getDesc();
+						} else if (object instanceof LogModelVersion) {
+							return ((LogModelVersion) object).getDesc();
 						}
 						return null;
 					}
@@ -71,7 +71,7 @@ public class CtypeLogModelTreeGrid extends FixedTreeGrid<EntityHasAutoId> {
 			if (item == null) {
 				return null;
 			}
-			if (item instanceof CtypeLogModel) {
+			if (item instanceof LogModel) {
 				return "m-" + item.getId();
 			}
 			return "v-" + item.getId();
@@ -85,7 +85,7 @@ public class CtypeLogModelTreeGrid extends FixedTreeGrid<EntityHasAutoId> {
 
 			@Override
 			protected boolean isFolderModel(EntityHasAutoId model) {
-				if (model instanceof CtypeLogModel) {
+				if (model instanceof LogModel) {
 					return true;
 				}
 				return false;
@@ -102,9 +102,9 @@ public class CtypeLogModelTreeGrid extends FixedTreeGrid<EntityHasAutoId> {
 			public void execute() {
 				mask("加载中...");
 				RpcServiceUtils.CtypeLogModelRpcService
-						.listModelWithVersions(new RpcAsyncCallback<List<CtypeLogModel>>() {
+						.listModelWithVersions(new RpcAsyncCallback<List<LogModel>>() {
 							@Override
-							protected void _onSuccess(List<CtypeLogModel> result) {
+							protected void _onSuccess(List<LogModel> result) {
 								initDate(result);
 							}
 
@@ -118,12 +118,12 @@ public class CtypeLogModelTreeGrid extends FixedTreeGrid<EntityHasAutoId> {
 		});
 	}
 
-	private void initDate(List<CtypeLogModel> result) {
-		for (CtypeLogModel model : result) {
+	private void initDate(List<LogModel> result) {
+		for (LogModel model : result) {
 			treeStore.add(model);
-			List<CtypeLogModelVersion> versions = model.getVersions();
+			List<LogModelVersion> versions = model.getVersions();
 			if (versions != null && versions.size() > 0) {
-				for (CtypeLogModelVersion version : versions) {
+				for (LogModelVersion version : versions) {
 					treeStore.add(model, version);
 				}
 			}

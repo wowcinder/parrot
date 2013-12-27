@@ -1,13 +1,10 @@
+package com.voole.parrot.service.dao.logmeta;
 
-package com.voole.parrot.service.service.ctypelogmeta;
-
-import com.voole.parrot.service.service.EntityService;
+import com.voole.parrot.service.dao.IEntityDao;
 import com.voole.parrot.shared.entity.logmeta.LogModel;
 import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 
-public interface CtypeLogModelService
-    extends EntityService<LogModel>
-{
+public interface ICtypeLogModelDao extends IEntityDao<LogModel> {
 
 	/**
 	 * @param model
@@ -20,6 +17,5 @@ public interface CtypeLogModelService
 	 * @return
 	 */
 	LogModelVersion createVersion(LogModelVersion version);
-
 
 }

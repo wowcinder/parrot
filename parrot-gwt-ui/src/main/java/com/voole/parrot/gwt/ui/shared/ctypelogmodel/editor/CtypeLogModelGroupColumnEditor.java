@@ -12,18 +12,18 @@ import com.sencha.gxt.widget.core.client.form.TextField;
 import com.voole.parrot.gwt.common.shared.core.editor.SimpleWindowEditor;
 import com.voole.parrot.gwt.common.shared.rpcservice.RpcServiceUtils;
 import com.voole.parrot.gwt.ui.shared.ctypelogmodel.field.HbaseTableVersionField;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
 
 /**
  * @author XuehuiHe
  * @date 2013年12月26日
  */
 public class CtypeLogModelGroupColumnEditor extends
-		SimpleWindowEditor<CtypeLogModelGroupColumn> {
+		SimpleWindowEditor<LogModelGroupColumn> {
 
 	protected interface Driver
 			extends
-			SimpleBeanEditorDriver<CtypeLogModelGroupColumn, CtypeLogModelGroupColumnEditor> {
+			SimpleBeanEditorDriver<LogModelGroupColumn, CtypeLogModelGroupColumnEditor> {
 
 	}
 
@@ -33,7 +33,7 @@ public class CtypeLogModelGroupColumnEditor extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void update(CtypeLogModelGroupColumn t) {
+	protected void update(LogModelGroupColumn t) {
 		RpcServiceUtils.CtypeLogModelRpcService.modifyColumn(t,
 				getSaveOrUpdateAsyncCallback());
 	}
@@ -46,7 +46,7 @@ public class CtypeLogModelGroupColumnEditor extends
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected void add(CtypeLogModelGroupColumn t) {
+	protected void add(LogModelGroupColumn t) {
 		RpcServiceUtils.CtypeLogModelRpcService.createColumn(t,
 				getSaveOrUpdateAsyncCallback());
 	}

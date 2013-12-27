@@ -16,12 +16,12 @@ import com.voole.parrot.service.service.ctypelogmeta.CtypeLogModelGroupColumnSer
 import com.voole.parrot.service.service.ctypelogmeta.CtypeLogModelLeafColumnService;
 import com.voole.parrot.service.service.ctypelogmeta.CtypeLogModelService;
 import com.voole.parrot.service.service.ctypelogmeta.CtypeLogModelVersionService;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModel;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelRootColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModel;
+import com.voole.parrot.shared.entity.logmeta.LogModelColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelLeafColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelRootColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 import com.voole.parrot.shared.exception.SharedException;
 
 /**
@@ -42,88 +42,88 @@ public class CtypeLogModelRpcServiceImpl implements CtypeLogModelRpcService {
 	private CtypeLogModelLeafColumnService leafColumnService;
 
 	@Override
-	public CtypeLogModel createModel(CtypeLogModel model)
+	public LogModel createModel(LogModel model)
 			throws SharedException {
 		return modelService.persist(model);
 	}
 
 	@Override
-	public CtypeLogModel modifyModel(CtypeLogModel model)
+	public LogModel modifyModel(LogModel model)
 			throws SharedException {
 		return modelService.modifyModel(model);
 	}
 
 	@Override
-	public void deleteModel(CtypeLogModel model) throws SharedException {
+	public void deleteModel(LogModel model) throws SharedException {
 		modelService.delete(model);
 	}
 
 	@Override
 	@Transactional
-	public List<CtypeLogModel> listModelWithVersions() throws SharedException {
-		List<CtypeLogModel> models = modelService.list();
-		for (CtypeLogModel model : models) {
+	public List<LogModel> listModelWithVersions() throws SharedException {
+		List<LogModel> models = modelService.list();
+		for (LogModel model : models) {
 			Hibernate.initialize(model.getVersions());
 		}
 		return models;
 	}
 
 	@Override
-	public CtypeLogModelVersion createVersion(CtypeLogModelVersion version)
+	public LogModelVersion createVersion(LogModelVersion version)
 			throws SharedException {
 		return modelService.createVersion(version);
 	}
 
 	@Override
-	public CtypeLogModelVersion modifyVersion(CtypeLogModelVersion version)
+	public LogModelVersion modifyVersion(LogModelVersion version)
 			throws SharedException {
 		return versionService.modifyVersion(version);
 	}
 
 	@Override
-	public void deleteVersion(CtypeLogModelVersion version)
+	public void deleteVersion(LogModelVersion version)
 			throws SharedException {
 		versionService.delete(version);
 	}
 
 	@Override
-	public CtypeLogModelVersion duplicateVerion(CtypeLogModelVersion duplicate,
-			CtypeLogModelVersion from) throws SharedException {
+	public LogModelVersion duplicateVerion(LogModelVersion duplicate,
+			LogModelVersion from) throws SharedException {
 		return versionService.duplicateVerion(duplicate, from);
 	}
 
 	@Override
-	public CtypeLogModelRootColumn getVersionRootColumnWithChildren(
-			CtypeLogModelVersion version) throws SharedException {
+	public LogModelRootColumn getVersionRootColumnWithChildren(
+			LogModelVersion version) throws SharedException {
 		return versionService.getVersionRootColumnWithChildren(version);
 	}
 
 	@Override
-	public CtypeLogModelColumn createColumn(CtypeLogModelColumn column)
+	public LogModelColumn createColumn(LogModelColumn column)
 			throws SharedException {
 		return groupColumnService.createColumn(column);
 	}
 
 	@Override
-	public CtypeLogModelColumn modifyColumn(CtypeLogModelColumn column)
+	public LogModelColumn modifyColumn(LogModelColumn column)
 			throws SharedException {
-		if (column instanceof CtypeLogModelLeafColumn) {
+		if (column instanceof LogModelLeafColumn) {
 			return leafColumnService
-					.modifyColumn((CtypeLogModelLeafColumn) column);
-		} else if (column instanceof CtypeLogModelGroupColumn) {
+					.modifyColumn((LogModelLeafColumn) column);
+		} else if (column instanceof LogModelGroupColumn) {
 			return groupColumnService
-					.modifyColumn((CtypeLogModelGroupColumn) column);
+					.modifyColumn((LogModelGroupColumn) column);
 		}
 		return null;
 	}
 
 	@Override
-	public void deleteColumn(CtypeLogModelColumn column) throws SharedException {
+	public void deleteColumn(LogModelColumn column) throws SharedException {
 		columnService.delete(column);
 	}
 
 	@Override
-	public CtypeLogModelColumn changeColumnsPos(CtypeLogModelColumn column)
+	public LogModelColumn changeColumnsPos(LogModelColumn column)
 			throws SharedException {
 		return groupColumnService.changeColumnsPos(column);
 	}

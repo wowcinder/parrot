@@ -4,31 +4,31 @@ package com.voole.parrot.gwt.common.shared.property;
 import com.sencha.gxt.core.client.ValueProvider;
 import com.sencha.gxt.data.shared.ModelKeyProvider;
 import com.sencha.gxt.data.shared.PropertyAccess;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelGroupColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelLeafColumn;
 import com.voole.parrot.shared.entity.hbasemeta.ColumnType;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelGroupColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelLeafColumn;
 
 public interface CtypeLogModelLeafColumnProperty
-    extends PropertyAccess<CtypeLogModelLeafColumn>
+    extends PropertyAccess<LogModelLeafColumn>
 {
 
 
     @com.google.gwt.editor.client.Editor.Path("id")
-    public ModelKeyProvider<CtypeLogModelLeafColumn> key();
+    public ModelKeyProvider<LogModelLeafColumn> key();
 
-    public ValueProvider<CtypeLogModelLeafColumn, Long> id();
+    public ValueProvider<LogModelLeafColumn, Long> id();
 
-    public ValueProvider<CtypeLogModelLeafColumn, String> desc();
+    public ValueProvider<LogModelLeafColumn, String> desc();
 
-    public ValueProvider<CtypeLogModelLeafColumn, String> name();
+    public ValueProvider<LogModelLeafColumn, String> name();
 
-    public ValueProvider<CtypeLogModelLeafColumn, HbaseTableColumn> hbaseTableColumn();
+    public ValueProvider<LogModelLeafColumn, HbaseTableColumn> hbaseTableColumn();
 
-    public ValueProvider<CtypeLogModelLeafColumn, CtypeLogModelGroupColumn> parent();
+    public ValueProvider<LogModelLeafColumn, LogModelGroupColumn> parent();
 
-    public ValueProvider<CtypeLogModelLeafColumn, ColumnType> type();
+    public ValueProvider<LogModelLeafColumn, ColumnType> type();
 
-    public ValueProvider<CtypeLogModelLeafColumn, Integer> pos();
+    public ValueProvider<LogModelLeafColumn, Integer> pos();
 
 }

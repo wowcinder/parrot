@@ -2,33 +2,33 @@
 package com.voole.parrot.service.service.ctypelogmeta;
 
 import com.voole.parrot.service.service.EntityService;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelRootColumn;
-import com.voole.parrot.shared.entity.ctypelogmeta.CtypeLogModelVersion;
+import com.voole.parrot.shared.entity.logmeta.LogModelRootColumn;
+import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 
 public interface CtypeLogModelVersionService
-    extends EntityService<CtypeLogModelVersion>
+    extends EntityService<LogModelVersion>
 {
 
 	/**
 	 * @param version
 	 * @return
 	 */
-	CtypeLogModelVersion modifyVersion(CtypeLogModelVersion version);
+	LogModelVersion modifyVersion(LogModelVersion version);
 
 	/**
 	 * @param version
 	 * @return
 	 */
-	CtypeLogModelRootColumn getVersionRootColumnWithChildren(
-			CtypeLogModelVersion version);
+	LogModelRootColumn getVersionRootColumnWithChildren(
+			LogModelVersion version);
 
 	/**
 	 * @param duplicate
 	 * @param from
 	 * @return
 	 */
-	CtypeLogModelVersion duplicateVerion(CtypeLogModelVersion duplicate,
-			CtypeLogModelVersion from);
+	LogModelVersion duplicateVerion(LogModelVersion duplicate,
+			LogModelVersion from);
 
 
 }
