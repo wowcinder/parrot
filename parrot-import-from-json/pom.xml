@@ -7,4 +7,18 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>parrot-import-from-json</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.voole</groupId>
+			<artifactId>parrot-service</artifactId>
+			<version>${parrot.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>
