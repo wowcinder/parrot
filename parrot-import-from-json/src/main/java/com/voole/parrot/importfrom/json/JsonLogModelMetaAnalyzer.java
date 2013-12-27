@@ -1,13 +1,14 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.importfrom.ctype;
+package com.voole.parrot.importfrom.json;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Restrictions;
@@ -18,10 +19,10 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.voole.parrot.importfrom.LogModelMetaAnalyzer;
-import com.voole.parrot.importfrom.ctype.model.AttachmentsCtypeColumn;
-import com.voole.parrot.importfrom.ctype.model.CtypeColumn;
-import com.voole.parrot.importfrom.ctype.model.SimpleCtypeColumn;
-import com.voole.parrot.importfrom.ctype.model.TopCtype;
+import com.voole.parrot.importfrom.json.model.JsonAttachmentsCtypeColumn;
+import com.voole.parrot.importfrom.json.model.JsonCtypeColumn;
+import com.voole.parrot.importfrom.json.model.JsonSimpleCtypeColumn;
+import com.voole.parrot.importfrom.json.model.TopJson;
 import com.voole.parrot.service.dao.SimpleDao;
 import com.voole.parrot.service.service.kafka.KafkaTopicFixedModelVersionService;
 import com.voole.parrot.service.service.logmeta.LogModelGroupColumnService;
@@ -42,7 +43,7 @@ import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
  * @date 2013年12月27日
  */
 @org.springframework.stereotype.Service
-public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
+public class JsonLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 	@Autowired
 	private SimpleDao simpleDao;
 	@Autowired
@@ -54,13 +55,13 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 	@Autowired
 	private KafkaTopicFixedModelVersionService fixedModelVersionService;
 
-	public CtypeLogModelMetaAnalyzer() {
+	public JsonLogModelMetaAnalyzer() {
 	}
 
 	@Transactional
 	public void analyze() {
-		List<TopCtype> list = getTopCtypes();
-		for (TopCtype topCtype : list) {
+		List<TopJson> list = getTopCtypes();
+		for (TopJson topCtype : list) {
 			analyze(topCtype);
 		}
 	}
@@ -76,13 +77,12 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 
 	}
 
-	public void analyze(TopCtype topCtype) {
+	public void analyze(TopJson topCtype) {
 		LogModelRootColumn rootColumn = createTableAndVersion(topCtype
 				.getTable());
 		HbaseTableVersion hbaseTableVersion = rootColumn.getHbaseTableVersion();
 		Map<String, HbaseTableColumn> hbaseColumnMap = getColumnsMap(hbaseTableVersion);
-		create(topCtype.getOrders(), topCtype.getData(), rootColumn,
-				hbaseColumnMap);
+		create(topCtype.getData(), rootColumn, hbaseColumnMap);
 
 		KafkaTopicFixedModelVersion topic = new KafkaTopicFixedModelVersion();
 		topic.setCharset(getCharset());
@@ -104,35 +104,34 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 		return hbaseColumnMap;
 	}
 
-	private void create(List<String> orders,
-			Map<String, ? extends CtypeColumn> data,
+	private void create(Map<String, ? extends JsonCtypeColumn> data,
 			LogModelGroupColumn rootColumn,
 			Map<String, HbaseTableColumn> hbaseColumnMap) {
-		for (String logColumn : orders) {
+		for (Entry<String, ? extends JsonCtypeColumn> entry : data.entrySet()) {
+			String logColumn = entry.getKey();
 			createColumn(data, rootColumn, hbaseColumnMap, logColumn);
 
 		}
 	}
 
-	protected void createColumn(Map<String, ? extends CtypeColumn> data,
+	protected void createColumn(Map<String, ? extends JsonCtypeColumn> data,
 			LogModelGroupColumn rootColumn,
 			Map<String, HbaseTableColumn> hbaseColumnMap, String logColumn) {
-		CtypeColumn ctypeColumn = data.get(logColumn);
-		if (ctypeColumn instanceof SimpleCtypeColumn) {
-			String hbaseColumn = ((SimpleCtypeColumn) ctypeColumn)
+		JsonCtypeColumn ctypeColumn = data.get(logColumn);
+		if (ctypeColumn instanceof JsonSimpleCtypeColumn) {
+			String hbaseColumn = ((JsonSimpleCtypeColumn) ctypeColumn)
 					.getColumn();
 			LogModelLeafColumn leafColumn = new LogModelLeafColumn();
 			leafColumn.setName(logColumn);
 			leafColumn.setDesc(logColumn);
-			HbaseTableColumn hbaseTableColumn = hbaseColumnMap
-					.get(hbaseColumn);
+			HbaseTableColumn hbaseTableColumn = hbaseColumnMap.get(hbaseColumn);
 			leafColumn.setHbaseTableColumn(hbaseTableColumn);
 			leafColumn.setType(hbaseTableColumn.getType());
 			leafColumn.setParent(rootColumn);
 
 			groupColumnService.createColumn(leafColumn);
 		} else {
-			AttachmentsCtypeColumn attachmentsCtypeColumn = (AttachmentsCtypeColumn) ctypeColumn;
+			JsonAttachmentsCtypeColumn attachmentsCtypeColumn = (JsonAttachmentsCtypeColumn) ctypeColumn;
 			String name = attachmentsCtypeColumn.getTable();
 			HbaseTableVersion hbaseTableVersion = getHbaseTableVersion(name);
 			LogModelGroupColumn groupColumn = new LogModelGroupColumn();
@@ -145,8 +144,7 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 					.createColumn(groupColumn);
 			modelService.getEntityDao().getCurrSession().flush();
 			modelService.getEntityDao().getCurrSession().clear();
-			create(attachmentsCtypeColumn.getOrders(),
-					attachmentsCtypeColumn.getData(), groupColumn,
+			create(attachmentsCtypeColumn.getData(), groupColumn,
 					getColumnsMap(hbaseTableVersion));
 
 		}
@@ -158,7 +156,7 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 		LogModel model = new LogModel();
 		model.setName(name);
 		model.setDesc(name);
-		model.setType(LogModelType.CTYPE);
+		model.setType(LogModelType.JSON);
 		model.setVersions(new ArrayList<LogModelVersion>());
 
 		model = modelService.persist(model);
@@ -181,7 +179,7 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<TopCtype> getTopCtypes() {
+	public List<TopJson> getTopCtypes() {
 		String json = "";
 		try {
 			json = readJsonFile(getJsonFile());
@@ -189,10 +187,10 @@ public class CtypeLogModelMetaAnalyzer extends LogModelMetaAnalyzer {
 			e.printStackTrace();
 		}
 		GsonBuilder gb = new GsonBuilder();
-		gb.registerTypeAdapterFactory(CtypeColumnTypeAdapter.FACTORY);
+		gb.registerTypeAdapterFactory(JsonColumnTypeAdapter.FACTORY);
 		Gson gson = gb.create();
-		List<TopCtype> list = (List<TopCtype>) gson.fromJson(json,
-				new TypeToken<List<TopCtype>>() {
+		List<TopJson> list = (List<TopJson>) gson.fromJson(json,
+				new TypeToken<List<TopJson>>() {
 				}.getType());
 		return list;
 	}

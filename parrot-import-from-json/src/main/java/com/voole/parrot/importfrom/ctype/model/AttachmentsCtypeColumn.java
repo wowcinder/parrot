@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.importfrom.ctype;
+package com.voole.parrot.importfrom.ctype.model;
 
 import java.util.List;
 import java.util.Map;
@@ -10,21 +10,16 @@ import java.util.Map;
  * @author XuehuiHe
  * @date 2013年12月27日
  */
-public class TopCtype {
-	private String topic;
+public class AttachmentsCtypeColumn implements CtypeColumn {
 	private String table;
-	private Map<String, CtypeColumn> data;
+	private Map<String, SimpleCtypeColumn> data;
 	private List<String> orders;
-
-	public String getTopic() {
-		return topic;
-	}
 
 	public String getTable() {
 		return table;
 	}
 
-	public Map<String, CtypeColumn> getData() {
+	public Map<String, SimpleCtypeColumn> getData() {
 		return data;
 	}
 
@@ -32,15 +27,11 @@ public class TopCtype {
 		return orders;
 	}
 
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
-
 	public void setTable(String table) {
 		this.table = table;
 	}
 
-	public void setData(Map<String, CtypeColumn> data) {
+	public void setData(Map<String, SimpleCtypeColumn> data) {
 		this.data = data;
 	}
 

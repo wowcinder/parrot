@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.voole.parrot.importfrom.ctype.CtypeLogModelMetaAnalyzer;
+import com.voole.parrot.importfrom.json.JsonLogModelMetaAnalyzer;
 import com.voole.parrot.shared.entity.kafka.KafkaTopic.KafkaTopicCharset;
 
 /**
@@ -21,12 +22,26 @@ import com.voole.parrot.shared.entity.kafka.KafkaTopic.KafkaTopicCharset;
 public class CTypeTest {
 	@Autowired
 	private CtypeLogModelMetaAnalyzer analyzer;
+	@Autowired
+	private JsonLogModelMetaAnalyzer jsonLogModelMetaAnalyzer;
 
 	@Test
 	public void test() {
-		analyzer.setCharset(KafkaTopicCharset.ISO88591);
-		analyzer.setJsonFile("c.json");
-		analyzer.analyze();
+		// analyzer.setCharset(KafkaTopicCharset.ISO88591);
+		// analyzer.setJsonFile("c.json");
+		// analyzer.analyze();
+
+		// analyzer.setCharset(KafkaTopicCharset.UTF8);
+		// analyzer.setJsonFile("apache.json");
+		// analyzer.analyze();
+
+		jsonLogModelMetaAnalyzer.setCharset(KafkaTopicCharset.UTF8);
+		jsonLogModelMetaAnalyzer.setJsonFile("v3a.json");
+		jsonLogModelMetaAnalyzer.analyze();
+
+		jsonLogModelMetaAnalyzer.setCharset(KafkaTopicCharset.GBK);
+		jsonLogModelMetaAnalyzer.setJsonFile("assist.json");
+		jsonLogModelMetaAnalyzer.analyze();
 	}
 
 }

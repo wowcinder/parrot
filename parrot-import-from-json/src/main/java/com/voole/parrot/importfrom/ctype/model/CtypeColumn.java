@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.parrot.importfrom.ctype;
+package com.voole.parrot.importfrom.ctype.model;
 
 import java.io.Serializable;
 
