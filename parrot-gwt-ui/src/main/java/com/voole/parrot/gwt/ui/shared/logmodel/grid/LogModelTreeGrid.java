@@ -58,7 +58,22 @@ public class LogModelTreeGrid extends FixedTreeGrid<EntityHasAutoId> {
 					}
 				}, 200, "desc");
 
+		ColumnConfig<EntityHasAutoId, String> type = new ColumnConfig<EntityHasAutoId, String>(
+				new TreeValueProvider<EntityHasAutoId, String>() {
+					@Override
+					protected String _getValue(EntityHasAutoId object) {
+						if (object instanceof LogModel) {
+							return ((LogModel) object).getType().name();
+						} else if (object instanceof LogModelVersion) {
+							return ((LogModelVersion) object).getModel()
+									.getType().name();
+						}
+						return null;
+					}
+				}, 200, "type");
+
 		l.add(name);
+		l.add(type);
 		l.add(desc);
 
 		cm = new ColumnModel<EntityHasAutoId>(l);
