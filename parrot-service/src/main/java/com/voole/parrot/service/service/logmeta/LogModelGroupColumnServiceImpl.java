@@ -16,25 +16,25 @@ public class LogModelGroupColumnServiceImpl extends
 		LogModelGroupColumnService {
 
 	@Autowired
-	private ILogModelGroupColumnDao CtypeLogModelGroupColumnDao;
+	private ILogModelGroupColumnDao LogModelGroupColumnDao;
 
 	public ILogModelGroupColumnDao getEntityDao() {
-		return CtypeLogModelGroupColumnDao;
+		return LogModelGroupColumnDao;
 	}
 
 	@Override
 	public LogModelColumn createColumn(LogModelColumn column) {
-		return CtypeLogModelGroupColumnDao.createColumn(column);
+		return LogModelGroupColumnDao.createColumn(column);
 	}
 
 	@Override
 	public LogModelColumn modifyColumn(LogModelGroupColumn column) {
-		return CtypeLogModelGroupColumnDao.modifyColumn(column);
+		return LogModelGroupColumnDao.modifyColumn(column);
 	}
 
 	@Override
 	public LogModelColumn changeColumnsPos(LogModelColumn column) {
-		return CtypeLogModelGroupColumnDao.changeColumnsPos(column);
+		return LogModelGroupColumnDao.changeColumnsPos(column);
 	}
 
 }

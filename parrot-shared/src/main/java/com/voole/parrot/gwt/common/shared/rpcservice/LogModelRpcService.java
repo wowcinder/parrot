@@ -17,7 +17,7 @@ import com.voole.parrot.shared.exception.SharedException;
  * @author XuehuiHe
  * @date 2013年12月26日
  */
-@RemoteServiceRelativePath("rpc/ctype_log_model.rpc")
+@RemoteServiceRelativePath("rpc/log_model.rpc")
 public interface LogModelRpcService extends RemoteService {
 	// model
 	LogModel createModel(LogModel model) throws SharedException;

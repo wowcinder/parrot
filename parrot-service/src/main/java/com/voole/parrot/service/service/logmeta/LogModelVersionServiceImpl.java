@@ -19,21 +19,21 @@ public class LogModelVersionServiceImpl extends
 		LogModelVersionService {
 
 	@Autowired
-	private ILogModelVersionDao CtypeLogModelVersionDao;
+	private ILogModelVersionDao LogModelVersionDao;
 
 	public ILogModelVersionDao getEntityDao() {
-		return CtypeLogModelVersionDao;
+		return LogModelVersionDao;
 	}
 
 	@Override
 	public LogModelVersion modifyVersion(LogModelVersion version) {
-		return CtypeLogModelVersionDao.modifyVersion(version);
+		return LogModelVersionDao.modifyVersion(version);
 	}
 
 	@Override
 	public LogModelRootColumn getVersionRootColumnWithChildren(
 			LogModelVersion version) {
-		version = CtypeLogModelVersionDao.refresh(version);
+		version = LogModelVersionDao.refresh(version);
 		initColumns(version.getRootColumn());
 		return version.getRootColumn();
 	}
@@ -54,7 +54,7 @@ public class LogModelVersionServiceImpl extends
 	@Override
 	public LogModelVersion duplicateVerion(LogModelVersion duplicate,
 			LogModelVersion from) {
-		return CtypeLogModelVersionDao.duplicateVerion(duplicate, from);
+		return LogModelVersionDao.duplicateVerion(duplicate, from);
 	}
 
 }

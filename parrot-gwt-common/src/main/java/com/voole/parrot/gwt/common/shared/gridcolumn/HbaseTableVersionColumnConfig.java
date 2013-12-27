@@ -23,8 +23,8 @@ public class HbaseTableVersionColumnConfig {
         return desc;
     }
 
-    public static ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>> ctypeLogModelGroupColumns() {
-        ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>> ctypeLogModelGroupColumns = new ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>>(PropertyUtils.HbaseTableVersionProperty.ctypeLogModelGroupColumns(), 200, "ctypeLogModelGroupColumns");
+    public static ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>> logModelGroupColumns() {
+        ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>> ctypeLogModelGroupColumns = new ColumnConfig<HbaseTableVersion, List<LogModelGroupColumn>>(PropertyUtils.HbaseTableVersionProperty.logModelGroupColumns(), 200, "ctypeLogModelGroupColumns");
         return ctypeLogModelGroupColumns;
     }
 

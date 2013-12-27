@@ -17,10 +17,10 @@ public class LogModelColumnServiceImpl
 {
 
     @Autowired
-    private ILogModelColumnDao CtypeLogModelColumnDao;
+    private ILogModelColumnDao LogModelColumnDao;
 
     public ILogModelColumnDao getEntityDao() {
-        return CtypeLogModelColumnDao;
+        return LogModelColumnDao;
     }
 
 }

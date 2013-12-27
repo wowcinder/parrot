@@ -16,15 +16,15 @@ public class LogModelLeafColumnServiceImpl extends
 		LogModelLeafColumnService {
 
 	@Autowired
-	private ILogModelLeafColumnDao CtypeLogModelLeafColumnDao;
+	private ILogModelLeafColumnDao LogModelLeafColumnDao;
 
 	public ILogModelLeafColumnDao getEntityDao() {
-		return CtypeLogModelLeafColumnDao;
+		return LogModelLeafColumnDao;
 	}
 
 	@Override
 	public LogModelColumn modifyColumn(LogModelLeafColumn column) {
-		return CtypeLogModelLeafColumnDao.modifyColumn(column);
+		return LogModelLeafColumnDao.modifyColumn(column);
 	}
 
 }

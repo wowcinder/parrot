@@ -23,7 +23,7 @@ public interface HbaseTableColumnProperty
 
     public ValueProvider<HbaseTableColumn, String> desc();
 
-    public ValueProvider<HbaseTableColumn, List<LogModelLeafColumn>> ctypeLogModelLeafColumns();
+    public ValueProvider<HbaseTableColumn, List<LogModelLeafColumn>> logModelLeafColumns();
 
     public ValueProvider<HbaseTableColumn, String> name();
 

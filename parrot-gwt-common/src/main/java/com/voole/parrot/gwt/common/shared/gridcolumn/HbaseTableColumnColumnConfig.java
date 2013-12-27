@@ -23,8 +23,8 @@ public class HbaseTableColumnColumnConfig {
         return desc;
     }
 
-    public static ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>> ctypeLogModelLeafColumns() {
-        ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>> ctypeLogModelLeafColumns = new ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>>(PropertyUtils.HbaseTableColumnProperty.ctypeLogModelLeafColumns(), 200, "ctypeLogModelLeafColumns");
+    public static ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>> logModelLeafColumns() {
+        ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>> ctypeLogModelLeafColumns = new ColumnConfig<HbaseTableColumn, List<LogModelLeafColumn>>(PropertyUtils.HbaseTableColumnProperty.logModelLeafColumns(), 200, "ctypeLogModelLeafColumns");
         return ctypeLogModelLeafColumns;
     }
 

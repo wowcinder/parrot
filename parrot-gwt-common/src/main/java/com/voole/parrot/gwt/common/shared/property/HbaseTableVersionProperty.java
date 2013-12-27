@@ -23,7 +23,7 @@ public interface HbaseTableVersionProperty
 
     public ValueProvider<HbaseTableVersion, String> desc();
 
-    public ValueProvider<HbaseTableVersion, List<LogModelGroupColumn>> ctypeLogModelGroupColumns();
+    public ValueProvider<HbaseTableVersion, List<LogModelGroupColumn>> logModelGroupColumns();
 
     public ValueProvider<HbaseTableVersion, List<HbaseTableColumn>> columns();
 

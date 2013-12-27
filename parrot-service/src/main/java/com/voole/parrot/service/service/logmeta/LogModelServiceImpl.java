@@ -15,20 +15,20 @@ public class LogModelServiceImpl extends EntityServiceImpl<LogModel>
 		implements LogModelService {
 
 	@Autowired
-	private ILogModelDao CtypeLogModelDao;
+	private ILogModelDao LogModelDao;
 
 	public ILogModelDao getEntityDao() {
-		return CtypeLogModelDao;
+		return LogModelDao;
 	}
 
 	@Override
 	public LogModel modifyModel(LogModel model) {
-		return CtypeLogModelDao.modifyModel(model);
+		return LogModelDao.modifyModel(model);
 	}
 
 	@Override
 	public LogModelVersion createVersion(LogModelVersion version) {
-		return CtypeLogModelDao.createVersion(version);
+		return LogModelDao.createVersion(version);
 	}
 
 }
