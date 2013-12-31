@@ -27,6 +27,10 @@ public class TypeParser {
 		if (o == null) {
 			return null;
 		}
+		if (o instanceof String && ((String) o).length() == 0
+				&& Number.class.isAssignableFrom(targetClass)) {
+			return null;
+		}
 		if (targetClass.equals(Short.class)) {
 			return (T) getAsShort(o);
 		} else if (targetClass.equals(Integer.class)) {
@@ -394,6 +398,4 @@ public class TypeParser {
 		return null;
 	}
 
-	public static void main(String[] args) {
-	}
 }

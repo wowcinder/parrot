@@ -128,6 +128,14 @@ public class JsonLogTransformerHelper {
 			JsonTrunkNode itemNode, HbaseLogRecord record)
 			throws LogTransformException {
 		// TODO 优化
+		if (itemData == null || itemData.size() != 1) {
+			return;
+		}
+		Object innerCollection = itemData.iterator().next();
+		if (!(innerCollection instanceof Collection)) {
+			return;
+		}
+		itemData = (Collection<?>) innerCollection;
 		if (itemData == null || itemData.size() == 0) {
 			return;
 		}

@@ -30,12 +30,14 @@ public class LogTransformerManager {
 		if (!transformerMap.containsKey(version.getId())) {
 			createTransformer(version);
 		}
-		return transformerMap.get(version);
+		return transformerMap.get(version.getId());
 
 	}
 
 	public synchronized void createTransformer(LogModelVersion version)
 			throws LogTransformInitException {
+		System.out.println("-----------------create-------------"
+				+ version.getModel().getName());
 		if (transformerMap.containsKey(version.getId())) {
 			return;
 		}
