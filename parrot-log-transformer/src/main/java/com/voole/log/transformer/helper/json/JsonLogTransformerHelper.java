@@ -95,6 +95,7 @@ public class JsonLogTransformerHelper {
 				analyzeGroup(itemData, (JsonGroupNode) itemNode, record);
 			} else if (itemNode instanceof JsonTrunkNode) {
 				if (itemData instanceof Map) {
+					// TODO nested => loop
 					initRecord((Map<String, Object>) itemData,
 							(JsonTrunkNode) itemNode, record);
 				} else if (itemData instanceof Collection) {
@@ -126,6 +127,7 @@ public class JsonLogTransformerHelper {
 	private void dealSpecialNode(Collection<?> itemData,
 			JsonTrunkNode itemNode, HbaseLogRecord record)
 			throws LogTransformException {
+		// TODO 优化
 		if (itemData == null || itemData.size() == 0) {
 			return;
 		}
