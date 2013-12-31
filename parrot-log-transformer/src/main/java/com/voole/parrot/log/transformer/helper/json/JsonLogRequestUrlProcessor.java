@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.log.transformer.helper.json;
+package com.voole.parrot.log.transformer.helper.json;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

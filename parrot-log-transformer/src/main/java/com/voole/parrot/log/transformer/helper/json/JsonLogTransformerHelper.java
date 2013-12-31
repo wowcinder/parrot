@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.log.transformer.helper.json;
+package com.voole.parrot.log.transformer.helper.json;
 
 import java.util.Collection;
 import java.util.Date;
@@ -10,13 +10,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.voole.log.transformer.JsonLogTransformer;
-import com.voole.log.transformer.TypeParser;
-import com.voole.log.transformer.exception.LogTransformException;
-import com.voole.log.transformer.helper.json.tree.JsonGroupNode;
-import com.voole.log.transformer.helper.json.tree.JsonLeafNode;
-import com.voole.log.transformer.helper.json.tree.JsonNode;
-import com.voole.log.transformer.helper.json.tree.JsonTrunkNode;
+import com.voole.parrot.log.transformer.JsonLogTransformer;
+import com.voole.parrot.log.transformer.TypeParser;
+import com.voole.parrot.log.transformer.exception.LogTransformException;
+import com.voole.parrot.log.transformer.helper.json.tree.JsonGroupNode;
+import com.voole.parrot.log.transformer.helper.json.tree.JsonLeafNode;
+import com.voole.parrot.log.transformer.helper.json.tree.JsonNode;
+import com.voole.parrot.log.transformer.helper.json.tree.JsonTrunkNode;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
 import com.voole.parrot.shared.hbasequery.HbaseLogRecord;
 import com.voole.parrot.shared.hbasequery.HbaseLogRecordCollection;

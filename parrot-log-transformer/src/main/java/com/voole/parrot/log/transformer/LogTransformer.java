@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.log.transformer;
+package com.voole.parrot.log.transformer;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import com.voole.log.transformer.exception.LogTransformException;
+import com.voole.parrot.log.transformer.exception.LogTransformException;
 import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 import com.voole.parrot.shared.hbasequery.HbaseLogRecordCollection;
 

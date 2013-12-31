@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.log.transformer;
+package com.voole.parrot.log.transformer;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.voole.log.transformer.exception.LogTransformInitException;
+import com.voole.parrot.log.transformer.exception.LogTransformInitException;
 import com.voole.parrot.shared.entity.logmeta.LogModel.LogModelType;
 import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 

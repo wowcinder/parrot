@@ -16,5 +16,6 @@
 		<module>../parrot-shared</module>
 		<module>../parrot-util-scanner</module>
 		<module>../parrot-gwt-ui</module>
+		<module>../parrot-log-transformer</module>
 	</modules>
 </project>

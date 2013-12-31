@@ -1,17 +1,17 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.log.transformer;
+package com.voole.parrot.log.transformer;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.voole.log.transformer.exception.LogTransformException;
-import com.voole.log.transformer.exception.LogTransformInitException;
-import com.voole.log.transformer.helper.ctype.CtypeLogOriginalInfo;
-import com.voole.log.transformer.helper.ctype.CtypeLogState;
+import com.voole.parrot.log.transformer.exception.LogTransformException;
+import com.voole.parrot.log.transformer.exception.LogTransformInitException;
+import com.voole.parrot.log.transformer.helper.ctype.CtypeLogOriginalInfo;
+import com.voole.parrot.log.transformer.helper.ctype.CtypeLogState;
 import com.voole.parrot.shared.entity.hbasemeta.HbaseTableColumn;
 import com.voole.parrot.shared.entity.logmeta.LogModel.LogModelType;
 import com.voole.parrot.shared.entity.logmeta.LogModelColumn;

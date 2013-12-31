@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.log.transformer;
+package com.voole.parrot.log.transformer;
 
 import java.util.Collection;
 import java.util.Date;
@@ -9,12 +9,12 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.voole.log.transformer.exception.LogTransformException;
-import com.voole.log.transformer.exception.LogTransformInitException;
-import com.voole.log.transformer.helper.json.JsonLogRequestUrlProcessor;
-import com.voole.log.transformer.helper.json.JsonLogTransformerHelper;
-import com.voole.log.transformer.helper.json.tree.JsonGroupNode;
-import com.voole.log.transformer.helper.json.tree.JsonNodes;
+import com.voole.parrot.log.transformer.exception.LogTransformException;
+import com.voole.parrot.log.transformer.exception.LogTransformInitException;
+import com.voole.parrot.log.transformer.helper.json.JsonLogRequestUrlProcessor;
+import com.voole.parrot.log.transformer.helper.json.JsonLogTransformerHelper;
+import com.voole.parrot.log.transformer.helper.json.tree.JsonGroupNode;
+import com.voole.parrot.log.transformer.helper.json.tree.JsonNodes;
 import com.voole.parrot.shared.entity.logmeta.LogModel.LogModelType;
 import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 import com.voole.parrot.shared.hbasequery.HbaseLogRecordCollection;

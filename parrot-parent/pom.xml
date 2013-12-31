@@ -27,6 +27,7 @@
 
 		<parrot.version>1.0-SNAPSHOT</parrot.version>
 		<guava.version>15.0</guava.version>
+		<spring.batch.version>2.2.4.RELEASE</spring.batch.version>
 	</properties>
 
 	<repositories>
@@ -45,6 +46,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- spring batch -->
+			<dependency>
+				<groupId>org.springframework.batch</groupId>
+				<artifactId>spring-batch-core</artifactId>
+				<version>${spring.batch.version}</version>
+			</dependency>
+			<!-- /spring batch -->
 			<!-- guava -->
 			<dependency>
 				<groupId>com.google.guava</groupId>

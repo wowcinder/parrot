@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2013 BEIJING UNION VOOLE TECHNOLOGY CO., LTD
  */
-package com.voole.log.transformer.exception;
+package com.voole.parrot.log.transformer.exception;
 
 import com.voole.parrot.shared.entity.logmeta.LogModelVersion;
 
